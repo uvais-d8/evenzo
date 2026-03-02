@@ -1,0 +1,607 @@
+2026-02-28 12:39:33 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-02-28 12:39:33 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-02-28 12:39:33 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-02-28 12:39:33 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-02-28 16:36:13 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-02-28 16:36:13 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-02-28 16:36:13 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-02-28 16:36:13 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-02-28 16:36:23 [[33mwarn[39m]: [AppError] Invalid credentials {"statusCode":400}
+2026-02-28 16:36:31 [[33mwarn[39m]: [AppError] Access denied. Your account has been blocked by admin. {"statusCode":403}
+2026-02-28 17:42:45 [[33mwarn[39m]: ⚠️ MongoDB disconnected
+2026-02-28 17:59:12 [[33mwarn[39m]: ⚠️ MongoDB disconnected
+2026-02-28 22:08:29 [[33mwarn[39m]: ⚠️ MongoDB disconnected
+2026-02-28 23:15:27 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-02-28 23:15:27 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-02-28 23:15:27 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-02-28 23:15:27 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-01 07:38:16 [[33mwarn[39m]: ⚠️ MongoDB disconnected
+2026-03-01 15:29:12 [[33mwarn[39m]: ⚠️ MongoDB disconnected
+2026-03-01 15:33:00 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-03-01 15:33:00 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-03-01 15:33:00 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-03-01 15:33:00 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-01 15:37:30 [[33mwarn[39m]: ⚠️ MongoDB disconnected
+2026-03-01 15:41:35 [[33mwarn[39m]: [AppError] Invalid credentials {"statusCode":400}
+2026-03-01 15:41:48 [[33mwarn[39m]: [AppError] Invalid credentials {"statusCode":400}
+2026-03-01 15:41:49 [[33mwarn[39m]: [AppError] Invalid credentials {"statusCode":400}
+2026-03-01 15:42:14 [[33mwarn[39m]: [AppError] User already exists {"statusCode":409}
+2026-03-01 15:42:29 [[33mwarn[39m]: [AppError] User already exists {"statusCode":409}
+2026-03-01 15:42:35 [[32minfo[39m]: [EmailService] Sending OTP to vendor@gmail.com
+2026-03-01 15:42:39 [[32minfo[39m]: [EmailService] OTP sent successfully to vendor@gmail.com
+2026-03-01 16:44:52 [[32minfo[39m]: [EmailService] Sending OTP to admin@gmail.com
+2026-03-01 16:44:55 [[32minfo[39m]: [EmailService] OTP sent successfully to admin@gmail.com
+2026-03-01 16:47:35 [[32minfo[39m]: [EmailService] Sending OTP to vendor@gmail.com
+2026-03-01 16:47:38 [[32minfo[39m]: [EmailService] OTP sent successfully to vendor@gmail.com
+2026-03-01 16:48:53 [[32minfo[39m]: [EmailService] Sending OTP to hello@gmail.com
+2026-03-01 16:48:56 [[32minfo[39m]: [EmailService] OTP sent successfully to hello@gmail.com
+2026-03-01 22:57:15 [[33mwarn[39m]: ⚠️ MongoDB disconnected
+2026-03-01 23:26:54 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:26:54 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:26:54 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:26:54 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:26:54 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:26:54 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:26:54 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:26:54 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:26:55 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:26:55 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:26:56 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:26:57 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:26:59 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:00 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:00 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:04 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:04 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:05 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:05 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:09 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:10 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:10 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:10 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:11 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:12 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:14 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:15 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:15 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:16 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:16 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:19 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:19 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:19 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:24 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:25 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:29 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:30 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:34 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:35 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:39 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:40 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:41 [[32minfo[39m]: [EmailService] Sending OTP to vendor@gmail.com
+2026-03-01 23:27:44 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:45 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:45 [[32minfo[39m]: [EmailService] OTP sent successfully to vendor@gmail.com
+2026-03-01 23:27:49 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:50 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:54 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:55 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:27:59 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:00 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:04 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:05 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:05 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:09 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:10 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:15 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:20 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:25 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:30 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:35 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:40 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:45 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:50 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:28:55 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:00 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:05 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:09 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:09 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:13 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:13 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:14 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:14 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:19 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:20 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:24 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:25 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:29 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:30 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:34 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:35 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:39 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:40 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:44 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:45 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:49 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:50 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:54 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:55 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:29:59 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:30:00 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:30:04 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:30:05 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:30:09 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:30:10 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:30:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:30:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:02 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:02 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:04 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:05 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:05 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:09 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:09 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:10 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:14 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:15 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:18 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:19 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:19 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:20 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:21 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:24 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:24 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:25 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:26 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:29 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:30 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:34 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:35 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:39 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:40 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:44 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:45 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:49 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:50 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:54 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:55 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:31:59 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:32:00 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:32:04 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:32:05 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:32:09 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:32:10 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:32:14 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:32:15 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:32:19 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:32:20 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:32:24 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:32:25 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:32:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:32:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:33:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:33:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:34:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:34:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:35:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:35:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:35:47 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:35:47 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:35:49 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:35:54 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:36:00 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:36:04 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:36:09 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:36:14 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:36:19 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:36:24 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:36:29 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:36:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:36:34 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:36:39 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:36:44 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:36:49 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:37:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:37:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:38:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:38:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:39:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:39:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:40:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:40:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:41:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:41:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:42:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:42:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:43:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:43:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:44:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:44:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:45:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:45:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:46:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:46:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:47:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:47:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:48:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:48:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:49:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:49:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:50:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:50:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:51:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:51:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:52:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:52:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:53:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:53:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:54:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:54:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:55:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:55:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:56:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:56:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:57:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:57:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:58:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:58:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:59:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-01 23:59:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:00:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:00:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:01:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:01:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:02:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:02:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:03:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:03:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:04:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:04:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:05:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:05:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:06:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:06:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:07:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:07:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:08:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:08:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:09:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:09:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:10:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:10:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:11:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:11:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:12:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:12:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:13:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:13:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:14:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:14:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:15:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:15:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:16:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:16:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:17:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:17:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:18:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:18:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:19:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:19:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:20:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:20:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:21:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:21:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:22:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:22:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:23:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:23:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:24:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:24:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:25:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:25:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:26:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:26:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:27:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:27:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:28:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:28:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:29:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:29:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:30:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:30:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:31:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:31:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:32:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:32:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:32:57 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:32:57 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:32:59 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:32:59 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:04 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:06 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:06 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:09 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:09 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:14 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:15 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:17 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:19 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:19 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:24 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:24 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:26 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:27 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:29 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:29 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:30 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:31 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:32 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:34 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:34 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:34 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:39 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:40 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:43 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:43 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:44 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:45 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:48 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:33:49 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:50 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:53 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:33:54 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:55 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:33:56 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:33:59 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:33:59 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:00 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:04 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:04 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:34:05 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:09 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:09 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:34:10 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:14 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:14 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:34:15 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:19 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:34:19 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:20 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:24 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:24 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:34:25 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:29 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:34:29 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:30 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:34 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:34:35 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:34:39 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:34:44 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:34:49 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:34:54 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:35:33 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:35:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:35:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:36:33 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:36:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:36:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:37:33 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:37:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:37:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:38:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:38:33 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:38:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:39:33 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:39:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:39:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:40:33 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:40:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:40:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:41:33 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:41:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:41:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:42:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:42:33 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:42:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:43:33 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:43:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:43:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:44:33 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:44:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:44:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:46:36 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 00:46:36 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 00:46:36 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:02:59 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:02:59 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:02:59 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:02:59 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:03:06 [[33mwarn[39m]: ⚠️ MongoDB disconnected
+2026-03-02 10:03:22 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:03:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:03:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:04:22 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:04:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:04:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:05:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:05:22 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:05:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:06:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:06:22 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:06:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:07:22 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:07:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:07:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:12 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:08:12 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:08:14 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:14 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:15 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:15 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:18 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:18 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:18 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:18 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:18 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:18 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:18 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:18 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:20 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:23 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:24 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:24 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:25 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:28 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:30 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:35 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:38 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:40 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:40 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:40 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:43 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:44 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:44 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:45 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:48 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:50 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:53 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:53 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:55 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:08:58 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:09:00 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:09:03 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:09:04 [[32minfo[39m]: [EmailService] Sending OTP to admin@gmail.com
+2026-03-02 10:09:05 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:09:07 [[32minfo[39m]: [EmailService] OTP sent successfully to admin@gmail.com
+2026-03-02 10:09:08 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:09:10 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:09:13 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:09:15 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:09:18 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:09:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:09:23 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:09:28 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:09:32 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:09:33 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:09:38 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:09:40 [[33mwarn[39m]: [AppError] Invalid OTP {"statusCode":400}
+2026-03-02 10:09:43 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:09:47 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:09:48 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:10:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:11:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:11:48 [[33mwarn[39m]: [AppError] This email is already registered as a user. Please login through the user portal. {"statusCode":403}
+2026-03-02 10:12:00 [[33mwarn[39m]: [AppError] This email is already registered as a user. Please login through the user portal. {"statusCode":403}
+2026-03-02 10:12:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:12:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:12:33 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:12:35 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:12:40 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:12:45 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:12:48 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:12:48 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:12:50 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:12:53 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:12:53 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:12:54 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:12:55 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:12:55 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:13:08 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 10:13:39 [[33mwarn[39m]: [AppError] Access denied. Your account has been blocked by admin. {"statusCode":403}
+2026-03-02 10:25:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:40:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 10:55:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 11:01:53 [[33mwarn[39m]: [AppError] No token provided, access denied {"statusCode":401}
+2026-03-02 11:11:35 [[32minfo[39m]: [EmailService] Sending OTP to admin@gmail.com
+2026-03-02 11:11:38 [[32minfo[39m]: [EmailService] OTP sent successfully to admin@gmail.com
+2026-03-02 11:12:03 [[33mwarn[39m]: [AppError] Invalid OTP {"statusCode":400}
+2026-03-02 11:26:22 [[33mwarn[39m]: ⚠️ MongoDB disconnected
+2026-03-02 12:30:34 [[31merror[39m]: ❌ Error connecting to MongoDB: querySrv ETIMEOUT _mongodb._tcp.cluster0.sk2pm9a.mongodb.net
+2026-03-02 13:33:49 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-03-02 13:33:49 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-03-02 13:33:49 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-03-02 13:33:49 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-02 13:36:50 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-03-02 13:36:50 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-03-02 13:36:50 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-03-02 13:36:50 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-02 13:37:08 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-03-02 13:37:08 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-03-02 13:37:08 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-03-02 13:37:08 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-02 13:37:34 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-03-02 13:37:34 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-03-02 13:37:34 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-03-02 13:37:34 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-02 13:37:58 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-03-02 13:37:58 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-03-02 13:37:58 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-03-02 13:37:58 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-02 14:39:54 [[31merror[39m]: ValidationError: Vendor validation failed: idProof: Cast to string failed for value "{}" (type Object) at path "idProof"
+    at model.Document.invalidate (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:3405:32)
+    at model.$set (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:1516:12)
+    at model.$set (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:1170:16)
+    at model.Document (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:181:12)
+    at model.Model (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:131:12)
+    at new model (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:4805:15)
+    at C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:2747:20
+    at Array.map (<anonymous>)
+    at Function.create (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:2735:34)
+    at VendorRepository.create (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\src\infrastructure\repositories\VendorRepository.ts:54:42)
+2026-03-02 14:40:12 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-03-02 14:40:12 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-03-02 14:40:12 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-03-02 14:40:12 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-02 14:40:41 [[31merror[39m]: ValidationError: Vendor validation failed: idProof: Cast to string failed for value "{}" (type Object) at path "idProof"
+    at model.Document.invalidate (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:3405:32)
+    at model.$set (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:1516:12)
+    at model.$set (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:1170:16)
+    at model.Document (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:181:12)
+    at model.Model (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:131:12)
+    at new model (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:4805:15)
+    at C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:2747:20
+    at Array.map (<anonymous>)
+    at Function.create (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:2735:34)
+    at VendorRepository.create (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\src\infrastructure\repositories\VendorRepository.ts:54:42)
+2026-03-02 14:58:01 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-03-02 14:58:02 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-03-02 14:58:02 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-03-02 14:58:02 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-02 15:12:13 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-03-02 15:12:13 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-03-02 15:12:13 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-03-02 15:12:13 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-03-02 15:12:13 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-02 15:12:13 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-03-02 15:12:13 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-03-02 15:12:13 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-02 15:33:58 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-03-02 15:33:58 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-03-02 15:33:59 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-03-02 15:33:59 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-03-02 15:33:59 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-02 15:33:59 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-03-02 15:33:59 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-03-02 15:33:59 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-02 16:06:40 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-03-02 16:06:40 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-03-02 16:06:40 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-03-02 16:06:40 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-02 16:21:01 [[32minfo[39m]: [EmailService] Sending OTP to new@gmail.com
+2026-03-02 16:21:05 [[32minfo[39m]: [EmailService] OTP sent successfully to new@gmail.com
+2026-03-02 16:36:41 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 16:52:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 17:05:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 17:05:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 17:07:22 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 17:20:23 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 17:22:25 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 17:31:27 [[32minfo[39m]: ✅ MongoDB Connected: ac-mfwooox-shard-00-00.sk2pm9a.mongodb.net/evenzo
+2026-03-02 17:31:28 [[32minfo[39m]: ✅ Admin account ready: boss@example.com
+2026-03-02 17:31:28 [[32minfo[39m]: 🚀 Server running on port 7000
+2026-03-02 17:31:28 [[32minfo[39m]: 📚 API Docs: http://localhost:7000/api-docs
+2026-03-02 17:53:23 [[33mwarn[39m]: [AppError] Access denied. Your account has been blocked by admin. {"statusCode":403}
+2026-03-02 17:54:11 [[33mwarn[39m]: [AppError] Invalid credentials {"statusCode":400}
+2026-03-02 17:54:40 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}
+2026-03-02 17:54:40 [[33mwarn[39m]: [AppError] Invalid token {"statusCode":401}

@@ -1,0 +1,23 @@
+2026-03-02 12:30:34 [[31merror[39m]: ❌ Error connecting to MongoDB: querySrv ETIMEOUT _mongodb._tcp.cluster0.sk2pm9a.mongodb.net
+2026-03-02 14:39:54 [[31merror[39m]: ValidationError: Vendor validation failed: idProof: Cast to string failed for value "{}" (type Object) at path "idProof"
+    at model.Document.invalidate (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:3405:32)
+    at model.$set (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:1516:12)
+    at model.$set (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:1170:16)
+    at model.Document (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:181:12)
+    at model.Model (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:131:12)
+    at new model (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:4805:15)
+    at C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:2747:20
+    at Array.map (<anonymous>)
+    at Function.create (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:2735:34)
+    at VendorRepository.create (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\src\infrastructure\repositories\VendorRepository.ts:54:42)
+2026-03-02 14:40:41 [[31merror[39m]: ValidationError: Vendor validation failed: idProof: Cast to string failed for value "{}" (type Object) at path "idProof"
+    at model.Document.invalidate (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:3405:32)
+    at model.$set (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:1516:12)
+    at model.$set (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:1170:16)
+    at model.Document (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\document.js:181:12)
+    at model.Model (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:131:12)
+    at new model (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:4805:15)
+    at C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:2747:20
+    at Array.map (<anonymous>)
+    at Function.create (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\node_modules\mongoose\lib\model.js:2735:34)
+    at VendorRepository.create (C:\Users\DELL\OneDrive\Desktop\Work\Evenzo\Backend\src\infrastructure\repositories\VendorRepository.ts:54:42)
