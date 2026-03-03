@@ -1,25 +1,20 @@
-export const AppMessages = {
-    NETWORK_ERROR: 'Network error. Please check your connection.',
-    SESSION_EXPIRED: 'Session expired. Please log in again.',
-    ACCOUNT_BLOCKED: 'Your account has been blocked. Please contact support.',
-    UNAUTHORIZED: 'You are not authorized to perform this action.',
-} as const;
+export const SUCCESS_MESSAGES = {
+    PROFILE_UPDATED: "Profile updated successfully!",
+    status_updated: (status: string) => `Account status updated to ${status}.`,
+    VENDOR_BLOCKED: "Vendor blocked successfully.",
+    VENDOR_UNBLOCKED: "Vendor unblocked successfully.",
+    USER_BLOCKED: "User blocked successfully.",
+    USER_UNBLOCKED: "User unblocked successfully.",
+    CATEGORY_CREATED: "Category created successfully.",
+    CATEGORY_UPDATED: "Category updated successfully.",
+    CATEGORY_DELETED: "Category deleted successfully.",
+};
 
-export const AppRoutes = {
-    // User
-    LOGIN: '/login',
-    SIGNUP: '/signup',
-    VERIFY_OTP: '/verify-otp',
-    FORGOT_PASSWORD: '/forgot-password',
-    RESET_PASSWORD: '/reset-password',
-    HOME: '/',
-
-    // Vendor
-    VENDOR_LOGIN: '/vendor/login',
-    VENDOR_SIGNUP: '/vendor/signup',
-    VENDOR_DASHBOARD: '/vendor/dashboard',
-
-    // Admin
-    ADMIN_LOGIN: '/admin/login',
-    ADMIN_DASHBOARD: '/admin/dashboard',
-} as const;
+export const ERROR_MESSAGES = {
+    DEFAULT: "Something went wrong. Please try again.",
+    LOAD_FAILED: "Failed to load data.",
+    FETCH_VENDORS_FAILED: "Failed to fetch vendors.",
+    FETCH_USERS_FAILED: "Failed to fetch users.",
+    FETCH_CATEGORIES_FAILED: "Failed to fetch categories.",
+    UNAUTHORIZED: "Unauthorized access. Please login again.",
+};
