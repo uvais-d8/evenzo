@@ -24,6 +24,7 @@ import VendorSamples from "./presentation/pages/vendor/VendorSamples";
 import VendorBookings from "./presentation/pages/vendor/VendorBookings";
 import VendorPassword from "./presentation/pages/vendor/VendorPassword";
 import VendorWallet from "./presentation/pages/vendor/VendorWallet";
+import VendorEvents from "./presentation/pages/vendor/VendorEvents";
 
 // Admin pages
 import AdminLogin from "./presentation/pages/admin/AdminLogin";
@@ -35,6 +36,7 @@ import ProviderManagement from "./presentation/pages/admin/ProviderManagement";
 
 // Coming soon placeholder
 import ComingSoon from "./presentation/pages/ComingSoon";
+import AdminEvents from "./presentation/pages/admin/AdminEvents";
 
 import AuthGuard from "./presentation/components/AuthGuard";
 import { axiosClient } from "./infrastructure/http/axiosClient";
@@ -117,6 +119,7 @@ function App() {
             <Route element={<VendorLayout />}>
               <Route path="dashboard" element={<VendorDashboard />} />
               <Route path="profile" element={<VendorProfile />} />
+              <Route path="events" element={<VendorEvents />} />
               <Route path="services" element={<VendorServices />} />
               <Route path="samples" element={<VendorSamples />} />
               <Route path="bookings" element={<VendorBookings />} />
@@ -135,7 +138,7 @@ function App() {
               <Route path="providers/pending" element={<VendorVerification />} />
               <Route path="categories" element={<CategoryManagement />} />
               <Route path="bookings" element={<ComingSoon title="Booking Management" />} />
-              <Route path="events" element={<ComingSoon title="Event Management" />} />
+              <Route path="events" element={<AdminEvents />} />
               <Route path="wallet" element={<ComingSoon title="Wallet" />} />
               <Route path="notifications" element={<ComingSoon title="Notifications" />} />
             </Route>

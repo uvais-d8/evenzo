@@ -1,11 +1,13 @@
+
 import { ICategory } from '../../domain/entities/Category';
 import { ICategoryRepository } from '../../domain/repositories/ICategoryRepository';
 import { PaginatedResult, PaginationOptions } from '../../domain/repositories/IBaseRepository';
-import CategoryModel from '../database/models/CategoryModel';
+import CategoryModel from '../database/CategoryModel';
 
 function toICategory(doc: unknown): ICategory {
     return JSON.parse(JSON.stringify(doc)) as ICategory;
 }
+
 
 export class CategoryRepository implements ICategoryRepository {
     async findById(id: string): Promise<ICategory | null> {
@@ -27,11 +29,15 @@ export class CategoryRepository implements ICategoryRepository {
     }
 
     async findAll(
-        options: PaginationOptions & { includeDeleted?: boolean }
+        options?: PaginationOptions & { includeDeleted?: boolean },
+        filterParams: Record<string, any> = {}
     ): Promise<PaginatedResult<ICategory>> {
-        const { page, limit, includeDeleted = false } = options;
+        const page = options?.page || 1;
+        const limit = options?.limit || 10;
+        const includeDeleted = options?.includeDeleted || false;
+        
         const skip = (page - 1) * limit;
-        const filter = includeDeleted ? {} : { isDeleted: false };
+        const filter = includeDeleted ? filterParams : { ...filterParams, isDeleted: false };
         const [docs, total] = await Promise.all([
             CategoryModel.find(filter).skip(skip).limit(limit).lean(),
             CategoryModel.countDocuments(filter),
@@ -40,13 +46,17 @@ export class CategoryRepository implements ICategoryRepository {
         return { data, total, page, limit, totalPages: Math.ceil(total / limit) };
     }
 
+    async count(filter: Record<string, any> = {}): Promise<number> {
+        return await CategoryModel.countDocuments(filter);
+    }
+
     async create(data: Partial<ICategory>): Promise<ICategory> {
         const category = await CategoryModel.create(data);
         return toICategory(category.toObject());
     }
 
     async update(id: string, data: Partial<ICategory>): Promise<ICategory | null> {
-        const doc = await CategoryModel.findByIdAndUpdate(id, data, { new: true }).lean();
+        const doc = await CategoryModel.findByIdAndUpdate(id, data, { returnDocument: 'after' }).lean();
         return doc ? toICategory(doc) : null;
     }
 
@@ -59,7 +69,7 @@ export class CategoryRepository implements ICategoryRepository {
     }
 
     async softDelete(id: string): Promise<ICategory | null> {
-        const doc = await CategoryModel.findByIdAndUpdate(id, { isDeleted: true }, { new: true }).lean();
+        const doc = await CategoryModel.findByIdAndUpdate(id, { isDeleted: true }, { returnDocument: 'after' }).lean();
         return doc ? toICategory(doc) : null;
     }
 

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authApi } from "../../../infrastructure/api/auth.api";
+import { useRepositories } from "../../../infrastructure/context/RepositoryContext";
 import { Role } from "../../../core/enums/Role.enum";
 import { useGoogleLogin } from "@react-oauth/google";
 import toast from "react-hot-toast";
+import { SUCCESS_MESSAGES, ERROR_MESSAGES } from "../../../core/constants/Messages";
 
 const GoogleIcon = () => (
     <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
@@ -14,18 +15,25 @@ const GoogleIcon = () => (
     </svg>
 );
 
-const Input = ({ label, error, textarea, ...props }: any) => {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
+    label: string;
+    error?: string;
+    textarea?: boolean;
+    rows?: number;
+}
+
+const Input: React.FC<InputProps> = ({ label, error, textarea, ...props }) => {
     const id = props.id || props.name;
     return (
         <div style={styles.inputGroup}>
             <label htmlFor={id} style={styles.label}>{label}</label>
             {textarea ? (
-                <textarea id={id} {...props} style={{
+                <textarea id={id} {...(props as React.TextareaHTMLAttributes<HTMLTextAreaElement>)} style={{
                     ...styles.textarea,
                     border: error ? "1px solid #ef4444" : "1px solid #e2e8f0"
                 }} />
             ) : (
-                <input id={id} {...props} style={{
+                <input id={id} {...(props as React.InputHTMLAttributes<HTMLInputElement>)} style={{
                     ...styles.input,
                     border: error ? "1px solid #ef4444" : "1px solid #e2e8f0"
                 }} />
@@ -37,6 +45,7 @@ const Input = ({ label, error, textarea, ...props }: any) => {
 
 function VendorSignup() {
     const navigate = useNavigate();
+    const { authRepository } = useRepositories();
 
     const [formData, setFormData] = useState({
         name: "",
@@ -51,7 +60,7 @@ function VendorSignup() {
         idProof: null as File | null,
     });
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-    const [errors, setErrors] = useState<any>({});
+    const [errors, setErrors] = useState<Record<string, string>>({});
     const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -75,7 +84,7 @@ function VendorSignup() {
     };
 
     const validate = () => {
-        const newErrors: any = {};
+        const newErrors: Record<string, string> = {};
         if (!formData.name.trim()) newErrors.name = "Full Name is required";
         if (!formData.email.trim()) {
             newErrors.email = "Email is required";
@@ -103,7 +112,6 @@ function VendorSignup() {
 
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
-            toast.error("Please fill all required fields");
             return;
         }
 
@@ -112,16 +120,16 @@ function VendorSignup() {
             const signupData = new FormData();
             Object.entries(formData).forEach(([key, value]) => {
                 if (value !== null) {
-                    signupData.append(key, value);
+                    signupData.append(key, value as any);
                 }
             });
             signupData.append('role', Role.VENDOR);
 
-            await authApi.register(Role.VENDOR, signupData as any);
-            toast.success("Vendor account created! Verify your email with the OTP sent.");
+            await authRepository.register(Role.VENDOR, signupData);
+            toast.success(SUCCESS_MESSAGES.REGISTER_SUCCESS);
             navigate("/verify-otp", { state: { email: formData.email, type: "signup", backPath: "/vendor/signup", role: Role.VENDOR } });
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Registration failed");
+            toast.error(error.response?.data?.message || ERROR_MESSAGES.REGISTER_FAILED);
         } finally {
             setIsLoading(false);
         }
@@ -131,277 +139,205 @@ function VendorSignup() {
         onSuccess: async (tokenResponse) => {
             setIsLoading(true);
             try {
-                const res = await authApi.googleLogin(tokenResponse.access_token, Role.VENDOR);
-                const { token, refreshToken, user } = res.data;
+                const { token, refreshToken, user } = await authRepository.googleLogin(tokenResponse.access_token, Role.VENDOR);
                 sessionStorage.setItem("token", token);
                 sessionStorage.setItem("refreshToken", refreshToken);
                 sessionStorage.setItem("userRole", Role.VENDOR);
                 sessionStorage.setItem("userData", JSON.stringify(user));
-                toast.success("Login successful!");
+                toast.success(SUCCESS_MESSAGES.LOGIN_SUCCESS);
                 navigate("/vendor/dashboard");
             } catch (error: any) {
-                toast.error(error.response?.data?.message || "Google login failed");
+                toast.error(error.response?.data?.message || ERROR_MESSAGES.DEFAULT);
             } finally {
                 setIsLoading(false);
             }
         },
-        onError: () => toast.error("Google login failed")
+        onError: () => toast.error(ERROR_MESSAGES.LOGIN_FAILED)
     });
 
     return (
         <div style={styles.pageCenter}>
-            <div style={styles.wrapper}>
-                <div style={styles.container}>
-                    <div style={styles.imageSection}>
-                        <img
-                            src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1000"
-                            alt="vendor signup"
-                            style={styles.image}
-                        />
-                        <div style={styles.imageOverlay}>
-                            <h3 style={styles.overlayTitle}>Join Our Network</h3>
-                            <p style={styles.overlayText}>Grow your career by connecting with thousands of event planners.</p>
-                        </div>
+            <div style={styles.container}>
+                <div style={styles.imageSection}>
+                    <img
+                        src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1000"
+                        alt="vendor signup"
+                        style={styles.image}
+                    />
+                    <div style={styles.imageOverlay}>
+                        <h3 style={styles.overlayTitle}>Partner with Evenzo</h3>
+                        <p style={styles.overlayText}>Join our premier network of event professionals and reach thousands of customers.</p>
                     </div>
+                </div>
 
-                    <div style={styles.formSection}>
+                <div style={styles.formSection}>
+                    <div style={styles.header}>
                         <h2 style={styles.title}>Vendor Registration</h2>
-                        <p style={styles.subtitle}>Fill in your personal and professional details to get started.</p>
-
-                        <form style={styles.form} onSubmit={handleSubmit}>
-                            <div style={styles.sectionTitle}>Basic Information</div>
-                            <div style={styles.row}>
-                                <div style={{ flex: 1 }}>
-                                    <Input label="Full Name"
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        placeholder="John Doe"
-                                        type="text"
-                                        error={errors.name}
-                                    />
-                                </div>
-                                <div style={{ flex: 1 }}>
-                                    <Input label="Phone Number"
-                                        name="phone"
-                                        value={formData.phone}
-                                        onChange={handleChange}
-                                        placeholder="+1 234 567 890"
-                                        type="text"
-                                        error={errors.phone}
-                                    />
-                                </div>
-                            </div>
-
-                            <Input label="Email Address"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                placeholder="name@example.com"
-                                type="email"
-                                error={errors.email}
-                            />
-
-                            <div style={styles.row}>
-                                <div style={{ flex: 1 }}>
-                                    <Input
-                                        label="Password"
-                                        name="password"
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                        placeholder="••••••••"
-                                        type="password"
-                                        error={errors.password}
-                                    />
-                                </div>
-                                <div style={{ flex: 1 }}>
-                                    <Input
-                                        label="Confirm"
-                                        name="confirmPassword"
-                                        value={formData.confirmPassword}
-                                        onChange={handleChange}
-                                        placeholder="••••••••"
-                                        type="password"
-                                        error={errors.confirmPassword}
-                                    />
-                                </div>
-                            </div>
-
-                            <div style={styles.sectionTitle}>Professional Details</div>
-                            <div style={styles.row}>
-                                <div style={{ flex: 1 }}>
-                                    <Input label="Profession"
-                                        name="profession"
-                                        value={formData.profession}
-                                        onChange={handleChange}
-                                        placeholder="Photography, Catering..."
-                                        type="text"
-                                        error={errors.profession}
-                                    />
-                                </div>
-                                <div style={{ flex: 1 }}>
-                                    <Input label="Current Address"
-                                        name="address"
-                                        value={formData.address}
-                                        onChange={handleChange}
-                                        placeholder="123 Street, City"
-                                        type="text"
-                                        error={errors.address}
-                                    />
-                                </div>
-                            </div>
-
-                            <Input label="Bio / Description"
-                                name="description"
-                                value={formData.description}
-                                onChange={handleChange}
-                                placeholder="Tell us about your services..."
-                                textarea
-                                rows={3}
-                            />
-
-                            <Input label="Event History"
-                                name="eventHistory"
-                                value={formData.eventHistory}
-                                onChange={handleChange}
-                                placeholder="Past events you've handled..."
-                                textarea
-                                rows={3}
-                            />
-
-                            <div style={styles.inputGroup}>
-                                <label style={styles.label}>ID Proof (Identity Document)</label>
-                                <div
-                                    style={{
-                                        ...styles.fileInputContainer,
-                                        border: errors.idProof ? "1px dashed #ef4444" : "1px dashed #cbd5e1"
-                                    }}
-                                    onClick={() => document.getElementById('idProof')?.click()}
-                                >
-                                    {previewUrl ? (
-                                        <img src={previewUrl} alt="ID Preview" style={styles.previewImage} />
-                                    ) : (
-                                        <div style={styles.filePlaceholder}>
-                                            <span style={{ fontSize: '24px' }}>📷</span>
-                                            <span>Click to upload ID Proof</span>
-                                        </div>
-                                    )}
-                                    <input
-                                        type="file"
-                                        id="idProof"
-                                        name="idProof"
-                                        onChange={handleFileChange}
-                                        style={{ display: 'none' }}
-                                        accept="image/*"
-                                    />
-                                </div>
-                                {errors.idProof && <span style={styles.errorText}>{errors.idProof}</span>}
-                            </div>
-
-                            <div style={styles.buttonRow}>
-                                <button
-                                    type="button"
-                                    onClick={() => loginWithGoogle()}
-                                    style={styles.googleBtn}
-                                >
-                                    <GoogleIcon /> Google
-                                </button>
-
-                                <button type="submit" style={styles.loginBtn} disabled={isLoading}>
-                                    {isLoading ? 'Processing...' : 'Register as Vendor'}
-                                </button>
-                            </div>
-                        </form>
-
-                        <p style={styles.footer}>
-                            Already a partner?{" "}
-                            <span style={styles.link} onClick={() => navigate("/vendor/login")}>Login here</span>
-                        </p>
+                        <p style={styles.subtitle}>Create your business profile to get started.</p>
                     </div>
+
+                    <form style={styles.form} onSubmit={handleSubmit}>
+                        <div style={styles.sectionTitle}>Business Info</div>
+                        <div style={styles.row}>
+                            <Input label="Business Name"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                placeholder="e.g. Elite Events"
+                                type="text"
+                                error={errors.name}
+                            />
+                            <Input label="Contact Phone"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                placeholder="e.g. +1234567890"
+                                type="text"
+                                error={errors.phone}
+                            />
+                        </div>
+
+                        <Input label="Business Email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="business@example.com"
+                            type="email"
+                            error={errors.email}
+                        />
+
+                        <div style={styles.row}>
+                            <Input
+                                label="Password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                placeholder="••••••••"
+                                type="password"
+                                error={errors.password}
+                            />
+                            <Input
+                                label="Confirm"
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                placeholder="••••••••"
+                                type="password"
+                                error={errors.confirmPassword}
+                            />
+                        </div>
+
+                        <div style={styles.sectionTitle}>Professional Presence</div>
+                        <div style={styles.row}>
+                            <Input label="Speciality"
+                                name="profession"
+                                value={formData.profession}
+                                onChange={handleChange}
+                                placeholder="Catering, Music, etc."
+                                type="text"
+                                error={errors.profession}
+                            />
+                            <Input label="Base Location"
+                                name="address"
+                                value={formData.address}
+                                onChange={handleChange}
+                                placeholder="City, State"
+                                type="text"
+                                error={errors.address}
+                            />
+                        </div>
+
+                        <Input label="Description"
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            placeholder="Briefly describe your services..."
+                            textarea
+                            rows={3}
+                        />
+
+                        <div style={styles.inputGroup}>
+                            <label style={styles.label}>ID Proof (Verification Document)</label>
+                            <label style={{
+                                ...styles.fileInputContainer,
+                                border: errors.idProof ? "1px dashed #ef4444" : "1px dashed #e2e8f0"
+                            }}>
+                                {previewUrl ? (
+                                    <img src={previewUrl} alt="ID Preview" style={styles.previewImage} />
+                                ) : (
+                                    <div style={styles.filePlaceholder}>
+                                        <span style={{ fontSize: '20px' }}>📁</span>
+                                        <span>Click to upload identity document</span>
+                                    </div>
+                                )}
+                                <input
+                                    type="file"
+                                    id="idProof"
+                                    name="idProof"
+                                    onChange={handleFileChange}
+                                    style={{ display: 'none' }}
+                                    accept="image/*"
+                                />
+                            </label>
+                            {errors.idProof && <span style={styles.errorText}>{errors.idProof}</span>}
+                        </div>
+
+                        <div style={styles.buttonRow}>
+                            <button type="submit" style={styles.loginBtn} disabled={isLoading}>
+                                {isLoading ? 'Processing...' : 'Apply for Partnership'}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => loginWithGoogle()}
+                                style={styles.googleBtn}
+                            >
+                                <GoogleIcon /> Join with Google
+                            </button>
+                        </div>
+                    </form>
+
+                    <p style={styles.footer}>
+                        Already a partner?{" "}
+                        <span style={styles.link} onClick={() => navigate("/vendor/login")}>Back to Login</span>
+                    </p>
                 </div>
             </div>
         </div>
     );
 }
 
-const styles: any = {
-    pageCenter: { backgroundColor: "#f8fafc", minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center", width: "100%" },
-    wrapper: { display: "flex", justifyContent: "center", padding: "40px 20px", width: "100%" },
-    container: { display: "flex", backgroundColor: "white", borderRadius: "30px", width: "1200px", boxShadow: "0 20px 50px rgba(0, 0, 0, 0.05)", overflow: "hidden" },
-    imageSection: { flex: 0.8, position: "relative" },
+const styles: Record<string, React.CSSProperties> = {
+    pageCenter: { backgroundColor: "#f9fafb", minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center", padding: "40px 20px" },
+    container: { display: "flex", backgroundColor: "white", borderRadius: "30px", width: "1100px", maxWidth: "95vw", boxShadow: "0 25px 50px rgba(0, 0, 0, 0.05)", overflow: "hidden", maxHeight: "90vh" },
+    imageSection: { flex: 0.8, position: "relative", display: "none" as any },
     image: { width: "100%", height: "100%", objectFit: "cover" },
     imageOverlay: { position: "absolute", bottom: 0, left: 0, right: 0, padding: "40px", background: "linear-gradient(transparent, rgba(0,0,0,0.8))", color: "white" },
-    overlayTitle: { fontSize: "32px", fontWeight: 700, margin: "0 0 10px 0" },
-    overlayText: { fontSize: "16px", opacity: 0.9, margin: 0 },
-    formSection: { flex: 1.2, padding: "50px", overflowY: "auto", maxHeight: "90vh" },
-    title: { fontSize: "32px", fontWeight: 700, color: "#1e293b", marginBottom: "8px" },
-    subtitle: { fontSize: "15px", color: "#64748b", marginBottom: "35px" },
-    sectionTitle: { fontSize: "14px", fontWeight: 700, color: "#2563eb", textTransform: "uppercase", letterSpacing: "1px", margin: "20px 0 15px 0", borderBottom: "1px solid #f1f5f9", paddingBottom: "5px" },
-    form: { display: "flex", flexDirection: "column", gap: "10px" },
-    row: { display: "flex", gap: "20px" },
-    inputGroup: { display: "flex", flexDirection: "column", gap: "6px", marginBottom: "5px" },
-    label: { fontSize: "13px", fontWeight: 600, color: "#475569", marginLeft: "4px" },
-    input: { padding: "12px 16px", borderRadius: "12px", backgroundColor: "#f8fafc", fontSize: "14px", transition: "all 0.2s", outline: "none" },
-    textarea: { padding: "12px 16px", borderRadius: "12px", backgroundColor: "#f8fafc", fontSize: "14px", transition: "all 0.2s", outline: "none", resize: "none" },
-    buttonRow: { display: "flex", gap: "15px", marginTop: "25px" },
-    googleBtn: {
-        flex: 0.4,
-        padding: "12px",
-        borderRadius: "12px",
-        border: "1px solid rgba(0,0,0,0.1)",
-        backgroundColor: "rgba(255,255,255,0.8)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "10px",
-        fontWeight: 600,
-        cursor: "pointer",
-        fontSize: "14px",
-        backdropFilter: "blur(5px)",
-        transition: "all 0.3s"
-    },
-    loginBtn: {
-        flex: 1,
-        padding: "12px",
-        borderRadius: "12px",
-        border: "1px solid rgba(37, 99, 235, 0.1)",
-        backgroundColor: "rgba(37, 99, 235, 0.05)",
-        color: "rgba(37, 99, 235, 0.7)",
-        fontWeight: 700,
-        cursor: "pointer",
-        fontSize: "15px",
-        backdropFilter: "blur(5px)",
-        transition: "all 0.3s"
-    },
-    footer: { textAlign: "center", marginTop: "30px", fontSize: "14px", color: "#64748b" },
-    link: { color: "#2563eb", fontWeight: 700, cursor: "pointer" },
-    errorText: { color: "#ef4444", fontSize: "11px", marginTop: "2px", marginLeft: "4px" },
-    fileInputContainer: {
-        width: '100%',
-        height: '150px',
-        backgroundColor: '#f8fafc',
-        borderRadius: '12px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        cursor: 'pointer',
-        overflow: 'hidden',
-        transition: 'all 0.2s',
-        marginTop: '5px'
-    },
-    filePlaceholder: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '8px',
-        color: '#64748b',
-        fontSize: '14px'
-    },
-    previewImage: {
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover'
-    }
+    overlayTitle: { fontSize: "28px", fontWeight: 500, margin: "0 0 10px 0" },
+    overlayText: { fontSize: "14px", opacity: 0.9, margin: 0, lineHeight: 1.5, fontWeight: 300 },
+    formSection: { flex: 1.2, padding: "40px", overflowY: "auto" },
+    header: { marginBottom: '30px' },
+    title: { fontSize: "24px", fontWeight: 500, color: "#1e293b", marginBottom: "8px" },
+    subtitle: { fontSize: "14px", color: "#64748b", fontWeight: 300 },
+    sectionTitle: { fontSize: "11px", fontWeight: 500, color: "#2563eb", textTransform: "uppercase", letterSpacing: "1px", margin: "25px 0 15px 0", borderBottom: "1px solid #f1f5f9", paddingBottom: "5px" },
+    form: { display: "flex", flexDirection: "column", gap: "15px" },
+    row: { display: "flex", gap: "15px" },
+    inputGroup: { flex: 1, display: "flex", flexDirection: "column", gap: "6px" },
+    label: { fontSize: "11px", fontWeight: 500, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em" },
+    input: { padding: "10px 15px", borderRadius: "10px", backgroundColor: "#fafafa", fontSize: "13px", fontWeight: 300, outline: "none", transition: "all 0.2s" },
+    textarea: { padding: "12px 15px", borderRadius: "10px", backgroundColor: "#fafafa", fontSize: "13px", fontWeight: 300, outline: "none", resize: "none" },
+    buttonRow: { display: "flex", flexDirection: "column", gap: "10px", marginTop: "20px" },
+    loginBtn: { padding: "12px", borderRadius: "10px", border: "none", backgroundColor: "#2563eb", color: "white", fontWeight: 500, cursor: "pointer", fontSize: "12px", textTransform: 'uppercase', letterSpacing: '0.05em', boxShadow: '0 8px 15px rgba(37, 99, 235, 0.15)' },
+    googleBtn: { padding: "10px", borderRadius: "10px", border: "1px solid #e2e8f0", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", fontWeight: 500, cursor: "pointer", fontSize: "12px", color: '#475569' },
+    footer: { textAlign: "center", marginTop: "30px", fontSize: "13px", color: "#64748b", fontWeight: 300 },
+    link: { color: "#2563eb", fontWeight: 500, cursor: "pointer" },
+    errorText: { color: "#ef4444", fontSize: "11px", marginTop: "2px" },
+    fileInputContainer: { width: '100%', height: '120px', backgroundColor: '#fafafa', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', overflow: 'hidden', border: '1px dashed #e2e8f0' },
+    filePlaceholder: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', color: '#94a3b8', fontSize: '11px', fontWeight: 300 },
+    previewImage: { width: '100%', height: '100%', objectFit: 'cover' }
 };
+
+if (typeof window !== 'undefined' && window.innerWidth > 900) {
+    (styles.imageSection as any).display = "block";
+}
 
 export default VendorSignup;

@@ -1,11 +1,9 @@
 import { Router } from 'express';
-import { container } from '../../di/container';
+import { authController as authCtrl, userController as userCtrl } from '../controllers';
 import { authenticate, authorize } from '../middleware/auth.middleware';
-import { Role } from '../../domain/enums/Role.enum';
+import { Role } from '../../domain/enums/enums';
 
 const router = Router();
-const authCtrl = container.authController;
-const userCtrl = container.userController;
 
 // USER REGISTER
 router.post('/register', (req, res, next) => {

@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+
 import { ICategoryService, CreateCategoryData, UpdateCategoryData } from '../../application/interfaces/ICategoryService';
 import { Messages } from '../../application/constants/Messages';
 
@@ -10,6 +11,7 @@ function parsePagination(query: Request['query']): { page: number; limit: number
     const limit = Math.min(100, Math.max(1, parseInt(query.limit as string) || DEFAULT_LIMIT));
     return { page, limit };
 }
+
 
 export class CategoryController {
     constructor(private readonly categoryService: ICategoryService) {

@@ -1,7 +1,9 @@
 import { Response, NextFunction } from 'express';
+
 import { IVendorService, UpdateVendorData } from '../../application/interfaces/IVendorService';
 import { AuthRequest } from '../middleware/auth.middleware';
 import { Messages } from '../../application/constants/Messages';
+
 
 export class VendorController {
     constructor(private readonly vendorService: IVendorService) {

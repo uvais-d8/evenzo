@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from 'mongoose';
-import { IUser } from '../../../domain/entities/User';
-import { Role } from '../../../domain/enums/Role.enum';
+import { IUser } from '../../domain/entities/User';
+import { Role } from '../../domain/enums/enums';
 
 export interface IUserDocument extends Omit<IUser, '_id'>, Document { }
 

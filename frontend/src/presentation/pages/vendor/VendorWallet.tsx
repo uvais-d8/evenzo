@@ -3,21 +3,18 @@ import React from 'react';
 const VendorWallet: React.FC = () => {
     return (
         <div style={styles.container}>
-            <div style={styles.card}>
-                <h2 style={styles.title}>Your Wallet</h2>
-                <p style={styles.subtitle}>Manage your earnings and withdraw your funds.</p>
-
-                <div style={styles.walletBox}>
-                    <p style={styles.balanceLabel}>Available Balance</p>
-                    <h1 style={styles.balanceValue}>₹0.00</h1>
+            <div style={styles.grid}>
+                <div style={styles.balanceCard}>
+                    <p style={styles.label}>Total Balance</p>
+                    <h2 style={styles.amount}>$0.00</h2>
                     <button style={styles.withdrawBtn}>Withdraw Funds</button>
                 </div>
 
-                <div style={styles.spacer}></div>
-
-                <h3 style={styles.recentTitle}>Recent Transactions</h3>
-                <div style={styles.placeholder}>
-                    <p style={styles.text}>No transaction history found.</p>
+                <div style={styles.historyCard}>
+                    <h3 style={styles.title}>Recent Transactions</h3>
+                    <div style={styles.placeholder}>
+                        <p style={styles.text}>Your transaction history will appear here.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -26,17 +23,15 @@ const VendorWallet: React.FC = () => {
 
 const styles: Record<string, React.CSSProperties> = {
     container: { width: '100%' },
-    card: { backgroundColor: 'white', padding: '40px', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.04)', minHeight: '500px' },
-    title: { fontSize: '24px', fontWeight: 700, color: '#1e293b', margin: '0 0 10px 0' },
-    subtitle: { fontSize: '15px', color: '#64748b', marginBottom: '30px' },
-    walletBox: { backgroundColor: '#eff6ff', padding: '40px', borderRadius: '20px', textAlign: 'center' },
-    balanceLabel: { margin: '0 0 10px 0', fontSize: '16px', color: '#111827', fontWeight: 600 },
-    balanceValue: { margin: '0 0 25px 0', fontSize: '48px', color: '#3b82f6', fontWeight: 800 },
-    withdrawBtn: { backgroundColor: '#3b82f6', color: 'white', border: 'none', padding: '14px 40px', borderRadius: '12px', fontSize: '16px', fontWeight: 700, cursor: 'not-allowed', opacity: 0.6 },
-    spacer: { height: '40px' },
-    recentTitle: { fontSize: '18px', fontWeight: 700, color: '#1e293b', marginBottom: '20px' },
-    placeholder: { height: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e2e8f0', borderRadius: '16px' },
-    text: { fontSize: '15px', color: '#94a3b8' },
+    grid: { display: 'flex', flexDirection: 'column', gap: '20px' },
+    balanceCard: { backgroundColor: '#2563eb', padding: '30px', borderRadius: '20px', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 8px 25px rgba(37, 99, 235, 0.2)' },
+    label: { fontSize: '12px', opacity: 0.8, marginBottom: '5px', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 400 },
+    amount: { fontSize: '32px', fontWeight: 600, margin: '0 0 20px 0' },
+    withdrawBtn: { backgroundColor: 'white', color: '#2563eb', border: 'none', padding: '10px 25px', borderRadius: '10px', fontSize: '12px', fontWeight: 500, cursor: 'pointer', textTransform: 'uppercase', letterSpacing: '0.05em' },
+    historyCard: { backgroundColor: 'white', padding: '30px', borderRadius: '20px', border: '1px solid #f1f5f9', boxShadow: '0 4px 15px rgba(0,0,0,0.02)', flex: 1 },
+    title: { fontSize: '16px', fontWeight: 500, color: '#1e293b', margin: '0 0 20px 0' },
+    placeholder: { height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fafafa', borderRadius: '15px', border: '1px dashed #e2e8f0' },
+    text: { fontSize: '13px', color: '#94a3b8', fontWeight: 300 },
 };
 
 export default VendorWallet;

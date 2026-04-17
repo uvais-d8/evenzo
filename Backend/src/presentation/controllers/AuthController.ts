@@ -1,11 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
+
 import { OAuth2Client } from 'google-auth-library';
 import { IAuthService } from '../../application/interfaces/IAuthService';
-import { Role } from '../../domain/enums/Role.enum';
+import { Role } from '../../domain/enums/enums';
 import { BadRequestError, ForbiddenError } from '../../domain/errors/AppError';
 import { Messages } from '../../application/constants/Messages';
 
 const oauthClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
 
 export class AuthController {
 
@@ -23,6 +25,9 @@ export class AuthController {
 
     async register(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
+            if (!req.body || Object.keys(req.body).length === 0) {
+                throw new BadRequestError('Registration data is missing');
+            }
             const { role = Role.USER } = req.body as { role?: Role };
             if (role === Role.ADMIN) {
                 throw new ForbiddenError(Messages.ADMIN_REGISTRATION_NOT_ALLOWED);

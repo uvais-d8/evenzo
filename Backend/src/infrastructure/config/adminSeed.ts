@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
-import AdminModel from '../database/models/AdminModel';
-import { Role } from '../../domain/enums/Role.enum';
-import { logger } from '../../shared/logger';
+import AdminModel from '../database/AdminModel';
+import { Role } from '../../domain/enums/enums';
+import { logger } from '../../infrastructure/services/LoggerService';
 
 export const seedAdmin = async (): Promise<void> => {
     try {
@@ -22,7 +22,7 @@ export const seedAdmin = async (): Promise<void> => {
                     isVerified: true,
                 },
             },
-            { upsert: true, new: true }
+            { upsert: true, returnDocument: 'after' }
         );
 
         logger.info(`✅ Admin account ready: ${adminEmail}`);
@@ -30,3 +30,4 @@ export const seedAdmin = async (): Promise<void> => {
         logger.error('❌ Error seeding admin:', { error });
     }
 };
+

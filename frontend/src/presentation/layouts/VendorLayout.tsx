@@ -10,6 +10,7 @@ function VendorLayout() {
   const menuItems = [
     { name: "Dashboard", path: "/vendor/dashboard", icon: <FiHome /> },
     { name: "My Profile", path: "/vendor/profile", icon: <FiUser /> },
+    { name: "My Events", path: "/vendor/events", icon: <FiCalendar /> },
     { name: "Services", path: "/vendor/services", icon: <FiSettings /> },
     { name: "Work Samples", path: "/vendor/samples", icon: <FiCamera /> },
     { name: "Bookings", path: "/vendor/bookings", icon: <FiCalendar /> },

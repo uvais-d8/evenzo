@@ -1,10 +1,9 @@
 import { Router } from 'express';
-import { container } from '../../di/container';
+import { categoryController as categoryCtrl } from '../controllers';
 import { authenticate, authorize } from '../middleware/auth.middleware';
-import { Role } from '../../domain/enums/Role.enum';
+import { Role } from '../../domain/enums/enums';
 
 const router = Router();
-const categoryCtrl = container.categoryController;
 
 // PUBLIC - paginated: ?page=1&limit=10
 router.get('/', categoryCtrl.getCategories);

@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authApi } from "../../../infrastructure/api/auth.api";
+import { useRepositories } from "../../../infrastructure/context/RepositoryContext";
 import toast from "react-hot-toast";
+import { SUCCESS_MESSAGES, ERROR_MESSAGES } from "../../../core/constants/Messages";
 
-const Input = ({ label, error, ...props }: any) => {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    label: string;
+    error?: string;
+}
+
+const Input: React.FC<InputProps> = ({ label, error, ...props }) => {
     const id = props.id || props.name;
     return (
         <div style={styles.inputGroup}>
@@ -17,8 +23,9 @@ const Input = ({ label, error, ...props }: any) => {
     );
 };
 
-function ForgotPassword() {
+const ForgotPassword: React.FC = () => {
     const navigate = useNavigate();
+    const { authRepository } = useRepositories();
     const [email, setEmail] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
@@ -32,13 +39,11 @@ function ForgotPassword() {
 
         setIsLoading(true);
         try {
-            await authApi.forgotPassword(email);
-            toast.success("Password reset instructions sent to your email!");
-            // We usually go to reset-password or OTP page depending on flow
-            // assuming we go to reset-password which takes an OTP and new password
+            await authRepository.forgotPassword(email);
+            toast.success(SUCCESS_MESSAGES.FORGOT_PASSWORD_SENT);
             navigate("/reset-password", { state: { email } });
         } catch (err: any) {
-            toast.error(err.response?.data?.message || "Something went wrong");
+            toast.error(err.response?.data?.message || ERROR_MESSAGES.DEFAULT);
         } finally {
             setIsLoading(false);
         }
@@ -79,7 +84,7 @@ function ForgotPassword() {
     );
 }
 
-const styles: any = {
+const styles: Record<string, React.CSSProperties> = {
     pageCenter: { backgroundColor: "#f5f6f8", minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" },
     container: { backgroundColor: "white", padding: "40px", borderRadius: "20px", width: "400px", boxShadow: "0 10px 25px rgba(0,0,0,0.05)", textAlign: "center" },
     title: { fontSize: "24px", fontWeight: 600, marginBottom: "10px" },

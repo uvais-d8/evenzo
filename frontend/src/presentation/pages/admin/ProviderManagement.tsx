@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { adminApi } from '../../../infrastructure/api/admin.api';
+import { useRepositories } from '../../../infrastructure/context/RepositoryContext';
 import { IVendor } from '../../../core/types/vendor.types';
 import { PaginatedResponse } from '../../../core/types/category.types';
+import { VendorStatus } from '../../../core/enums/Status.enum';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import Pagination from '../../components/common/Pagination';
+import ConfirmDialog from '../../components/common/ConfirmDialog';
 import toast from 'react-hot-toast';
+import { SUCCESS_MESSAGES, ERROR_MESSAGES } from '../../../core/constants/Messages';
 
 const ProviderManagement: React.FC = () => {
     const navigate = useNavigate();
+    const { adminRepository } = useRepositories();
     const [result, setResult] = useState<PaginatedResponse<IVendor> | null>(null);
     const [loading, setLoading] = useState(true);
     const API_BASE = import.meta.env.VITE_API_URL.replace('/api', '');
@@ -22,31 +26,35 @@ const ProviderManagement: React.FC = () => {
     const [isProcessing, setIsProcessing] = useState<string | null>(null);
     const [selectedVendor, setSelectedVendor] = useState<IVendor | null>(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
+    const [blockConfirm, setBlockConfirm] = useState<{ id: string; status: boolean } | null>(null);
 
     const fetchVendors = useCallback(async (p: number) => {
         setLoading(true);
         try {
-            const res = await adminApi.getApprovedVendors({ page: p, limit: 10 });
-            setResult(res.data);
+            const res = await adminRepository.getVendors(VendorStatus.APPROVED, { page: p, limit: 10 });
+            setResult(res);
         } catch {
-            toast.error('Failed to fetch vendors');
+            toast.error(ERROR_MESSAGES.FETCH_VENDORS_FAILED);
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [adminRepository]);
 
     useEffect(() => {
         fetchVendors(page);
     }, [fetchVendors, page]);
 
-    const handleToggleBlock = async (id: string, currentStatus: boolean) => {
+    const handleToggleBlock = async () => {
+        if (!blockConfirm) return;
+        const { id, status } = blockConfirm;
         setIsProcessing(id);
+        setBlockConfirm(null);
         try {
-            await adminApi.toggleBlockVendor(id);
-            toast.success(`Vendor ${currentStatus ? 'unblocked' : 'blocked'} successfully`);
+            await adminRepository.toggleBlockVendor(id);
+            toast.success(status ? SUCCESS_MESSAGES.VENDOR_UNBLOCKED : SUCCESS_MESSAGES.VENDOR_BLOCKED);
             fetchVendors(page);
         } catch (error: any) {
-            toast.error(error.response?.data?.message || 'Action failed');
+            toast.error(error.response?.data?.message || ERROR_MESSAGES.DEFAULT);
         } finally {
             setIsProcessing(null);
         }
@@ -94,9 +102,9 @@ const ProviderManagement: React.FC = () => {
                                     <td style={styles.td}>
                                         <span style={{
                                             ...styles.badge,
-                                            backgroundColor: vendor.vendorStatus === 'approved' ? 'rgba(16, 185, 129, 0.05)' : (vendor.vendorStatus === 'rejected' ? 'rgba(239, 68, 68, 0.05)' : 'rgba(245, 158, 11, 0.05)'),
-                                            color: vendor.vendorStatus === 'approved' ? 'rgba(16, 185, 129, 0.6)' : (vendor.vendorStatus === 'rejected' ? 'rgba(239, 68, 68, 0.6)' : 'rgba(245, 158, 11, 0.6)'),
-                                            border: `1px solid ${vendor.vendorStatus === 'approved' ? 'rgba(16, 185, 129, 0.1)' : (vendor.vendorStatus === 'rejected' ? 'rgba(239, 68, 68, 0.1)' : 'rgba(245, 158, 11, 0.1)')}`
+                                            backgroundColor: vendor.vendorStatus === VendorStatus.APPROVED ? 'rgba(16, 185, 129, 0.05)' : (vendor.vendorStatus === VendorStatus.REJECTED ? 'rgba(239, 68, 68, 0.05)' : 'rgba(245, 158, 11, 0.05)'),
+                                            color: vendor.vendorStatus === VendorStatus.APPROVED ? 'rgba(16, 185, 129, 0.6)' : (vendor.vendorStatus === VendorStatus.REJECTED ? 'rgba(239, 68, 68, 0.6)' : 'rgba(245, 158, 11, 0.6)'),
+                                            border: `1px solid ${vendor.vendorStatus === VendorStatus.APPROVED ? 'rgba(16, 185, 129, 0.1)' : (vendor.vendorStatus === VendorStatus.REJECTED ? 'rgba(239, 68, 68, 0.1)' : 'rgba(245, 158, 11, 0.1)')}`
                                         }}>
                                             {vendor.vendorStatus.toUpperCase()}
                                         </span>
@@ -112,7 +120,7 @@ const ProviderManagement: React.FC = () => {
                                                     color: vendor.isBlocked ? 'rgba(16, 185, 129, 0.6)' : 'rgba(239, 68, 68, 0.6)',
                                                     border: `1px solid ${vendor.isBlocked ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)'}`
                                                 }}
-                                                onClick={() => handleToggleBlock(vendor._id, vendor.isBlocked)}
+                                                onClick={() => setBlockConfirm({ id: vendor._id, status: vendor.isBlocked })}
                                                 disabled={isProcessing === vendor._id}
                                             >
                                                 {isProcessing === vendor._id ? '...' : (vendor.isBlocked ? 'Unblock' : 'Block')}
@@ -132,7 +140,7 @@ const ProviderManagement: React.FC = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={6} style={styles.emptyTd}>No vendors found.</td>
+                                <td colSpan={5} style={styles.emptyTd}>No vendors found.</td>
                             </tr>
                         )}
                     </tbody>
@@ -210,6 +218,16 @@ const ProviderManagement: React.FC = () => {
                     </div>
                 </div>
             )}
+
+            <ConfirmDialog
+                isOpen={!!blockConfirm}
+                title={blockConfirm?.status ? 'Unblock Vendor' : 'Block Vendor'}
+                message={`Are you sure you want to ${blockConfirm?.status ? 'unblock' : 'block'} this vendor?`}
+                onConfirm={handleToggleBlock}
+                onCancel={() => setBlockConfirm(null)}
+                variant={blockConfirm?.status ? 'info' : 'danger'}
+                confirmLabel={blockConfirm?.status ? 'Unblock' : 'Block'}
+            />
         </div>
     );
 };

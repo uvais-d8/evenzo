@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authApi } from "../../../infrastructure/api/auth.api";
+import { useRepositories } from "../../../infrastructure/context/RepositoryContext";
 import { Role } from "../../../core/enums/Role.enum";
 import toast from "react-hot-toast";
+import { SUCCESS_MESSAGES, ERROR_MESSAGES } from "../../../core/constants/Messages";
 
 const GoogleIcon = () => (
     <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
@@ -13,14 +14,19 @@ const GoogleIcon = () => (
     </svg>
 );
 
-const Input = ({ label, error, ...props }: any) => {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    label: string;
+    error?: string;
+}
+
+const Input: React.FC<InputProps> = ({ label, error, ...props }) => {
     const id = props.id || props.name;
     return (
         <div style={styles.inputGroup}>
             <label htmlFor={id} style={styles.label}>{label}</label>
             <input id={id} {...props} style={{
                 ...styles.input,
-                border: error ? "1px solid #ef4444" : "1px solid #c2c2c2"
+                border: error ? "1px solid #ef4444" : "1px solid #e2e8f0"
             }} />
             {error && <span style={styles.errorText}>{error}</span>}
         </div>
@@ -29,6 +35,7 @@ const Input = ({ label, error, ...props }: any) => {
 
 function UserSignup() {
     const navigate = useNavigate();
+    const { authRepository } = useRepositories();
 
     const [formData, setFormData] = useState({
         name: "",
@@ -37,7 +44,7 @@ function UserSignup() {
         password: "",
         confirmPassword: "",
     });
-    const [errors, setErrors] = useState<any>({});
+    const [errors, setErrors] = useState<Record<string, string>>({});
     const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,22 +55,20 @@ function UserSignup() {
     };
 
     const validate = () => {
-        const newErrors: any = {};
+        const newErrors: Record<string, string> = {};
         if (!formData.name.trim()) newErrors.name = "Name is required";
         if (!formData.email.trim()) {
             newErrors.email = "Email is required";
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
             newErrors.email = "Invalid email format";
         }
-        if (!formData.phone.trim()) {
-            newErrors.phone = "Phone is required";
-        }
+        if (!formData.phone.trim()) newErrors.phone = "Phone is required";
         if (!formData.password) {
             newErrors.password = "Password is required";
         } else if (formData.password.length < 6) {
             newErrors.password = "Password must be at least 6 characters";
         }
-        if (formData.password !== formData.confirmPassword) {
+        if (formData.confirmPassword && formData.password !== formData.confirmPassword) {
             newErrors.confirmPassword = "Passwords do not match";
         }
         return newErrors;
@@ -80,145 +85,132 @@ function UserSignup() {
 
         setIsLoading(true);
         try {
-            await authApi.register(Role.USER, {
+            await authRepository.register(Role.USER, {
                 email: formData.email,
                 name: formData.name,
                 password: formData.password,
                 phone: formData.phone
             });
-            toast.success("Account created! Verify your email with the OTP sent.");
+            toast.success(SUCCESS_MESSAGES.REGISTER_SUCCESS);
             navigate("/verify-otp", { state: { email: formData.email, type: "signup", backPath: "/signup" } });
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Registration failed");
+            toast.error(error.response?.data?.message || ERROR_MESSAGES.REGISTER_FAILED);
         } finally {
             setIsLoading(false);
         }
     };
 
-    const loginWithGoogle = () => {
-        toast.error("Google signup currently disabled during migration");
-    };
-
     return (
         <div style={styles.pageCenter}>
-            <div style={styles.wrapper}>
-                <div style={styles.container}>
-                    <div style={styles.imageSection}>
-                        <img
-                            src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1000"
-                            alt="festival"
-                            style={styles.image}
-                        />
+            <div style={styles.container}>
+                <div style={styles.imageSection}>
+                    <img
+                        src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1000"
+                        alt="signup"
+                        style={styles.image}
+                    />
+                </div>
+
+                <div style={styles.formSection}>
+                    <div style={styles.header}>
+                        <h2 style={styles.title}>Join Evenzo Today</h2>
+                        <p style={styles.subtitle}>Create an account to start organizing and attending unique events.</p>
                     </div>
 
-                    <div style={styles.formSection}>
-                        <h2 style={styles.title}>Create Account</h2>
-                        <p style={styles.subtitle}>Join us to discover and organize amazing events.</p>
-
-                        <form style={styles.form} onSubmit={handleSubmit}>
-                            <div style={styles.row}>
-                                <div style={{ flex: 1 }}>
-                                    <Input label="Full Name"
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        placeholder="John Doe"
-                                        type="text"
-                                        error={errors.name}
-                                    />
-                                </div>
-                                <div style={{ flex: 1 }}>
-                                    <Input label="Phone"
-                                        name="phone"
-                                        value={formData.phone}
-                                        onChange={handleChange}
-                                        placeholder="+1 234 567 890"
-                                        type="text"
-                                        error={errors.phone}
-                                    />
-                                </div>
-                            </div>
-
-                            <Input label="Email Address"
-                                name="email"
-                                value={formData.email}
+                    <form style={styles.form} onSubmit={handleSubmit}>
+                        <div style={styles.row}>
+                            <Input label="Full Name"
+                                name="name"
+                                value={formData.name}
                                 onChange={handleChange}
-                                placeholder="john.doe@example.com"
-                                type="email"
-                                error={errors.email}
+                                placeholder="e.g. John Smith"
+                                type="text"
+                                error={errors.name}
                             />
+                            <Input label="Phone"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                placeholder="e.g. +1234567890"
+                                type="text"
+                                error={errors.phone}
+                            />
+                        </div>
 
-                            <div style={styles.row}>
-                                <div style={{ flex: 1 }}>
-                                    <Input
-                                        label="Password"
-                                        name="password"
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                        placeholder="••••••••"
-                                        type="password"
-                                        error={errors.password}
-                                    />
-                                </div>
-                                <div style={{ flex: 1 }}>
-                                    <Input
-                                        label="Confirm Password"
-                                        name="confirmPassword"
-                                        value={formData.confirmPassword}
-                                        onChange={handleChange}
-                                        placeholder="••••••••"
-                                        type="password"
-                                        error={errors.confirmPassword}
-                                    />
-                                </div>
-                            </div>
+                        <Input label="Email Address"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="john.doe@example.com"
+                            type="email"
+                            error={errors.email}
+                        />
 
-                            <div style={styles.buttonRow}>
-                                <button
-                                    type="button"
-                                    onClick={loginWithGoogle}
-                                    style={styles.googleBtn}
-                                >
-                                    <GoogleIcon /> Google Sign up
-                                </button>
+                        <div style={styles.row}>
+                            <Input
+                                label="Password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                placeholder="••••••••"
+                                type="password"
+                                error={errors.password}
+                            />
+                            <Input
+                                label="Confirm"
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                placeholder="••••••••"
+                                type="password"
+                                error={errors.confirmPassword}
+                            />
+                        </div>
 
-                                <button type="submit" style={styles.loginBtn} disabled={isLoading}>
-                                    {isLoading ? 'Creating...' : 'Sign Up'}
-                                </button>
-                            </div>
-                        </form>
+                        <div style={styles.buttonRow}>
+                            <button type="submit" style={styles.loginBtn} disabled={isLoading}>
+                                {isLoading ? 'Handshaking...' : 'Create My Account'}
+                            </button>
+                            <button type="button" style={styles.googleBtn}>
+                                <GoogleIcon /> Sign up with Google
+                            </button>
+                        </div>
+                    </form>
 
-                        <p style={styles.footer}>
-                            Already have an account?{" "}
-                            <span style={styles.link} onClick={() => navigate("/login")}>Login</span>
-                        </p>
-                    </div>
+                    <p style={styles.footer}>
+                        Already a member?{" "}
+                        <span style={styles.link} onClick={() => navigate("/login")}>Login instead</span>
+                    </p>
                 </div>
             </div>
         </div>
     );
 }
 
-const styles: any = {
-    pageCenter: { backgroundColor: "#f5f6f8", minHeight: "calc(100vh - 130px)", display: "flex", justifyContent: "center", alignItems: "center", width: "100%" },
-    wrapper: { display: "flex", justifyContent: "center", padding: "40px 20px" },
-    container: { display: "flex", backgroundColor: "white", borderRadius: "20px", width: "1100px", boxShadow: "0 15px 40px rgba(0, 0, 0, 0.09)", padding: "30px", gap: "40px" },
-    imageSection: { flex: 1 },
-    image: { width: "100%", height: "600px", objectFit: "cover", borderRadius: "20px" },
-    formSection: { flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" },
-    title: { fontSize: "30px", fontWeight: 500, marginBottom: "5px" },
-    subtitle: { fontSize: "14px", color: "#71717a", marginBottom: "25px" },
-    form: { display: "flex", flexDirection: "column", gap: "18px" },
+const styles: Record<string, React.CSSProperties> = {
+    pageCenter: { backgroundColor: "#f9fafb", minHeight: "calc(100vh - 80px)", display: "flex", justifyContent: "center", alignItems: "center", padding: "40px 20px" },
+    container: { display: "flex", backgroundColor: "white", borderRadius: "30px", width: "1000px", maxWidth: "95vw", boxShadow: "0 25px 50px rgba(0, 0, 0, 0.05)", padding: "20px", gap: "20px" },
+    imageSection: { flex: 1.2, display: "none" as any },
+    image: { width: "100%", height: "580px", objectFit: "cover", borderRadius: "20px" },
+    formSection: { flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", padding: "40px" },
+    header: { marginBottom: '30px' },
+    title: { fontSize: "24px", fontWeight: 500, color: '#1e293b', marginBottom: "8px" },
+    subtitle: { fontSize: "14px", color: "#64748b", fontWeight: 300, lineHeight: 1.5 },
+    form: { display: "flex", flexDirection: "column", gap: "15px" },
     row: { display: "flex", gap: "15px" },
-    inputGroup: { display: "flex", flexDirection: "column" },
-    label: { fontSize: "14px", marginBottom: "5px", fontWeight: 600, marginLeft: "6px" },
-    input: { padding: "14px", borderRadius: "10px", backgroundColor: "#fafafa", fontSize: "13px" },
-    buttonRow: { display: "flex", gap: "15px", marginTop: "10px" },
-    googleBtn: { flex: 1, padding: "10px", borderRadius: "10px", border: "1px solid #c2c2c2", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", fontWeight: 600, cursor: "pointer", fontSize: "14px", height: "40px" },
-    loginBtn: { flex: 1, padding: "10px", borderRadius: "10px", border: "none", backgroundColor: "#2563eb", color: "white", fontWeight: 600, cursor: "pointer", fontSize: "14px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center" },
-    footer: { textAlign: "center", marginTop: "25px", fontSize: "14px", color: "#71717a" },
-    link: { color: "#2563eb", fontWeight: 600, cursor: "pointer" },
-    errorText: { color: "#ef4444", fontSize: "12px", marginTop: "4px", marginLeft: "6px" },
+    inputGroup: { flex: 1, display: "flex", flexDirection: "column", gap: "6px" },
+    label: { fontSize: "11px", fontWeight: 500, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em", marginLeft: "2px" },
+    input: { padding: "10px 15px", borderRadius: "10px", backgroundColor: "#fafafa", fontSize: "13px", fontWeight: 300, outline: "none" },
+    buttonRow: { display: "flex", flexDirection: "column", gap: "10px", marginTop: "15px" },
+    loginBtn: { padding: "12px", borderRadius: "10px", border: "none", backgroundColor: "#2563eb", color: "white", fontWeight: 500, cursor: "pointer", fontSize: "12px", textTransform: 'uppercase', letterSpacing: '0.05em', boxShadow: '0 8px 15px rgba(37, 99, 235, 0.15)' },
+    googleBtn: { padding: "10px", borderRadius: "10px", border: "1px solid #e2e8f0", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", fontWeight: 500, cursor: "pointer", fontSize: "12px", color: '#475569' },
+    footer: { textAlign: "center", marginTop: "30px", fontSize: "13px", color: "#64748b", fontWeight: 300 },
+    link: { color: "#2563eb", fontWeight: 500, cursor: "pointer" },
+    errorText: { color: "#ef4444", fontSize: "11px", marginTop: "2px" },
 };
+
+if (typeof window !== 'undefined' && window.innerWidth > 900) {
+    (styles.imageSection as any).display = "block";
+}
 
 export default UserSignup;

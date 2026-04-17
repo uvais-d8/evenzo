@@ -1,14 +1,19 @@
+
 import { IVendor } from '../../domain/entities/Vendor';
-import { VendorStatus } from '../../domain/enums/VendorStatus.enum';
+import { VendorStatus } from '../../domain/enums/enums';
 import { IVendorRepository } from '../../domain/repositories/IVendorRepository';
 import { PaginatedResult, PaginationOptions } from '../../domain/repositories/IBaseRepository';
-import VendorModel from '../database/models/VendorModel';
+import VendorModel from '../database/VendorModel';
 
 function toIVendor(doc: unknown): IVendor {
     return JSON.parse(JSON.stringify(doc)) as IVendor;
 }
 
 export class VendorRepository implements IVendorRepository {
+    async count(filter: Record<string, any> = {}): Promise<number> {
+        return await VendorModel.countDocuments(filter);
+    }
+
     async findById(id: string): Promise<IVendor | null> {
         const doc = await VendorModel.findById(id).select('-password').lean();
         return doc ? toIVendor(doc) : null;
@@ -24,23 +29,26 @@ export class VendorRepository implements IVendorRepository {
         return doc ? toIVendor(doc) : null;
     }
 
-    async findByStatus(status: VendorStatus, options: PaginationOptions): Promise<PaginatedResult<IVendor>> {
-        const { page, limit } = options;
+    async findByStatus(status: VendorStatus, options?: PaginationOptions, filterParams: Record<string, any> = {}): Promise<PaginatedResult<IVendor>> {
+        const page = options?.page || 1;
+        const limit = options?.limit || 10;
         const skip = (page - 1) * limit;
+        const filter = { ...filterParams, vendorStatus: status };
         const [docs, total] = await Promise.all([
-            VendorModel.find({ vendorStatus: status }).select('-password').skip(skip).limit(limit).lean(),
-            VendorModel.countDocuments({ vendorStatus: status }),
+            VendorModel.find(filter).select('-password').skip(skip).limit(limit).lean(),
+            VendorModel.countDocuments(filter),
         ]);
         const data = docs.map(toIVendor);
         return { data, total, page, limit, totalPages: Math.ceil(total / limit) };
     }
 
-    async findAll(options: PaginationOptions): Promise<PaginatedResult<IVendor>> {
-        const { page, limit } = options;
+    async findAll(options?: PaginationOptions, filter: Record<string, any> = {}): Promise<PaginatedResult<IVendor>> {
+        const page = options?.page || 1;
+        const limit = options?.limit || 10;
         const skip = (page - 1) * limit;
         const [docs, total] = await Promise.all([
-            VendorModel.find().select('-password').skip(skip).limit(limit).lean(),
-            VendorModel.countDocuments(),
+            VendorModel.find(filter).select('-password').skip(skip).limit(limit).lean(),
+            VendorModel.countDocuments(filter),
         ]);
         const data = docs.map(toIVendor);
         return { data, total, page, limit, totalPages: Math.ceil(total / limit) };
@@ -56,7 +64,7 @@ export class VendorRepository implements IVendorRepository {
     }
 
     async update(id: string, data: Partial<IVendor>): Promise<IVendor | null> {
-        const doc = await VendorModel.findByIdAndUpdate(id, data, { new: true }).select('-password').lean();
+        const doc = await VendorModel.findByIdAndUpdate(id, data, { returnDocument: 'after' }).select('-password').lean();
         return doc ? toIVendor(doc) : null;
     }
 

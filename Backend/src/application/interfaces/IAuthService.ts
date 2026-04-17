@@ -1,7 +1,7 @@
 import { IUser } from '../../domain/entities/User';
 import { IVendor } from '../../domain/entities/Vendor';
 import { IAdmin } from '../../domain/entities/Admin';
-import { Role } from '../../domain/enums/Role.enum';
+import { Role } from '../../domain/enums/enums';
 
 export interface RegisterData {
     name: string;

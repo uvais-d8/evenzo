@@ -1,9 +1,11 @@
+
 import { IVendorService, UpdateVendorData, VendorStats } from '../../interfaces/IVendorService';
 import { IVendor } from '../../../domain/entities/Vendor';
 import { IVendorRepository } from '../../../domain/repositories/IVendorRepository';
-import { VendorStatus } from '../../../domain/enums/VendorStatus.enum';
+import { VendorStatus } from '../../../domain/enums/enums';
 import { NotFoundError } from '../../../domain/errors/AppError';
 import { Messages } from '../../constants/Messages';
+
 
 export class VendorUseCase implements IVendorService {
     constructor(private readonly vendorRepo: IVendorRepository) { }

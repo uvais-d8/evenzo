@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from 'mongoose';
-import { IAdmin } from '../../../domain/entities/Admin';
-import { Role } from '../../../domain/enums/Role.enum';
+import { IAdmin } from '../../domain/entities/Admin';
+import { Role } from '../../domain/enums/enums';
 
 export interface IAdminDocument extends Omit<IAdmin, '_id'>, Document { }
 

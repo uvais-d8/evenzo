@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import UserModel from '../../infrastructure/database/models/UserModel';
-import VendorModel from '../../infrastructure/database/models/VendorModel';
-import AdminModel from '../../infrastructure/database/models/AdminModel';
-import { Role } from '../../domain/enums/Role.enum';
+import UserModel from '../../infrastructure/database/UserModel';
+import VendorModel from '../../infrastructure/database/VendorModel';
+import AdminModel from '../../infrastructure/database/AdminModel';
+import { Role } from '../../domain/enums/enums';
 import { ForbiddenError, UnauthorizedError } from '../../domain/errors/AppError';
 import { Messages } from '../../application/constants/Messages';
 

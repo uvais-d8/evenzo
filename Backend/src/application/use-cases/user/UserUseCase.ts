@@ -1,8 +1,10 @@
+
 import { IUserService, UpdateUserData } from '../../interfaces/IUserService';
 import { IUser } from '../../../domain/entities/User';
 import { IUserRepository } from '../../../domain/repositories/IUserRepository';
 import { NotFoundError } from '../../../domain/errors/AppError';
 import { Messages } from '../../constants/Messages';
+
 
 export class UserUseCase implements IUserService {
     constructor(private readonly userRepo: IUserRepository) { }

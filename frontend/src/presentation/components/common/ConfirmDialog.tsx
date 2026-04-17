@@ -6,9 +6,10 @@ interface ConfirmDialogProps {
     message: string;
     confirmLabel?: string;
     cancelLabel?: string;
-    variant?: 'danger' | 'warning' | 'info';
+    variant?: 'danger' | 'warning' | 'info' | 'primary';
     onConfirm: () => void;
     onCancel: () => void;
+    isLoading?: boolean;
 }
 
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
@@ -20,6 +21,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     variant = 'danger',
     onConfirm,
     onCancel,
+    isLoading = false
 }) => {
     const cancelRef = useRef<HTMLButtonElement>(null);
 
@@ -29,10 +31,11 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
 
     if (!isOpen) return null;
 
-    const confirmColors: Record<string, React.CSSProperties> = {
-        danger: { backgroundColor: '#ef4444', color: '#fff' },
-        warning: { backgroundColor: '#f59e0b', color: '#fff' },
-        info: { backgroundColor: '#2563eb', color: '#fff' },
+    const variantStyles: Record<string, React.CSSProperties> = {
+        danger: { backgroundColor: 'rgba(239, 68, 68, 0.05)', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.2)' },
+        warning: { backgroundColor: 'rgba(245, 158, 11, 0.05)', color: '#f59e0b', border: '1px solid rgba(245, 158, 11, 0.2)' },
+        info: { backgroundColor: 'rgba(37, 99, 235, 0.05)', color: '#2563eb', border: '1px solid rgba(37, 99, 235, 0.2)' },
+        primary: { backgroundColor: 'rgba(37, 99, 235, 0.05)', color: '#2563eb', border: '1px solid rgba(37, 99, 235, 0.2)' },
     };
 
     return (
@@ -46,15 +49,17 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
                         ref={cancelRef}
                         style={styles.cancelBtn}
                         onClick={onCancel}
+                        disabled={isLoading}
                     >
                         {cancelLabel}
                     </button>
                     <button
                         id="confirm-ok-btn"
-                        style={{ ...styles.confirmBtn, ...confirmColors[variant] }}
+                        style={{ ...styles.confirmBtn, ...variantStyles[variant] }}
                         onClick={onConfirm}
+                        disabled={isLoading}
                     >
-                        {confirmLabel}
+                        {isLoading ? 'Processing...' : confirmLabel}
                     </button>
                 </div>
             </div>
@@ -64,24 +69,33 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
 
 const styles: Record<string, React.CSSProperties> = {
     overlay: {
-        position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)',
+        position: 'fixed', inset: 0, backgroundColor: 'rgba(15, 23, 42, 0.3)',
+        backdropFilter: 'blur(8px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999,
     },
     modal: {
-        backgroundColor: '#fff', borderRadius: '16px', padding: '32px',
-        width: '90%', maxWidth: '420px', boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(20px)',
+        borderRadius: '24px',
+        padding: '32px',
+        width: '90%',
+        maxWidth: '420px',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.1)',
+        border: '1px solid rgba(255, 255, 255, 0.5)',
+        textAlign: 'center'
     },
-    title: { margin: '0 0 12px 0', fontSize: '18px', fontWeight: 700, color: '#1e293b' },
-    message: { margin: '0 0 24px 0', fontSize: '14px', color: '#64748b', lineHeight: 1.6 },
-    actions: { display: 'flex', justifyContent: 'flex-end', gap: '12px' },
+    title: { margin: '0 0 12px 0', fontSize: '18px', fontWeight: 600, color: '#1e293b' },
+    message: { margin: '0 0 24px 0', fontSize: '14px', color: '#64748b', lineHeight: 1.6, fontWeight: 300 },
+    actions: { display: 'flex', justifyContent: 'center', gap: '12px' },
     cancelBtn: {
-        padding: '10px 20px', backgroundColor: '#f1f5f9', color: '#475569',
-        border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer',
-        fontSize: '14px', fontWeight: 500,
+        padding: '10px 24px', backgroundColor: 'transparent', color: '#64748b',
+        border: '1px solid #e2e8f0', borderRadius: '12px', cursor: 'pointer',
+        fontSize: '13px', fontWeight: 600, transition: 'all 0.2s'
     },
     confirmBtn: {
-        padding: '10px 20px', border: 'none', borderRadius: '8px',
-        cursor: 'pointer', fontSize: '14px', fontWeight: 600,
+        padding: '10px 24px', borderRadius: '12px',
+        cursor: 'pointer', fontSize: '13px', fontWeight: 600,
+        textTransform: 'uppercase', letterSpacing: '0.05em', transition: 'all 0.2s'
     },
 };
 

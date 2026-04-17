@@ -4,10 +4,6 @@ export enum VendorStatus {
     REJECTED = 'rejected'
 }
 
-export enum UserStatus {
-    ACTIVE = 'active',
-    BLOCKED = 'blocked'
-}
 
 export enum Role {
     ADMIN = 'admin',

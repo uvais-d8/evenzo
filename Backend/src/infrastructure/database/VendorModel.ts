@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from 'mongoose';
-import { IVendor } from '../../../domain/entities/Vendor';
-import { Role } from '../../../domain/enums/Role.enum';
-import { VendorStatus } from '../../../domain/enums/VendorStatus.enum';
+import { IVendor } from '../../domain/entities/Vendor';
+import { Role } from '../../domain/enums/enums';
+import { VendorStatus } from '../../domain/enums/enums';
 
 export interface IVendorDocument extends Omit<IVendor, '_id'>, Document { }
 

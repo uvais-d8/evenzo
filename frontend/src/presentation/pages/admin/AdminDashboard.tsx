@@ -1,41 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { adminApi } from '../../../infrastructure/api/admin.api';
+import { useRepositories } from '../../../infrastructure/context/RepositoryContext';
 import { AdminStats } from '../../../core/types/category.types';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import toast from 'react-hot-toast';
-import { FiUsers, FiBriefcase, FiClock, FiCalendar, FiDollarSign } from 'react-icons/fi';
+import { ERROR_MESSAGES } from '../../../core/constants/Messages';
 
 const AdminDashboard: React.FC = () => {
+    const { adminRepository } = useRepositories();
     const [stats, setStats] = useState<AdminStats | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const res = await adminApi.getStats();
-                setStats(res.data);
+                const res = await adminRepository.getStats();
+                setStats(res);
             } catch {
-                toast.error('Failed to fetch dashboard statistics');
+                toast.error(ERROR_MESSAGES.FETCH_STATS_FAILED || 'Failed to fetch dashboard statistics');
             } finally {
                 setLoading(false);
             }
         };
         fetchStats();
-    }, []);
+    }, [adminRepository]);
 
     if (loading) return <LoadingSpinner message="Loading dashboard statistics..." />;
 
     const statCards = [
-        { label: 'Total Vendors', value: '100+', color: '#1e293b' },
-        { label: 'Total Clients', value: '500+', color: '#1e293b' },
-        { label: 'Total Bookings', value: '100+', color: '#1e293b' },
-        { label: 'Total Revenue', value: '100+', color: '#1e293b' },
+        { label: 'Total Vendors', value: stats?.totalVendors.toString() || '0' },
+        { label: 'Total Clients', value: stats?.totalUsers.toString() || '0' },
+        { label: 'Total Bookings', value: stats?.totalBookings.toString() || '0' },
+        { label: 'Total Revenue', value: `$${stats?.totalRevenue.toLocaleString() || '0'}` },
     ];
 
     return (
         <div style={styles.container}>
             <div style={styles.header}>
-                <h2 style={styles.title}>Dashboard</h2>
+                <h2 style={styles.title}>Dashboard Overview</h2>
             </div>
 
             <div style={styles.statsGrid}>
@@ -43,13 +44,14 @@ const AdminDashboard: React.FC = () => {
                     <div key={idx} style={styles.statCard}>
                         <p style={styles.statLabel}>{card.label}</p>
                         <h3 style={styles.statValue}>{card.value}</h3>
+                        <div style={styles.statSub}>{idx === 3 ? 'This Month' : '100+'}</div>
                     </div>
                 ))}
             </div>
 
             <div style={styles.chartSection}>
                 <div style={styles.chartHeader}>
-                    <h3 style={styles.chartTitle}>Sales Details</h3>
+                    <h3 style={styles.chartTitle}>Revenue Analysis</h3>
                     <select style={styles.monthSelect}>
                         <option>October</option>
                         <option>November</option>
@@ -58,40 +60,37 @@ const AdminDashboard: React.FC = () => {
                 </div>
 
                 <div style={styles.chartContainer}>
-                    <svg width="100%" height="300" viewBox="0 0 1000 300" preserveAspectRatio="none">
+                    <svg width="100%" height="250" viewBox="0 0 1000 250" preserveAspectRatio="none">
                         <defs>
                             <linearGradient id="adminChartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" style={{ stopColor: '#2563eb', stopOpacity: 0.2 }} />
+                                <stop offset="0%" style={{ stopColor: '#2563eb', stopOpacity: 0.1 }} />
                                 <stop offset="100%" style={{ stopColor: '#2563eb', stopOpacity: 0 }} />
                             </linearGradient>
                         </defs>
 
                         {[0, 20, 40, 60, 80, 100].map((val) => (
-                            <line key={val} x1="0" y1={250 - (val * 2)} x2="1000" y2={250 - (val * 2)} stroke="#f1f5f9" strokeWidth="1" />
+                            <line key={val} x1="0" y1={200 - (val * 2)} x2="1000" y2={200 - (val * 2)} stroke="#f1f5f9" strokeWidth="1" />
                         ))}
 
                         <path
-                            d="M0,230 C50,225 100,220 150,185 C200,165 250,215 300,195 C350,175 400,205 450,125 C500,105 550,225 600,185 C650,155 700,205 750,145 C800,105 850,185 900,165 C950,145 1000,165 L1000,300 L0,300 Z"
+                            d="M0,200 C50,195 100,190 150,155 C200,135 250,185 300,165 C350,145 400,175 450,95 C500,75 550,195 600,155 C650,125 700,175 750,115 C800,75 850,155 900,135 C950,115 1000,135 L1000,250 L0,250 Z"
                             fill="url(#adminChartGrad)"
                         />
 
                         <path
-                            d="M0,230 C50,225 100,220 150,185 C200,165 250,215 300,195 C350,175 400,205 450,125 C500,105 550,225 600,185 C650,155 700,205 750,145 C800,105 850,185 900,165 C950,145 1000,165"
+                            d="M0,200 C50,195 100,190 150,155 C200,135 250,185 300,165 C350,145 400,175 450,95 C500,75 550,195 600,155 C650,125 700,175 750,115 C800,75 850,155 900,135 C950,115 1000,135"
                             fill="none"
                             stroke="#2563eb"
-                            strokeWidth="3"
+                            strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                         />
 
-                        <circle cx="450" cy="125" r="5" fill="#2563eb" stroke="white" strokeWidth="2" />
-
-                        <rect x="420" y="85" width="60" height="24" rx="4" fill="#2563eb" />
-                        <text x="450" y="101" fill="white" fontSize="10" textAnchor="middle" fontWeight="bold">64,364.77</text>
+                        <circle cx="450" cy="95" r="4" fill="#2563eb" stroke="white" strokeWidth="2" />
                     </svg>
 
                     <div style={styles.xAxis}>
-                        <span>5k</span><span>10k</span><span>15k</span><span>20k</span><span>25k</span><span>30k</span><span>35k</span><span>40k</span><span>45k</span><span>50k</span><span>55k</span>
+                        <span>JAN</span><span>FEB</span><span>MAR</span><span>APR</span><span>MAY</span><span>JUN</span><span>JUL</span><span>AUG</span><span>SEP</span><span>OCT</span><span>NOV</span><span>DEC</span>
                     </div>
                 </div>
             </div>
@@ -100,57 +99,20 @@ const AdminDashboard: React.FC = () => {
 };
 
 const styles: Record<string, React.CSSProperties> = {
-    container: {
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px', // Reduced gap
-        height: '100%',
-        overflow: 'hidden'
-    },
-    header: { marginBottom: '0px' },
-    title: { fontSize: '20px', fontWeight: 600, color: '#1e293b', margin: 0 },
-    statsGrid: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: '20px' // Reduced gap
-    },
-    statCard: {
-        backgroundColor: 'white',
-        padding: '25px 20px',
-        borderRadius: '20px', // Square-ish
-        boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
-        border: '1px solid #f1f5f9',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center'
-    },
-    statLabel: { margin: '0 0 10px 0', fontSize: '13px', fontWeight: 400, color: '#64748b' },
-    statValue: { margin: 0, fontSize: '22px', fontWeight: 600, color: '#1e293b' },
-    chartSection: {
-        backgroundColor: '#fff',
-        padding: '25px', // Reduced padding
-        borderRadius: '25px',
-        border: '1px solid #f1f5f9',
-        boxShadow: '0 10px 50px rgba(0,0,0,0.02)',
-        flex: 1, // Take remaining space
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: 0 // Allow shrinking
-    },
-    chartHeader: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px' },
-    chartTitle: { margin: 0, fontSize: '16px', fontWeight: 600, color: '#1e293b' },
-    monthSelect: { padding: '8px 20px', borderRadius: '10px', border: '1px solid #e2e8f0', color: '#64748b', fontSize: '13px', cursor: 'pointer', outline: 'none' },
-    chartContainer: {
-        width: '100%',
-        position: 'relative',
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column'
-    },
-    xAxis: { display: 'flex', justifyContent: 'space-between', padding: '15px 10px 0', color: '#94a3b8', fontSize: '12px', borderTop: '1px solid #f1f5f9', marginTop: 'auto' },
+    container: { width: '100%', display: 'flex', flexDirection: 'column', gap: '15px', height: '100%' },
+    header: { marginBottom: '5px' },
+    title: { fontSize: '18px', fontWeight: 500, color: '#1e293b', margin: 0 },
+    statsGrid: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '15px' },
+    statCard: { backgroundColor: 'white', padding: '20px', borderRadius: '15px', boxShadow: '0 4px 15px rgba(0,0,0,0.02)', border: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', textAlign: 'left' },
+    statLabel: { margin: '0 0 5px 0', fontSize: '12px', fontWeight: 300, color: '#64748b' },
+    statValue: { margin: '0 0 5px 0', fontSize: '20px', fontWeight: 500, color: '#1e293b' },
+    statSub: { fontSize: '10px', color: '#10b981', fontWeight: 400 },
+    chartSection: { backgroundColor: '#fff', padding: '20px', borderRadius: '20px', border: '1px solid #f1f5f9', boxShadow: '0 4px 15px rgba(0,0,0,0.02)', flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 },
+    chartHeader: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' },
+    chartTitle: { margin: 0, fontSize: '14px', fontWeight: 500, color: '#1e293b' },
+    monthSelect: { padding: '6px 15px', borderRadius: '8px', border: '1px solid #e2e8f0', color: '#64748b', fontSize: '11px', cursor: 'pointer', outline: 'none' },
+    chartContainer: { width: '100%', position: 'relative', flex: 1, display: 'flex', flexDirection: 'column' },
+    xAxis: { display: 'flex', justifyContent: 'space-between', padding: '10px 0 0', color: '#94a3b8', fontSize: '10px', marginTop: 'auto' },
 };
 
 export default AdminDashboard;

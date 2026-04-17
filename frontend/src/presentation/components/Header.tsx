@@ -51,6 +51,16 @@ const Header = () => {
                     <h1 style={styles.logo} onClick={() => navigate("/")}>evenzo</h1>
 
                     <div style={styles.navActions}>
+                        {token && (
+                            <button
+                                onClick={handleLogout}
+                                style={styles.logoutBtn}
+                                onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
+                                onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+                            >
+                                Logout
+                            </button>
+                        )}
                         <div style={styles.menuIcon}>
                             <div style={styles.menuLine}></div>
                             <div style={styles.menuLine}></div>

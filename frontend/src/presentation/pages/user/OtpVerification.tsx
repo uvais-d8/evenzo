@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { authApi } from "../../../infrastructure/api/auth.api";
+import { useRepositories } from "../../../infrastructure/context/RepositoryContext";
 import toast from "react-hot-toast";
+import { SUCCESS_MESSAGES, ERROR_MESSAGES } from "../../../core/constants/Messages";
 
-function OtpVerification() {
+const OtpVerification: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const { authRepository } = useRepositories();
     const { email, type, backPath, role } = location.state || {};
 
     const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -54,24 +56,24 @@ function OtpVerification() {
 
         setIsVerifying(true);
         try {
-            const response = await authApi.verifyOtp({ email, otp: enteredOtp });
-            const { token, refreshToken, role: userRole, user } = response.data;
+            const result = await authRepository.verifyOtp({ email, otp: enteredOtp });
+            const { token, refreshToken, role: userRole, user } = result;
 
             if (token) {
                 sessionStorage.setItem("token", token);
                 sessionStorage.setItem("refreshToken", refreshToken);
                 sessionStorage.setItem("userRole", userRole || role || "user");
                 sessionStorage.setItem("userData", JSON.stringify(user));
-                toast.success("Verification successful!");
+                toast.success(SUCCESS_MESSAGES.VERIFICATION_SUCCESS);
                 if (userRole === 'admin' || role === 'admin') navigate("/admin/dashboard");
                 else if (userRole === 'vendor' || role === 'vendor') navigate("/vendor/dashboard");
                 else navigate("/");
             } else {
-                toast.success("Verified successfully!");
+                toast.success(SUCCESS_MESSAGES.VERIFICATION_SUCCESS);
                 navigate("/login");
             }
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Invalid OTP");
+            toast.error(error.response?.data?.message || ERROR_MESSAGES.INVALID_OTP);
         } finally {
             setIsVerifying(false);
         }
@@ -81,11 +83,11 @@ function OtpVerification() {
         if (timeLeft > 0) return;
         setIsResending(true);
         try {
-            await authApi.resendOtp(email);
-            toast.success("New OTP sent to your email!");
+            await authRepository.resendOtp(email);
+            toast.success(SUCCESS_MESSAGES.OTP_SENT);
             setTimeLeft(60);
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to resend OTP");
+            toast.error(error.response?.data?.message || ERROR_MESSAGES.DEFAULT);
         } finally {
             setIsResending(false);
         }
@@ -143,7 +145,7 @@ function OtpVerification() {
     );
 }
 
-const styles: any = {
+const styles: Record<string, React.CSSProperties> = {
     pageCenter: { backgroundColor: "#f5f6f8", minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" },
     container: { backgroundColor: "white", padding: "40px", borderRadius: "20px", width: "450px", boxShadow: "0 10px 25px rgba(0,0,0,0.05)", textAlign: "center" },
     title: { fontSize: "24px", fontWeight: 600, marginBottom: "10px" },

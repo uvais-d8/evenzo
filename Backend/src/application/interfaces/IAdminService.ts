@@ -1,6 +1,6 @@
 import { IUser } from '../../domain/entities/User';
 import { IVendor } from '../../domain/entities/Vendor';
-import { VendorStatus } from '../../domain/enums/VendorStatus.enum';
+import { VendorStatus } from '../../domain/enums/enums';
 import { PaginatedResult, PaginationOptions } from '../../domain/repositories/IBaseRepository';
 
 export interface AdminStats {

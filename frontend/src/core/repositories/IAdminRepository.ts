@@ -16,10 +16,3 @@ export interface IAdminRepository {
     toggleBlockVendor(vendorId: string): Promise<{ message: string; isBlocked: boolean }>;
     toggleBlockUser(id: string): Promise<{ message: string; isBlocked: boolean }>;
 }
-
-export interface ICategoryRepository {
-    getCategories(params?: PaginationParams): Promise<PaginatedResponse<ICategory>>;
-    createCategory(data: any): Promise<ICategory>;
-    updateCategory(id: string, data: any): Promise<ICategory>;
-    deleteCategory(id: string): Promise<void>;
-}

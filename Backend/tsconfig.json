@@ -13,6 +13,8 @@
     "noUnusedParameters": false,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": false,
+    "emitDecoratorMetadata": false
   }
 }

@@ -1,7 +1,10 @@
 import * as nodemailer from 'nodemailer';
-import { logger } from '../../shared/logger';
 
-export class EmailService {
+import { logger } from './LoggerService';
+
+import { IEmailService } from '../../application/interfaces/IEmailService';
+
+export class EmailService implements IEmailService {
     private transporter: nodemailer.Transporter;
 
     constructor() {

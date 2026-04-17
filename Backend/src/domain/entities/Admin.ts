@@ -1,4 +1,4 @@
-import { Role } from '../enums/Role.enum';
+import { Role } from '../enums/enums';
 
 export interface IAdmin {
     _id?: string;

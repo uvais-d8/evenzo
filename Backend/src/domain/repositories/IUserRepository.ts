@@ -3,6 +3,6 @@ import { IBaseRepository, PaginatedResult, PaginationOptions } from './IBaseRepo
 
 export interface IUserRepository extends IBaseRepository<IUser> {
     findByRefreshToken(token: string): Promise<IUser | null>;
-    findAll(options: PaginationOptions): Promise<PaginatedResult<IUser>>;
+    findAll(options?: PaginationOptions, filter?: Record<string, any>): Promise<PaginatedResult<IUser>>;
     save(user: IUser): Promise<IUser>;
 }

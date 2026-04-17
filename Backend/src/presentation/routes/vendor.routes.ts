@@ -1,13 +1,11 @@
 import { Router } from 'express';
-import { container } from '../../di/container';
+import { authController as authCtrl, vendorController as vendorCtrl } from '../controllers';
 import { authenticate, authorize } from '../middleware/auth.middleware';
-import { Role } from '../../domain/enums/Role.enum';
+import { Role } from '../../domain/enums/enums';
 
 import { upload } from '../middleware/multer';
 
 const router = Router();
-const authCtrl = container.authController;
-const vendorCtrl = container.vendorController;
 
 // VENDOR REGISTER
 router.post('/register', upload.single('idProof'), (req, res, next) => {

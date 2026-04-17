@@ -11,14 +11,12 @@ export interface PaginatedResult<T> {
     totalPages: number;
 }
 
-/**
- * Generic base repository interface.
- * All concrete repositories must implement this contract.
- */
 export interface IBaseRepository<T> {
+    create(item: Partial<T>): Promise<T>;
     findById(id: string): Promise<T | null>;
     findByEmail(email: string): Promise<T | null>;
-    create(data: Partial<T>): Promise<T>;
-    update(id: string, data: Partial<T>): Promise<T | null>;
+    findAll(options?: PaginationOptions, filter?: Record<string, any>): Promise<PaginatedResult<T>>;
+    update(id: string, item: Partial<T>): Promise<T | null>;
     delete(id: string): Promise<boolean>;
+    count(filter?: Record<string, any>): Promise<number>;
 }

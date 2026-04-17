@@ -1,6 +1,6 @@
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import React from "react";
-import { FiInstagram, FiFacebook, FiLinkedin, FiLogOut, FiMenu, FiHome, FiUsers, FiCalendar, FiGrid, FiCreditCard, FiShield, FiPackage } from 'react-icons/fi';
+import { FiInstagram, FiFacebook, FiLinkedin, FiLogOut, FiHome, FiUsers, FiCalendar, FiGrid, FiCreditCard, FiShield, FiPackage } from 'react-icons/fi';
 
 function AdminLayout() {
   const navigate = useNavigate();
@@ -54,12 +54,15 @@ function AdminLayout() {
                   style={{
                     ...styles.menuItem,
                     backgroundColor: isActive ? "#2563eb" : "transparent",
-                    color: isActive ? "white" : "#475569",
-                    boxShadow: isActive ? '0 8px 20px rgba(37, 99, 235, 0.2)' : 'none',
-                    fontWeight: isActive ? 500 : 400
+                    color: isActive ? "white" : "#1e293b",
+                    boxShadow: isActive ? '0 8px 15px rgba(37, 99, 235, 0.15)' : 'none',
+                    fontWeight: isActive ? 400 : 300
                   }}
                 >
-                  <span style={styles.menuIcon}>{item.icon}</span>
+                  <span style={{
+                    ...styles.menuIcon,
+                    color: isActive ? 'white' : '#2563eb'
+                  }}>{item.icon}</span>
                   {item.name}
                 </button>
               );
@@ -107,8 +110,8 @@ const styles: Record<string, React.CSSProperties> = {
   layoutBody: {
     display: 'flex',
     flex: 1,
-    padding: '30px 60px',
-    gap: '30px',
+    padding: '20px 60px',
+    gap: '20px',
     backgroundColor: '#f9fafb',
     overflow: 'hidden',
   },
@@ -123,13 +126,13 @@ const styles: Record<string, React.CSSProperties> = {
     boxShadow: '0 10px 40px rgba(0,0,0,0.05)',
     height: '100%'
   },
-  profileSection: { width: '100%', textAlign: 'center', marginBottom: '30px', padding: '0 10px' },
-  avatarCircleLarge: { width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#262626', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 500, fontSize: '32px', margin: '0 auto 15px', border: '3px solid #fff', boxShadow: '0 8px 20px rgba(0,0,0,0.08)' },
-  adminName: { fontSize: '16px', fontWeight: 600, color: '#1e293b', margin: 0 },
-  menuList: { width: '100%', display: 'flex', flexDirection: 'column', gap: '8px' },
+  profileSection: { width: '100%', textAlign: 'center', marginBottom: '25px', padding: '0 10px' },
+  avatarCircleLarge: { width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#262626', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 400, fontSize: '32px', margin: '0 auto 15px', border: '3px solid #fff', boxShadow: '0 8px 20px rgba(0,0,0,0.08)' },
+  adminName: { fontSize: '15px', fontWeight: 400, color: '#1e293b', margin: 0 },
+  menuList: { width: '100%', display: 'flex', flexDirection: 'column', gap: '5px' },
   menuItem: {
-    padding: '12px 18px',
-    borderRadius: '12px',
+    padding: '10px 18px',
+    borderRadius: '10px',
     border: 'none',
     fontSize: '13px',
     cursor: 'pointer',
@@ -143,25 +146,26 @@ const styles: Record<string, React.CSSProperties> = {
   menuIcon: { fontSize: '16px', display: 'flex', alignItems: 'center' },
   logoutBtn: {
     marginTop: 'auto',
-    padding: '12px',
+    padding: '10px',
     width: '100%',
-    borderRadius: '12px',
+    borderRadius: '10px',
     border: 'none',
     backgroundColor: '#2563eb',
     color: 'white',
     fontSize: '13px',
-    fontWeight: 500,
+    fontWeight: 400,
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '8px'
+    gap: '8px',
+    boxShadow: '0 8px 15px rgba(37, 99, 235, 0.15)'
   },
 
   mainContent: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: '30px',
+    padding: '25px',
     borderRadius: '35px',
     overflowY: 'auto',
     boxShadow: '0 15px 50px rgba(0,0,0,0.05)',

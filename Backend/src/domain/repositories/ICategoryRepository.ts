@@ -3,7 +3,7 @@ import { IBaseRepository, PaginatedResult, PaginationOptions } from './IBaseRepo
 
 export interface ICategoryRepository extends IBaseRepository<ICategory> {
     findByName(name: string): Promise<ICategory | null>;
-    findAll(options: PaginationOptions & { includeDeleted?: boolean }): Promise<PaginatedResult<ICategory>>;
+    findAll(options?: PaginationOptions & { includeDeleted?: boolean }, filter?: Record<string, any>): Promise<PaginatedResult<ICategory>>;
     softDelete(id: string): Promise<ICategory | null>;
     save(category: ICategory): Promise<ICategory>;
 }

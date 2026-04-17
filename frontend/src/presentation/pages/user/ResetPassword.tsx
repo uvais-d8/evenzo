@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { authApi } from "../../../infrastructure/api/auth.api";
+import { useRepositories } from "../../../infrastructure/context/RepositoryContext";
 import toast from "react-hot-toast";
+import { SUCCESS_MESSAGES, ERROR_MESSAGES } from "../../../core/constants/Messages";
 
-const Input = ({ label, error, ...props }: any) => {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    label: string;
+    error?: string;
+}
+
+const Input: React.FC<InputProps> = ({ label, error, ...props }) => {
     const id = props.id || props.name;
     return (
         <div style={styles.inputGroup}>
@@ -17,9 +23,10 @@ const Input = ({ label, error, ...props }: any) => {
     );
 };
 
-function ResetPassword() {
+const ResetPassword: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { authRepository } = useRepositories();
     const email = location.state?.email || "";
 
     const [formData, setFormData] = useState({
@@ -27,7 +34,7 @@ function ResetPassword() {
         password: "",
         confirmPassword: ""
     });
-    const [errors, setErrors] = useState<any>({});
+    const [errors, setErrors] = useState<Record<string, string>>({});
     const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +45,7 @@ function ResetPassword() {
     };
 
     const validate = () => {
-        const newErrors: any = {};
+        const newErrors: Record<string, string> = {};
         if (!formData.otp.trim()) {
             newErrors.otp = "OTP is required";
         } else if (formData.otp.length !== 6) {
@@ -66,11 +73,11 @@ function ResetPassword() {
 
         setIsLoading(true);
         try {
-            await authApi.resetPassword({ email, password: formData.password });
-            toast.success("Password reset successfully! You can now login.");
+            await authRepository.resetPassword({ email, password: formData.password });
+            toast.success(SUCCESS_MESSAGES.PASSWORD_RESET_SUCCESS);
             navigate("/login");
         } catch (err: any) {
-            toast.error(err.response?.data?.message || "Something went wrong");
+            toast.error(err.response?.data?.message || ERROR_MESSAGES.DEFAULT);
         } finally {
             setIsLoading(false);
         }
@@ -91,7 +98,6 @@ function ResetPassword() {
                 <h2 style={styles.title}>Reset Password</h2>
                 <p style={styles.subtitle}>
                     Enter the 6-digit OTP sent to {email} and your new password.
-                    <br /> Note: The current backend flow accepts resetPassword directly, but verify OTP is also required. Adjust based on your backend.
                 </p>
 
                 <form onSubmit={handleSubmit} style={styles.form}>
@@ -138,7 +144,7 @@ function ResetPassword() {
     );
 }
 
-const styles: any = {
+const styles: Record<string, React.CSSProperties> = {
     pageCenter: { backgroundColor: "#f5f6f8", minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" },
     container: { backgroundColor: "white", padding: "40px", borderRadius: "20px", width: "400px", boxShadow: "0 10px 25px rgba(0,0,0,0.05)", textAlign: "center" },
     title: { fontSize: "24px", fontWeight: 600, marginBottom: "10px" },
@@ -147,7 +153,7 @@ const styles: any = {
     inputGroup: { display: "flex", flexDirection: "column" },
     label: { fontSize: "14px", marginBottom: "5px", fontWeight: 600, marginLeft: "6px" },
     input: { padding: "14px", borderRadius: "10px", backgroundColor: "#fafafa", fontSize: "13px" },
-    submitBtn: { padding: "14px", borderRadius: "10px", border: "none", backgroundColor: "#2563eb", color: "white", fontWeight: 600, cursor: "pointer", fontSize: "16px", mt: "10px" },
+    submitBtn: { padding: "14px", borderRadius: "10px", border: "none", backgroundColor: "#2563eb", color: "white", fontWeight: 600, cursor: "pointer", fontSize: "16px" },
     backText: { marginTop: "30px", fontSize: "14px", color: "#71717a", cursor: "pointer", fontWeight: 500 },
     errorText: { color: "#ef4444", fontSize: "12px", marginTop: "4px", marginLeft: "6px" },
     backBtn: { padding: "10px" },

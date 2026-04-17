@@ -1,83 +1,45 @@
-import { axiosClient } from '../http/axiosClient';
 import { IAdminRepository, PaginationParams } from '../../core/repositories/IAdminRepository';
 import { IVendor } from '../../core/types/vendor.types';
 import { IUser } from '../../core/types/user.types';
 import { AdminStats, PaginatedResponse } from '../../core/types/category.types';
 import { VendorStatus } from '../../core/enums/Status.enum';
-import { logger } from '../services/LoggerService';
+import { axiosClient } from '../http/axiosClient';
 
-export class AdminRepository implements IAdminRepository {
-    private readonly endpoint = '/admin';
-
+export const adminRepository: IAdminRepository = {
     async getStats(): Promise<AdminStats> {
-        try {
-            const res = await axiosClient.get<AdminStats>(`${this.endpoint}/stats`);
-            return res.data;
-        } catch (error) {
-            logger.error('Failed to fetch admin stats', error);
-            throw error;
-        }
-    }
+        const { data } = await axiosClient.get<AdminStats>('/admin/stats');
+        return data;
+    },
 
     async getVendors(status?: VendorStatus, params?: PaginationParams): Promise<PaginatedResponse<IVendor>> {
-        try {
-            const url = status
-                ? `${this.endpoint}/vendors/${status}`
-                : `${this.endpoint}/vendors`;
-            const res = await axiosClient.get<PaginatedResponse<IVendor>>(url, { params });
-            return res.data;
-        } catch (error) {
-            logger.error(`Failed to fetch ${status || 'all'} vendors`, error);
-            throw error;
-        }
-    }
+        let url = '/admin/vendors';
+        if (status === VendorStatus.PENDING) url = '/admin/vendors/pending';
+        if (status === VendorStatus.APPROVED) url = '/admin/vendors/approved';
+        
+        const { data } = await axiosClient.get<PaginatedResponse<IVendor>>(url, { params });
+        return data;
+    },
 
     async getUsers(params?: PaginationParams): Promise<PaginatedResponse<IUser>> {
-        try {
-            const res = await axiosClient.get<PaginatedResponse<IUser>>(`${this.endpoint}/users`, { params });
-            return res.data;
-        } catch (error) {
-            logger.error('Failed to fetch users', error);
-            throw error;
-        }
-    }
+        const { data } = await axiosClient.get<PaginatedResponse<IUser>>('/admin/users', { params });
+        return data;
+    },
 
     async verifyVendor(vendorId: string, status: VendorStatus, rejectionReason?: string): Promise<{ message: string; vendor: IVendor }> {
-        try {
-            const res = await axiosClient.put<{ message: string; vendor: IVendor }>(
-                `${this.endpoint}/vendors/${vendorId}/verify`,
-                { status, rejectionReason }
-            );
-            return res.data;
-        } catch (error) {
-            logger.error(`Failed to verify vendor ${vendorId}`, error);
-            throw error;
-        }
-    }
+        const { data } = await axiosClient.put<{ message: string; vendor: IVendor }>(`/admin/vendors/${vendorId}/verify`, {
+            status,
+            rejectionReason,
+        });
+        return data;
+    },
 
     async toggleBlockVendor(vendorId: string): Promise<{ message: string; isBlocked: boolean }> {
-        try {
-            const res = await axiosClient.patch<{ message: string; isBlocked: boolean }>(
-                `${this.endpoint}/vendors/${vendorId}/toggle-block`
-            );
-            return res.data;
-        } catch (error) {
-            logger.error(`Failed to toggle block for vendor ${vendorId}`, error);
-            throw error;
-        }
-    }
+        const { data } = await axiosClient.patch<{ message: string; isBlocked: boolean }>(`/admin/vendors/${vendorId}/toggle-block`);
+        return data;
+    },
 
     async toggleBlockUser(id: string): Promise<{ message: string; isBlocked: boolean }> {
-        try {
-            const res = await axiosClient.patch<{ message: string; isBlocked: boolean }>(
-                `${this.endpoint}/users/${id}/toggle-block`
-            );
-            return res.data;
-        } catch (error) {
-            logger.error(`Failed to toggle block for user ${id}`, error);
-            throw error;
-        }
+        const { data } = await axiosClient.patch<{ message: string; isBlocked: boolean }>(`/admin/users/${id}/toggle-block`);
+        return data;
     }
-}
-
-export const adminRepository = new AdminRepository();
+};

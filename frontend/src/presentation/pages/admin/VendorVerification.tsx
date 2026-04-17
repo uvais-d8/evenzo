@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { adminApi } from '../../../infrastructure/api/admin.api';
+import { useRepositories } from '../../../infrastructure/context/RepositoryContext';
 import { IVendor } from '../../../core/types/vendor.types';
 import { PaginatedResponse } from '../../../core/types/category.types';
-import { VendorStatus } from '../../../core/enums/VendorStatus.enum';
+import { VendorStatus } from '../../../core/enums/Status.enum';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import Pagination from '../../components/common/Pagination';
 import toast from 'react-hot-toast';
+import { SUCCESS_MESSAGES, ERROR_MESSAGES } from '../../../core/constants/Messages';
 
 const VendorVerification: React.FC = () => {
     const navigate = useNavigate();
+    const { adminRepository } = useRepositories();
     const [result, setResult] = useState<PaginatedResponse<IVendor> | null>(null);
     const [loading, setLoading] = useState(true);
     const API_BASE = import.meta.env.VITE_API_URL.replace('/api', '');
@@ -29,14 +31,14 @@ const VendorVerification: React.FC = () => {
     const fetchPendingVendors = useCallback(async (p: number) => {
         setLoading(true);
         try {
-            const res = await adminApi.getPendingVendors({ page: p, limit: 10 });
-            setResult(res.data);
+            const res = await adminRepository.getVendors(VendorStatus.PENDING, { page: p, limit: 10 });
+            setResult(res);
         } catch {
-            toast.error('Failed to fetch pending vendors');
+            toast.error(ERROR_MESSAGES.FETCH_VENDORS_FAILED);
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [adminRepository]);
 
     useEffect(() => {
         fetchPendingVendors(page);
@@ -45,14 +47,14 @@ const VendorVerification: React.FC = () => {
     const handleVerify = async (vendorId: string, status: VendorStatus, reason?: string) => {
         setIsSubmitting(true);
         try {
-            await adminApi.verifyVendor(vendorId, status, reason);
-            toast.success(`Vendor ${status === VendorStatus.APPROVED ? 'approved' : 'rejected'} successfully`);
+            await adminRepository.verifyVendor(vendorId, status, reason);
+            toast.success(status === VendorStatus.APPROVED ? SUCCESS_MESSAGES.status_updated('Approved') : SUCCESS_MESSAGES.status_updated('Rejected'));
             setShowRejectModal(false);
             setRejectionReason('');
             setSelectedVendor(null);
             fetchPendingVendors(page);
         } catch (error: any) {
-            toast.error(error.response?.data?.message || 'Verification failed');
+            toast.error(error.response?.data?.message || ERROR_MESSAGES.DEFAULT);
         } finally {
             setIsSubmitting(false);
         }

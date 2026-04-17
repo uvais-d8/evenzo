@@ -1,12 +1,6 @@
-/**
- * Dependency Injection Container
- * 
- * Wires concrete implementations to their abstractions:
- *   Models → Repositories → Use Cases → Controllers
- * 
- * This is the ONLY place that knows about all concrete classes.
- * Everything else depends on interfaces.
- */
+import 'reflect-metadata';
+import { container } from 'tsyringe';
+
 import { UserRepository } from '../infrastructure/repositories/UserRepository';
 import { VendorRepository } from '../infrastructure/repositories/VendorRepository';
 import { AdminRepository } from '../infrastructure/repositories/AdminRepository';
@@ -24,34 +18,42 @@ import { UserController } from '../presentation/controllers/UserController';
 import { VendorController } from '../presentation/controllers/VendorController';
 import { AdminController } from '../presentation/controllers/AdminController';
 import { CategoryController } from '../presentation/controllers/CategoryController';
+import { EventRepository } from '../infrastructure/repositories/EventRepository';
+import { EventUseCase } from '../application/use-cases/event/EventUseCase';
+import { EventController } from '../presentation/controllers/EventController';
 
 // ─── Repositories ─────────────────────────────────────────────────────────────
-const userRepository = new UserRepository();
-const vendorRepository = new VendorRepository();
-const adminRepository = new AdminRepository();
-const categoryRepository = new CategoryRepository();
+container.register('UserRepository', { useClass: UserRepository });
+container.register('VendorRepository', { useClass: VendorRepository });
+container.register('AdminRepository', { useClass: AdminRepository });
+container.register('CategoryRepository', { useClass: CategoryRepository });
+container.register('EventRepository', { useClass: EventRepository });
 
 // ─── Infrastructure Services ──────────────────────────────────────────────────
-const emailService = new EmailService();
+container.register('EmailService', { useClass: EmailService });
 
 // ─── Use Cases (Application Layer) ───────────────────────────────────────────
-const authUseCase = new AuthUseCase(userRepository, vendorRepository, adminRepository, emailService);
-const userUseCase = new UserUseCase(userRepository);
-const vendorUseCase = new VendorUseCase(vendorRepository);
-const adminUseCase = new AdminUseCase(userRepository, vendorRepository);
-const categoryUseCase = new CategoryUseCase(categoryRepository);
+container.register('AuthUseCase', { useClass: AuthUseCase });
+container.register('UserUseCase', { useClass: UserUseCase });
+container.register('VendorUseCase', { useClass: VendorUseCase });
+container.register('AdminUseCase', { useClass: AdminUseCase });
+container.register('CategoryUseCase', { useClass: CategoryUseCase });
+container.register('EventService', { useClass: EventUseCase });
 
 // ─── Controllers (Presentation Layer) ────────────────────────────────────────
-const authController = new AuthController(authUseCase);
-const userController = new UserController(userUseCase);
-const vendorController = new VendorController(vendorUseCase);
-const adminController = new AdminController(adminUseCase);
-const categoryController = new CategoryController(categoryUseCase);
+// Controllers are resolved on demand or exported as singletons here
+export const authController = container.resolve(AuthController);
+export const userController = container.resolve(UserController);
+export const vendorController = container.resolve(VendorController);
+export const adminController = container.resolve(AdminController);
+export const categoryController = container.resolve(CategoryController);
+export const eventController = container.resolve(EventController);
 
-export const container = {
+export const appContainer = {
     authController,
     userController,
     vendorController,
     adminController,
     categoryController,
+    eventController,
 };

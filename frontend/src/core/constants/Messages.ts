@@ -1,5 +1,12 @@
 export const SUCCESS_MESSAGES = {
     PROFILE_UPDATED: "Profile updated successfully!",
+    LOGIN_SUCCESS: "Login successful!",
+    REGISTER_SUCCESS: "Registration successful!",
+    OTP_SENT: "OTP sent successfully!",
+    OTP_VERIFIED: "OTP verified successfully!",
+    VERIFICATION_SUCCESS: "Account verified successfully!",
+    PASSWORD_RESET_SUCCESS: "Password has been reset successfully!",
+    FORGOT_PASSWORD_SENT: "Password reset link sent to your email!",
     status_updated: (status: string) => `Account status updated to ${status}.`,
     VENDOR_BLOCKED: "Vendor blocked successfully.",
     VENDOR_UNBLOCKED: "Vendor unblocked successfully.",
@@ -16,5 +23,10 @@ export const ERROR_MESSAGES = {
     FETCH_VENDORS_FAILED: "Failed to fetch vendors.",
     FETCH_USERS_FAILED: "Failed to fetch users.",
     FETCH_CATEGORIES_FAILED: "Failed to fetch categories.",
+    FETCH_STATS_FAILED: "Failed to fetch dashboard statistics.",
     UNAUTHORIZED: "Unauthorized access. Please login again.",
+    LOGIN_FAILED: "Login failed. Please check your credentials.",
+    REGISTER_FAILED: "Registration failed. Please try again.",
+    ACCOUNT_BLOCKED: "Access denied. Your account has been blocked.",
+    INVALID_OTP: "Invalid OTP. Please try again.",
 };

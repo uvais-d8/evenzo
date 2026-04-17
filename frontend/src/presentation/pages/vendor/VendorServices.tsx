@@ -4,8 +4,8 @@ const VendorServices: React.FC = () => {
     return (
         <div style={styles.container}>
             <div style={styles.card}>
-                <h2 style={styles.title}>Manage Services</h2>
-                <p style={styles.subtitle}>Add or edit the services you offer to clients.</p>
+                <h2 style={styles.title}>Manage My Services</h2>
+                <p style={styles.subtitle}>Define and customize the services you offer to clients.</p>
 
                 <div style={styles.placeholder}>
                     <div style={styles.icon}>🛠️</div>
@@ -19,13 +19,13 @@ const VendorServices: React.FC = () => {
 
 const styles: Record<string, React.CSSProperties> = {
     container: { width: '100%' },
-    card: { backgroundColor: 'white', padding: '40px', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.04)', minHeight: '500px' },
-    title: { fontSize: '24px', fontWeight: 700, color: '#1e293b', margin: '0 0 10px 0' },
-    subtitle: { fontSize: '15px', color: '#64748b', marginBottom: '40px' },
-    placeholder: { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '20px', height: '300px', border: '2px dashed #e2e8f0', borderRadius: '20px' },
-    icon: { fontSize: '50px' },
-    text: { fontSize: '16px', color: '#94a3b8', fontWeight: 500 },
-    addBtn: { backgroundColor: '#3b82f6', color: 'white', border: 'none', padding: '12px 30px', borderRadius: '12px', fontSize: '15px', fontWeight: 700, cursor: 'pointer' },
+    card: { backgroundColor: 'white', padding: '30px', borderRadius: '20px', boxShadow: '0 4px 15px rgba(0,0,0,0.02)', minHeight: '400px', border: '1px solid #f1f5f9' },
+    title: { fontSize: '18px', fontWeight: 500, color: '#1e293b', margin: '0 0 5px 0' },
+    subtitle: { fontSize: '13px', color: '#64748b', marginBottom: '30px', fontWeight: 300 },
+    placeholder: { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '15px', height: '250px', border: '1px dashed #e2e8f0', borderRadius: '15px', backgroundColor: '#fafafa' },
+    icon: { fontSize: '40px' },
+    text: { fontSize: '14px', color: '#94a3b8', fontWeight: 300 },
+    addBtn: { backgroundColor: '#2563eb', color: 'white', border: 'none', padding: '10px 25px', borderRadius: '10px', fontSize: '12px', fontWeight: 500, cursor: 'pointer', boxShadow: '0 6px 15px rgba(37, 99, 235, 0.2)', textTransform: 'uppercase', letterSpacing: '0.05em' },
 };
 
 export default VendorServices;

@@ -1,9 +1,11 @@
+
 import { ICategoryService, CreateCategoryData, UpdateCategoryData } from '../../interfaces/ICategoryService';
 import { ICategory } from '../../../domain/entities/Category';
 import { ICategoryRepository } from '../../../domain/repositories/ICategoryRepository';
 import { BadRequestError, NotFoundError } from '../../../domain/errors/AppError';
 import { PaginatedResult, PaginationOptions } from '../../../domain/repositories/IBaseRepository';
 import { Messages } from '../../constants/Messages';
+
 
 export class CategoryUseCase implements ICategoryService {
     constructor(private readonly categoryRepo: ICategoryRepository) { }

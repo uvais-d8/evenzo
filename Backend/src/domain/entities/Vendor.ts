@@ -1,5 +1,5 @@
-import { Role } from '../enums/Role.enum';
-import { VendorStatus } from '../enums/VendorStatus.enum';
+import { Role } from '../enums/enums';
+import { VendorStatus } from '../enums/enums';
 
 export interface IVendor {
     _id?: string;

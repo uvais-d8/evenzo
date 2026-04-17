@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import { container } from '../../di/container';
+import { authController as authCtrl } from '../controllers';
+
+import { upload } from '../middleware/multer';
 
 const router = Router();
-const authCtrl = container.authController;
 
 /**
  * @swagger
@@ -13,9 +14,33 @@ const authCtrl = container.authController;
 
 /**
  * @swagger
- * /api/auth/verify-otp:
+ * /api/auth/register/user:
  *   post:
- *     summary: Verify OTP
+ *     summary: Register a new user (JSON)
+ *     tags: [Auth]
+ *     responses:
+ *       201:
+ *         description: Registration successful
+ */
+router.post('/register/user', authCtrl.register);
+
+/**
+ * @swagger
+ * /api/auth/register/vendor:
+ *   post:
+ *     summary: Register a new vendor (Multipart)
+ *     tags: [Auth]
+ *     responses:
+ *       201:
+ *         description: Registration successful
+ */
+router.post('/register/vendor', upload.single('idProof'), authCtrl.register);
+
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: User/Vendor Login
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -23,14 +48,17 @@ const authCtrl = container.authController;
  *         application/json:
  *           schema:
  *             type: object
- *             required: [email, otp]
+ *             required: [email, password, role]
  *             properties:
  *               email: { type: string }
- *               otp: { type: string }
+ *               password: { type: string }
+ *               role: { type: string }
  *     responses:
  *       200:
- *         description: Verification successful
+ *         description: Login successful
  */
+router.post('/login', authCtrl.login);
+
 router.post('/verify-otp', authCtrl.verifyOtp);
 router.post('/resend-otp', authCtrl.resendOtp);
 router.post('/forgot-password', authCtrl.forgotPassword);

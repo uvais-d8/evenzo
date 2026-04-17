@@ -1,76 +1,59 @@
 import React, { useState } from 'react';
-import toast from 'react-hot-toast';
 
 const VendorPassword: React.FC = () => {
-    const [passwords, setPasswords] = useState({
-        current: '',
-        new: '',
-        confirm: ''
+    const [formData, setFormData] = useState({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
     });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        if (!passwords.current) {
-            toast.error("Current password is required");
-            return;
-        }
-
-        if (passwords.new.length < 6) {
-            toast.error("New password must be at least 6 characters long");
-            return;
-        }
-
-        if (passwords.new !== passwords.confirm) {
-            toast.error("New passwords do not match!");
-            return;
-        }
-
-        if (passwords.new === passwords.current) {
-            toast.error("New password cannot be the same as current password");
-            return;
-        }
-
-        toast.success("Password validation passed! (Update logic pending)");
+        // Change password logic will go here
     };
 
     return (
         <div style={styles.container}>
             <div style={styles.card}>
-                <h2 style={styles.title}>Change Password</h2>
-                <p style={styles.subtitle}>Secure your account by updating your password regularly.</p>
+                <h2 style={styles.title}>Account Security</h2>
+                <p style={styles.subtitle}>Update your password to keep your account secure.</p>
 
                 <form onSubmit={handleSubmit} style={styles.form}>
                     <div style={styles.inputGroup}>
                         <label style={styles.label}>Current Password</label>
                         <input
                             type="password"
+                            name="currentPassword"
+                            value={formData.currentPassword}
+                            onChange={handleChange}
                             style={styles.input}
-                            placeholder="Enter current password"
-                            value={passwords.current}
-                            onChange={(e) => setPasswords({ ...passwords, current: e.target.value })}
+                            placeholder="••••••••"
                         />
                     </div>
-
                     <div style={styles.inputGroup}>
                         <label style={styles.label}>New Password</label>
                         <input
                             type="password"
+                            name="newPassword"
+                            value={formData.newPassword}
+                            onChange={handleChange}
                             style={styles.input}
-                            placeholder="Enter new password"
-                            value={passwords.new}
-                            onChange={(e) => setPasswords({ ...passwords, new: e.target.value })}
+                            placeholder="••••••••"
                         />
                     </div>
-
                     <div style={styles.inputGroup}>
                         <label style={styles.label}>Confirm New Password</label>
                         <input
                             type="password"
+                            name="confirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
                             style={styles.input}
-                            placeholder="Confirm new password"
-                            value={passwords.confirm}
-                            onChange={(e) => setPasswords({ ...passwords, confirm: e.target.value })}
+                            placeholder="••••••••"
                         />
                     </div>
 
@@ -82,15 +65,15 @@ const VendorPassword: React.FC = () => {
 };
 
 const styles: Record<string, React.CSSProperties> = {
-    container: { width: '100%', maxWidth: '600px', margin: '0 auto' },
-    card: { backgroundColor: 'white', padding: '40px', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.04)', minHeight: '500px' },
-    title: { fontSize: '24px', fontWeight: 700, color: '#1e293b', margin: '0 0 10px 0' },
-    subtitle: { fontSize: '15px', color: '#64748b', marginBottom: '40px' },
-    form: { display: 'flex', flexDirection: 'column', gap: '25px' },
-    inputGroup: { display: 'flex', flexDirection: 'column', gap: '10px' },
-    label: { fontSize: '14px', fontWeight: 600, color: '#475569' },
-    input: { padding: '14px', borderRadius: '12px', border: '1px solid #e2e8f0', backgroundColor: '#f9fafb', fontSize: '14px' },
-    submitBtn: { padding: '15px', backgroundColor: '#3b82f6', color: 'white', border: 'none', borderRadius: '12px', fontSize: '16px', fontWeight: 700, cursor: 'pointer', marginTop: '20px' },
+    container: { width: '100%', maxWidth: '600px' },
+    card: { backgroundColor: 'white', padding: '30px', borderRadius: '20px', boxShadow: '0 4px 15px rgba(0,0,0,0.02)', border: '1px solid #f1f5f9' },
+    title: { fontSize: '18px', fontWeight: 500, color: '#1e293b', margin: '0 0 5px 0' },
+    subtitle: { fontSize: '13px', color: '#64748b', marginBottom: '30px', fontWeight: 300 },
+    form: { display: 'flex', flexDirection: 'column', gap: '20px' },
+    inputGroup: { display: 'flex', flexDirection: 'column', gap: '8px' },
+    label: { fontSize: '11px', fontWeight: 400, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' },
+    input: { padding: '12px 15px', borderRadius: '10px', border: '1px solid #f1f5f9', fontSize: '13px', fontWeight: 300, outline: 'none', backgroundColor: '#fafafa' },
+    submitBtn: { backgroundColor: '#2563eb', color: 'white', border: 'none', padding: '12px', borderRadius: '10px', fontSize: '12px', fontWeight: 500, cursor: 'pointer', marginTop: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', boxShadow: '0 6px 15px rgba(37, 99, 235, 0.2)' },
 };
 
 export default VendorPassword;

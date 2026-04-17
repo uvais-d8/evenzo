@@ -1,4 +1,6 @@
 import bcrypt from 'bcryptjs';
+import { ILogger } from '../../interfaces/ILogger';
+
 import jwt from 'jsonwebtoken';
 import { IAuthService, AuthResult, RegisterData } from '../../interfaces/IAuthService';
 import { IUserRepository } from '../../../domain/repositories/IUserRepository';
@@ -7,7 +9,7 @@ import { IAdminRepository } from '../../../domain/repositories/IAdminRepository'
 import { IUser } from '../../../domain/entities/User';
 import { IVendor } from '../../../domain/entities/Vendor';
 import { IAdmin } from '../../../domain/entities/Admin';
-import { Role } from '../../../domain/enums/Role.enum';
+import { Role } from '../../../domain/enums/enums';
 import {
     BadRequestError,
     ConflictError,
@@ -15,17 +17,19 @@ import {
     NotFoundError,
     UnauthorizedError,
 } from '../../../domain/errors/AppError';
-import { EmailService } from '../../../infrastructure/services/EmailService';
+import { IEmailService } from '../../interfaces/IEmailService';
 import { Messages } from '../../constants/Messages';
 
 type AnyUser = (IUser | IVendor | IAdmin) & { _id: string; otp?: string; otpExpires?: Date; isVerified?: boolean; isBlocked?: boolean; refreshToken?: string; role: Role };
+
 
 export class AuthUseCase implements IAuthService {
     constructor(
         private readonly userRepo: IUserRepository,
         private readonly vendorRepo: IVendorRepository,
         private readonly adminRepo: IAdminRepository,
-        private readonly emailService: EmailService
+        private readonly emailService: IEmailService,
+        private readonly logger: ILogger
     ) { }
 
     // ─── Private Helpers ───────────────────────────────────────────────────────
@@ -102,6 +106,7 @@ export class AuthUseCase implements IAuthService {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { confirmPassword: _cp, ...saveData } = data as RegisterData & { confirmPassword?: string };
 
+        this.logger.info(`[AuthUseCase] Creating ${role} in database:`, { email, name: saveData.name });
         const created = await repo.create({
             ...saveData,
             password: hashedPassword,
@@ -111,7 +116,15 @@ export class AuthUseCase implements IAuthService {
             role,
         } as never);
 
-        await this.emailService.sendOtp(email, otp);
+        this.logger.info(`[AuthUseCase] ${role} created successfully: ${created._id}`);
+        
+        try {
+            await this.emailService.sendOtp(email, otp);
+            this.logger.info(`[AuthUseCase] OTP sent to ${email}`);
+        } catch (emailError) {
+            this.logger.error(`[AuthUseCase] OTP sending failed for ${email}:`, { error: emailError });
+            // We still proceed because the user is created, but they might need to resend OTP
+        }
         return created;
     }
 

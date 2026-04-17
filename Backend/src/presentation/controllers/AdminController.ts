@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
+
 import { IAdminService } from '../../application/interfaces/IAdminService';
-import { VendorStatus } from '../../domain/enums/VendorStatus.enum';
+import { VendorStatus } from '../../domain/enums/enums';
 import { BadRequestError } from '../../domain/errors/AppError';
 import { Messages } from '../../application/constants/Messages';
 
@@ -12,6 +13,7 @@ function parsePagination(query: Request['query']): { page: number; limit: number
     const limit = Math.min(100, Math.max(1, parseInt(query.limit as string) || DEFAULT_LIMIT));
     return { page, limit };
 }
+
 
 export class AdminController {
     constructor(private readonly adminService: IAdminService) {
