@@ -1,6 +1,6 @@
 import { IAuthRepository, RegisterPayload } from '../../core/repositories/IAuthRepository';
 import { LoginResponse } from '../../core/types/user.types';
-import { Role } from '../../core/enums/Role.enum';
+import { Role } from '../../core/enums/enum';
 import { axiosClient } from '../http/axiosClient';
 
 export const authRepository: IAuthRepository = {

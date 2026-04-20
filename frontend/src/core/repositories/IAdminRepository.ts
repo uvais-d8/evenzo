@@ -1,7 +1,7 @@
 import { IVendor } from '../types/vendor.types';
 import { IUser } from '../types/user.types';
 import { ICategory, AdminStats, PaginatedResponse } from '../types/category.types';
-import { VendorStatus } from '../enums/Status.enum';
+import { VendorStatus } from '../enums/enum';
 
 export interface PaginationParams {
     page?: number;

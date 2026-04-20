@@ -1,5 +1,5 @@
 import { LoginResponse } from '../types/user.types';
-import { Role } from '../enums/Role.enum';
+import { Role } from '../enums/enum';
 
 export interface RegisterPayload {
     name?: string;

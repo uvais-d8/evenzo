@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRepositories } from "../../../infrastructure/context/RepositoryContext";
-import { Role } from "../../../core/enums/Role.enum";
+import { Role } from "../../../core/enums/enum";
+import { useGoogleLogin } from "@react-oauth/google";
 import toast from "react-hot-toast";
 import { SUCCESS_MESSAGES, ERROR_MESSAGES } from "../../../core/constants/Messages";
 
@@ -100,6 +101,26 @@ function UserSignup() {
         }
     };
 
+    const signUpWithGoogle = useGoogleLogin({
+        onSuccess: async (tokenResponse) => {
+            setIsLoading(true);
+            try {
+                const { token, refreshToken, user } = await authRepository.googleLogin(tokenResponse.access_token, Role.USER);
+                sessionStorage.setItem("token", token);
+                sessionStorage.setItem("refreshToken", refreshToken);
+                sessionStorage.setItem("userRole", Role.USER);
+                sessionStorage.setItem("userData", JSON.stringify(user));
+                toast.success(SUCCESS_MESSAGES.LOGIN_SUCCESS);
+                navigate("/");
+            } catch (error: any) {
+                toast.error(error.response?.data?.message || ERROR_MESSAGES.DEFAULT);
+            } finally {
+                setIsLoading(false);
+            }
+        },
+        onError: () => toast.error(ERROR_MESSAGES.REGISTER_FAILED)
+    });
+
     return (
         <div style={styles.pageCenter}>
             <div style={styles.container}>
@@ -171,7 +192,12 @@ function UserSignup() {
                             <button type="submit" style={styles.loginBtn} disabled={isLoading}>
                                 {isLoading ? 'Handshaking...' : 'Create My Account'}
                             </button>
-                            <button type="button" style={styles.googleBtn}>
+                            <button
+                                type="button"
+                                style={styles.googleBtn}
+                                onClick={() => signUpWithGoogle()}
+                                disabled={isLoading}
+                            >
                                 <GoogleIcon /> Sign up with Google
                             </button>
                         </div>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRepositories } from '../../../infrastructure/context/RepositoryContext';
 import { IVendor } from '../../../core/types/vendor.types';
 import { PaginatedResponse } from '../../../core/types/category.types';
-import { VendorStatus } from '../../../core/enums/Status.enum';
+import { VendorStatus } from '../../../core/enums/enum';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import Pagination from '../../components/common/Pagination';
 import ConfirmDialog from '../../components/common/ConfirmDialog';

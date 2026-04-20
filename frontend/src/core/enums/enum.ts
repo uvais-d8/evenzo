@@ -4,7 +4,6 @@ export enum VendorStatus {
     REJECTED = 'rejected'
 }
 
-
 export enum Role {
     ADMIN = 'admin',
     VENDOR = 'vendor',

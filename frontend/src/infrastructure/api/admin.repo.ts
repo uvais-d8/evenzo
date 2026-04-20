@@ -2,7 +2,7 @@ import { IAdminRepository, PaginationParams } from '../../core/repositories/IAdm
 import { IVendor } from '../../core/types/vendor.types';
 import { IUser } from '../../core/types/user.types';
 import { AdminStats, PaginatedResponse } from '../../core/types/category.types';
-import { VendorStatus } from '../../core/enums/Status.enum';
+import { VendorStatus } from '../../core/enums/enum';
 import { axiosClient } from '../http/axiosClient';
 
 export const adminRepository: IAdminRepository = {

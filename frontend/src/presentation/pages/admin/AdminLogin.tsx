@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useRepositories } from "../../../infrastructure/context/RepositoryContext";
-import { Role } from "../../../core/enums/Role.enum";
+import { Role } from "../../../core/enums/enum";
 import toast from "react-hot-toast";
 import { SUCCESS_MESSAGES, ERROR_MESSAGES } from "../../../core/constants/Messages";
 

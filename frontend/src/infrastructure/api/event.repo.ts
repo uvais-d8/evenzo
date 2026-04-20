@@ -1,5 +1,6 @@
-import { IEventRepository } from '../../core/repositories/IEventRepository';
+import { IEventRepository, PaginationParams } from '../../core/repositories/IEventRepository';
 import { IEvent } from '../../core/types/event.types';
+import { PaginatedResponse } from '../../core/types/category.types';
 import { axiosClient } from '../http/axiosClient';
 
 export const eventRepository: IEventRepository = {
@@ -17,9 +18,13 @@ export const eventRepository: IEventRepository = {
         return data;
     },
 
-    async getEvents(params?: any): Promise<{ data: IEvent[]; total: number }> {
-        const { data } = await axiosClient.get<{ data: IEvent[]; total: number }>('/events', { params });
+    async getEvents(params?: PaginationParams): Promise<PaginatedResponse<IEvent>> {
+        const { data } = await axiosClient.get<PaginatedResponse<IEvent>>('/events', { params });
         return data;
+    },
+
+    async deleteEvent(id: string): Promise<void> {
+        await axiosClient.delete(`/events/${id}`);
     },
 
     async getEventById(id: string): Promise<IEvent> {
@@ -27,3 +32,4 @@ export const eventRepository: IEventRepository = {
         return data;
     }
 };
+
