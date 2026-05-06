@@ -1,4 +1,4 @@
-
+import { injectable } from 'tsyringe';
 import { ICategory } from '../../domain/entities/Category';
 import { ICategoryRepository } from '../../domain/repositories/ICategoryRepository';
 import { PaginatedResult, PaginationOptions } from '../../domain/repositories/IBaseRepository';
@@ -9,6 +9,7 @@ function toICategory(doc: unknown): ICategory {
 }
 
 
+@injectable()
 export class CategoryRepository implements ICategoryRepository {
     async findById(id: string): Promise<ICategory | null> {
         const doc = await CategoryModel.findById(id).lean();

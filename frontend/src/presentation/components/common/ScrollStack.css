@@ -1,0 +1,88 @@
+.scroll-stack-scroller {
+  position: relative;
+  width: 100%;
+}
+
+.scroll-stack-scroller.internal {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: visible;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.scroll-stack-inner {
+  padding: 5vh 0 20vh;
+  min-height: 100vh;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.scroll-stack-card {
+  transform-origin: top center;
+  will-change: transform, filter;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.2);
+  height: 600px;
+  width: 100%;
+  margin: 80px 0;
+  border-radius: 44px;
+  box-sizing: border-box;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.scroll-stack-end {
+  width: 100%;
+  height: 300px;
+}
+
+/* Card details styling */
+.event-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px 40px;
+  background: rgba(30, 64, 175, 0.85);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.event-card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-card-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.event-card-date {
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.event-card-location {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.event-card-time {
+  font-size: 14px;
+  opacity: 0.8;
+}

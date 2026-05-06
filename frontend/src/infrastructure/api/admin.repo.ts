@@ -7,22 +7,34 @@ import { axiosClient } from '../http/axiosClient';
 
 export const adminRepository: IAdminRepository = {
     async getStats(): Promise<AdminStats> {
-        const { data } = await axiosClient.get<AdminStats>('/admin/stats');
-        return data;
+        const { data } = await axiosClient.get<any>('/admin/stats');
+        return data.data;
     },
-
+ 
     async getVendors(status?: VendorStatus, params?: PaginationParams): Promise<PaginatedResponse<IVendor>> {
         let url = '/admin/vendors';
         if (status === VendorStatus.PENDING) url = '/admin/vendors/pending';
         if (status === VendorStatus.APPROVED) url = '/admin/vendors/approved';
         
-        const { data } = await axiosClient.get<PaginatedResponse<IVendor>>(url, { params });
-        return data;
+        const { data } = await axiosClient.get<any>(url, { params });
+        return {
+            data: data.data,
+            total: data.pagination?.total || 0,
+            page: data.pagination?.page || 1,
+            limit: data.pagination?.limit || 10,
+            totalPages: data.pagination?.totalPages || 1
+        };
     },
-
+ 
     async getUsers(params?: PaginationParams): Promise<PaginatedResponse<IUser>> {
-        const { data } = await axiosClient.get<PaginatedResponse<IUser>>('/admin/users', { params });
-        return data;
+        const { data } = await axiosClient.get<any>('/admin/users', { params });
+        return {
+            data: data.data,
+            total: data.pagination?.total || 0,
+            page: data.pagination?.page || 1,
+            limit: data.pagination?.limit || 10,
+            totalPages: data.pagination?.totalPages || 1
+        };
     },
 
     async verifyVendor(vendorId: string, status: VendorStatus, rejectionReason?: string): Promise<{ message: string; vendor: IVendor }> {

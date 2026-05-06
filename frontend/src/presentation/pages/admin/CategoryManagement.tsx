@@ -11,6 +11,13 @@ import { SUCCESS_MESSAGES, ERROR_MESSAGES } from '../../../core/constants/Messag
 
 const PAGE_LIMIT = 10;
 
+const getImageUrl = (path: string | undefined) => {
+    if (!path) return 'https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2070';
+    if (path.startsWith('http')) return path;
+    const baseUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:7000';
+    return `${baseUrl}${path}`;
+};
+
 const CategoryManagement: React.FC = () => {
     const { categoryRepository } = useRepositories();
     const [result, setResult] = useState<PaginatedResponse<ICategory> | null>(null);
@@ -19,6 +26,8 @@ const CategoryManagement: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
     const [editingCategory, setEditingCategory] = useState<ICategory | null>(null);
     const [formData, setFormData] = useState<CreateCategoryPayload>({ name: '', description: '' });
+    const [imageFile, setImageFile] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
 
     const fetchCategories = useCallback(async (p: number) => {
@@ -38,17 +47,25 @@ const CategoryManagement: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
+            const submitData = new FormData();
+            submitData.append('name', formData.name);
+            submitData.append('description', formData.description || '');
+            if (imageFile) {
+                submitData.append('image', imageFile);
+            }
+
             if (editingCategory) {
-                const payload: UpdateCategoryPayload = { name: formData.name, description: formData.description };
-                await categoryRepository.updateCategory(editingCategory._id, payload);
+                await categoryRepository.updateCategory(editingCategory._id!, submitData);
                 toast.success(SUCCESS_MESSAGES.CATEGORY_UPDATED);
             } else {
-                await categoryRepository.createCategory(formData);
+                await categoryRepository.createCategory(submitData);
                 toast.success(SUCCESS_MESSAGES.CATEGORY_CREATED);
             }
             setShowModal(false);
             setEditingCategory(null);
             setFormData({ name: '', description: '' });
+            setImageFile(null);
+            setImagePreview(null);
             fetchCategories(page);
         } catch (error) {
             const axiosErr = error as AxiosError<{ message?: string }>;
@@ -81,7 +98,13 @@ const CategoryManagement: React.FC = () => {
                 <button
                     id="add-category-btn"
                     style={styles.addBtn}
-                    onClick={() => { setEditingCategory(null); setFormData({ name: '', description: '' }); setShowModal(true); }}
+                    onClick={() => { 
+                        setEditingCategory(null); 
+                        setFormData({ name: '', description: '' }); 
+                        setImageFile(null);
+                        setImagePreview(null);
+                        setShowModal(true); 
+                    }}
                 >
                     + Add New Category
                 </button>
@@ -91,6 +114,7 @@ const CategoryManagement: React.FC = () => {
                 {result && result.data.length > 0 ? (
                     result.data.map((cat: ICategory) => (
                         <div key={cat._id} style={styles.card}>
+                            <img src={getImageUrl(cat.image)} alt={cat.name} style={styles.cardImage} />
                             <div style={styles.cardHeader}>
                                 <h3 style={styles.catName}>{cat.name}</h3>
                                 <div style={styles.actions}>
@@ -100,6 +124,8 @@ const CategoryManagement: React.FC = () => {
                                         onClick={() => {
                                             setEditingCategory(cat);
                                             setFormData({ name: cat.name, description: cat.description ?? '' });
+                                            setImageFile(null);
+                                            setImagePreview(cat.image ? getImageUrl(cat.image) : null);
                                             setShowModal(true);
                                         }}
                                     >
@@ -163,6 +189,26 @@ const CategoryManagement: React.FC = () => {
                                     placeholder="Write a brief category description..."
                                 />
                             </div>
+                            <div style={styles.inputGroup}>
+                                <label style={styles.label}>Category Image</label>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                        if (e.target.files && e.target.files[0]) {
+                                            const file = e.target.files[0];
+                                            setImageFile(file);
+                                            setImagePreview(URL.createObjectURL(file));
+                                        }
+                                    }}
+                                    style={styles.input}
+                                />
+                                {imagePreview && (
+                                    <div style={styles.previewContainer}>
+                                        <img src={imagePreview} alt="Preview" style={styles.previewImage} />
+                                    </div>
+                                )}
+                            </div>
                             <div style={styles.modalActions}>
                                 <button id="cancel-category-btn" type="button" style={styles.cancelBtn} onClick={() => setShowModal(false)}>
                                     Cancel
@@ -197,10 +243,11 @@ const styles: Record<string, React.CSSProperties> = {
     subtitle: { fontSize: '12px', color: '#64748b', margin: 0, fontWeight: 300 },
     addBtn: { padding: '8px 20px', backgroundColor: 'rgba(37, 99, 235, 0.05)', color: 'rgba(37, 99, 235, 0.6)', border: '1px solid rgba(37, 99, 235, 0.1)', borderRadius: '10px', cursor: 'pointer', fontWeight: 500, backdropFilter: 'blur(8px)', transition: 'all 0.2s', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' },
     grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' },
-    card: { backgroundColor: 'white', padding: '20px', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.02)', border: '1px solid #f1f5f9' },
-    cardHeader: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' },
+    card: { backgroundColor: 'white', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.02)', border: '1px solid #f1f5f9' },
+    cardImage: { width: '100%', height: '140px', objectFit: 'cover' },
+    cardHeader: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', padding: '15px 15px 0 15px' },
     catName: { fontSize: '16px', fontWeight: 500, margin: 0, color: '#1e293b' },
-    catDesc: { fontSize: '13px', color: '#64748b', margin: 0, lineHeight: 1.5, fontWeight: 300 },
+    catDesc: { fontSize: '13px', color: '#64748b', margin: 0, lineHeight: 1.5, fontWeight: 300, padding: '0 15px 15px 15px' },
     actions: { display: 'flex', gap: '8px' },
     editBtn: { padding: '6px 14px', backgroundColor: 'rgba(71, 85, 105, 0.05)', color: 'rgba(71, 85, 105, 0.6)', border: '1px solid rgba(71, 85, 105, 0.1)', borderRadius: '8px', fontSize: '10px', cursor: 'pointer', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.02em', backdropFilter: 'blur(4px)' },
     delBtn: { padding: '6px 14px', backgroundColor: 'rgba(239, 68, 68, 0.05)', color: 'rgba(239, 68, 68, 0.6)', border: '1px solid rgba(239, 68, 68, 0.1)', borderRadius: '8px', fontSize: '10px', cursor: 'pointer', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.02em', backdropFilter: 'blur(4px)' },
@@ -218,6 +265,8 @@ const styles: Record<string, React.CSSProperties> = {
     modalActions: { display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '10px' },
     cancelBtn: { padding: '8px 20px', backgroundColor: 'transparent', border: '1px solid #e2e8f0', borderRadius: '10px', cursor: 'pointer', fontWeight: 500, color: '#64748b', fontSize: '12px' },
     saveBtn: { padding: '8px 20px', backgroundColor: 'rgba(37, 99, 235, 0.05)', color: 'rgba(37, 99, 235, 0.6)', border: '1px solid rgba(37, 99, 235, 0.1)', borderRadius: '10px', cursor: 'pointer', fontWeight: 500, fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' },
+    previewContainer: { width: '100%', height: '120px', borderRadius: '10px', overflow: 'hidden', border: '1px solid #e2e8f0', marginTop: '10px' },
+    previewImage: { width: '100%', height: '100%', objectFit: 'cover' }
 };
 
 export default CategoryManagement;

@@ -1,4 +1,5 @@
-
+import { injectable, inject } from 'tsyringe';
+import { TOKENS } from '../../../infrastructure/di/tokens';
 import { ICategoryService, CreateCategoryData, UpdateCategoryData } from '../../interfaces/ICategoryService';
 import { ICategory } from '../../../domain/entities/Category';
 import { ICategoryRepository } from '../../../domain/repositories/ICategoryRepository';
@@ -7,8 +8,11 @@ import { PaginatedResult, PaginationOptions } from '../../../domain/repositories
 import { Messages } from '../../constants/Messages';
 
 
+@injectable()
 export class CategoryUseCase implements ICategoryService {
-    constructor(private readonly categoryRepo: ICategoryRepository) { }
+    constructor(
+        @inject(TOKENS.CategoryRepository) private readonly categoryRepo: ICategoryRepository
+    ) { }
 
     async createCategory(data: CreateCategoryData): Promise<ICategory> {
         const existing = await this.categoryRepo.findByName(data.name);

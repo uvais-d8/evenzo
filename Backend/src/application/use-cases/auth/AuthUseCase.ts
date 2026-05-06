@@ -1,3 +1,5 @@
+import { injectable, inject } from 'tsyringe';
+import { TOKENS } from '../../../infrastructure/di/tokens';
 import bcrypt from 'bcryptjs';
 import { ILogger } from '../../interfaces/ILogger';
 
@@ -23,13 +25,14 @@ import { Messages } from '../../constants/Messages';
 type AnyUser = (IUser | IVendor | IAdmin) & { _id: string; otp?: string; otpExpires?: Date; isVerified?: boolean; isBlocked?: boolean; refreshToken?: string; role: Role };
 
 
+@injectable()
 export class AuthUseCase implements IAuthService {
     constructor(
-        private readonly userRepo: IUserRepository,
-        private readonly vendorRepo: IVendorRepository,
-        private readonly adminRepo: IAdminRepository,
-        private readonly emailService: IEmailService,
-        private readonly logger: ILogger
+        @inject(TOKENS.UserRepository) private readonly userRepo: IUserRepository,
+        @inject(TOKENS.VendorRepository) private readonly vendorRepo: IVendorRepository,
+        @inject(TOKENS.AdminRepository) private readonly adminRepo: IAdminRepository,
+        @inject(TOKENS.EmailService) private readonly emailService: IEmailService,
+        @inject(TOKENS.LoggerService) private readonly logger: ILogger
     ) { }
 
     // ─── Private Helpers ───────────────────────────────────────────────────────

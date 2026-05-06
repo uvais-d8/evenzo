@@ -4,7 +4,6 @@ const BASE_URL = import.meta.env.VITE_API_URL as string;
 
 export const axiosClient: AxiosInstance = axios.create({
     baseURL: BASE_URL,
-    headers: { 'Content-Type': 'application/json' },
     timeout: 15000,
 });
 
@@ -71,11 +70,11 @@ axiosClient.interceptors.response.use(
 
             try {
                 const refreshToken = sessionStorage.getItem('refreshToken');
-                const { data } = await axios.post<{ token: string }>(`${BASE_URL}/auth/refresh`, {
+                const response = await axios.post<any>(`${BASE_URL}/auth/refresh`, {
                     refreshToken,
                 });
 
-                const newToken = data.token;
+                const newToken = response.data.data.token;
                 sessionStorage.setItem('token', newToken);
                 onRefreshed(newToken);
 

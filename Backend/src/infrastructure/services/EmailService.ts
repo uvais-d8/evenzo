@@ -1,9 +1,11 @@
+import { injectable } from 'tsyringe';
 import * as nodemailer from 'nodemailer';
 
 import { logger } from './LoggerService';
 
 import { IEmailService } from '../../application/interfaces/IEmailService';
 
+@injectable()
 export class EmailService implements IEmailService {
     private transporter: nodemailer.Transporter;
 

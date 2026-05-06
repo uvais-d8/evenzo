@@ -24,4 +24,6 @@ export interface VendorStats {
   vendorStatus: VendorStatus;
   totalBookings: number;
   totalRevenue: number;
+  totalEvents: number;
+  totalClients: number;
 }

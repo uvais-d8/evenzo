@@ -1,27 +1,48 @@
-export class ApiResponse<T> {
-    public success: boolean;
-    public message: string;
-    public data: T | null;
-    public pagination?: {
-        total: number;
+import { Response } from 'express';
+import { HttpStatus } from '../../domain/enums/HttpStatus';
+
+export interface IApiResponse<T> {
+    success: boolean;
+    message: string;
+    data?: T;
+    error?: any;
+    pagination?: {
         page: number;
         limit: number;
+        total: number;
+        totalPages: number;
     };
+}
 
-    constructor(success: boolean, message: string, data: T | null = null, pagination?: { total: number, page: number, limit: number }) {
-        this.success = success;
-        this.message = message;
-        this.data = data;
-        if (pagination) {
-            this.pagination = pagination;
-        }
+export class ApiResponse {
+    static success<T>(
+        res: Response,
+        message: string,
+        data?: T,
+        status: HttpStatus = HttpStatus.OK,
+        pagination?: IApiResponse<T>['pagination']
+    ) {
+        const response: IApiResponse<T> = {
+            success: true,
+            message,
+            data,
+            pagination,
+        };
+        return res.status(status).json(response);
     }
 
-    static success<T>(message: string, data: T | null = null, pagination?: { total: number, page: number, limit: number }): ApiResponse<T> {
-        return new ApiResponse<T>(true, message, data, pagination);
-    }
 
-    static error<T = unknown>(message: string, details?: T): ApiResponse<T> {
-        return new ApiResponse<T>(false, message, details);
+    static error(
+        res: Response,
+        status: HttpStatus,
+        message: string,
+        error?: any
+    ) {
+        const response: IApiResponse<null> = {
+            success: false,
+            message,
+            error,
+        };
+        return res.status(status).json(response);
     }
 }

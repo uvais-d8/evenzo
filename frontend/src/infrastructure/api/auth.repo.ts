@@ -5,8 +5,8 @@ import { axiosClient } from '../http/axiosClient';
 
 export const authRepository: IAuthRepository = {
     async login(role: Role, credentials: { email: string; password: string }): Promise<LoginResponse> {
-        const { data } = await axiosClient.post<LoginResponse>('/auth/login', { ...credentials, role });
-        return data;
+        const { data } = await axiosClient.post<any>('/auth/login', { ...credentials, role });
+        return data.data;
     },
 
     async register(role: Role, data: RegisterPayload | FormData): Promise<{ message: string; email: string; role: Role }> {
@@ -14,19 +14,20 @@ export const authRepository: IAuthRepository = {
         let payload: any = data;
         
         if (data instanceof FormData) {
+            data.delete('role'); // Ensure no duplicate role
             data.append('role', role);
             payload = data;
         } else {
             payload = { ...data, role };
         }
 
-        const response = await axiosClient.post(endpoint, payload);
-        return response.data;
+        const { data: responseData } = await axiosClient.post<any>(endpoint, payload);
+        return responseData.data;
     },
 
     async verifyOtp(otpData: { email: string; otp: string }): Promise<LoginResponse> {
-        const { data: responseData } = await axiosClient.post<LoginResponse>('/auth/verify-otp', otpData);
-        return responseData;
+        const { data: responseData } = await axiosClient.post<any>('/auth/verify-otp', otpData);
+        return responseData.data;
     },
 
     async resendOtp(email: string): Promise<{ message: string }> {
@@ -45,12 +46,12 @@ export const authRepository: IAuthRepository = {
     },
 
     async googleLogin(token: string, role: Role): Promise<LoginResponse> {
-        const { data: responseData } = await axiosClient.post<LoginResponse>('/auth/google', { token, role });
-        return responseData;
+        const { data: responseData } = await axiosClient.post<any>('/auth/google', { token, role });
+        return responseData.data;
     },
 
     async refreshToken(refreshToken: string): Promise<{ token: string }> {
-        const { data: responseData } = await axiosClient.post('/auth/refresh', { refreshToken });
-        return responseData;
+        const { data: responseData } = await axiosClient.post<any>('/auth/refresh', { refreshToken });
+        return responseData.data;
     }
 };

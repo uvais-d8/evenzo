@@ -14,4 +14,6 @@ export interface IVendorRepository {
     getProfile(): Promise<IVendor>;
     updateProfile(data: UpdateVendorPayload | FormData): Promise<{ message: string; vendor: IVendor }>;
     getStats(): Promise<VendorStats>;
+    getPublicVendors(params?: any): Promise<{ data: IVendor[], pagination: any }>;
+    getPublicVendorById(id: string): Promise<IVendor>;
 }

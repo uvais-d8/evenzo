@@ -1,4 +1,5 @@
-
+import { injectable, inject } from 'tsyringe';
+import { TOKENS } from '../../../infrastructure/di/tokens';
 import { IAdminService, AdminStats } from '../../interfaces/IAdminService';
 import { IUser } from '../../../domain/entities/User';
 import { IVendor } from '../../../domain/entities/Vendor';
@@ -13,10 +14,11 @@ import { PaginatedResult, PaginationOptions } from '../../../domain/repositories
 import { Messages } from '../../constants/Messages';
 
 
+@injectable()
 export class AdminUseCase implements IAdminService {
     constructor(
-        private readonly userRepo: IUserRepository,
-        private readonly vendorRepo: IVendorRepository
+        @inject(TOKENS.UserRepository) private readonly userRepo: IUserRepository,
+        @inject(TOKENS.VendorRepository) private readonly vendorRepo: IVendorRepository
     ) { }
 
     async getPendingVendors(options: PaginationOptions): Promise<PaginatedResult<IVendor>> {

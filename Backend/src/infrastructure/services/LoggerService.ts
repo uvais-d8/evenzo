@@ -1,3 +1,4 @@
+import { injectable } from 'tsyringe';
 import winston from 'winston';
 import { ILogger } from '../../application/interfaces/ILogger';
 
@@ -17,6 +18,7 @@ const loggerInstance = winston.createLogger({
     ],
 });
 
+@injectable()
 export class LoggerService implements ILogger {
     info(message: string, context?: any): void {
         loggerInstance.info(message, context);

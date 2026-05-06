@@ -4,21 +4,23 @@ import { axiosClient } from '../http/axiosClient';
 
 export const categoryRepository: ICategoryRepository = {
     async getCategories(params?: PaginationParams): Promise<PaginatedResponse<ICategory>> {
-        const { data } = await axiosClient.get<PaginatedResponse<ICategory>>('/categories', { params });
-        return data;
+        const { data } = await axiosClient.get<any>('/categories', { params });
+        return {
+            data: data.data,
+            total: data.pagination?.total || 0,
+            page: data.pagination?.page || 1,
+            limit: data.pagination?.limit || 10,
+            totalPages: data.pagination?.totalPages || 1
+        };
     },
 
     async createCategory(data: CreateCategoryPayload | FormData): Promise<ICategory> {
-        const response = await axiosClient.post<{ category: ICategory }>('/categories', data, {
-            headers: data instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : {}
-        });
+        const response = await axiosClient.post<{ category: ICategory }>('/categories', data);
         return response.data.category;
     },
 
     async updateCategory(id: string, data: UpdateCategoryPayload | FormData): Promise<ICategory> {
-        const response = await axiosClient.put<{ category: ICategory }>(`/categories/${id}`, data, {
-            headers: data instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : {}
-        });
+        const response = await axiosClient.put<{ category: ICategory }>(`/categories/${id}`, data);
         return response.data.category;
     },
 

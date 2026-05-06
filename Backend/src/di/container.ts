@@ -1,10 +1,18 @@
-import 'reflect-metadata';
-import { container } from 'tsyringe';
-
+/**
+ * Dependency Injection Container
+ * 
+ * Wires concrete implementations to their abstractions:
+ *   Models → Repositories → Use Cases → Controllers
+ * 
+ * This is the ONLY place that knows about all concrete classes.
+ * Everything else depends on interfaces.
+ */
 import { UserRepository } from '../infrastructure/repositories/UserRepository';
 import { VendorRepository } from '../infrastructure/repositories/VendorRepository';
 import { AdminRepository } from '../infrastructure/repositories/AdminRepository';
 import { CategoryRepository } from '../infrastructure/repositories/CategoryRepository';
+import { EventRepository } from '../infrastructure/repositories/EventRepository';
+import { BookingRepository } from '../infrastructure/repositories/BookingRepository';
 import { EmailService } from '../infrastructure/services/EmailService';
 
 import { AuthUseCase } from '../application/use-cases/auth/AuthUseCase';
@@ -12,42 +20,47 @@ import { UserUseCase } from '../application/use-cases/user/UserUseCase';
 import { VendorUseCase } from '../application/use-cases/vendor/VendorUseCase';
 import { AdminUseCase } from '../application/use-cases/admin/AdminUseCase';
 import { CategoryUseCase } from '../application/use-cases/category/CategoryUseCase';
+import { EventUseCase } from '../application/use-cases/event/EventUseCase';
+import { BookingUseCase } from '../application/use-cases/booking/BookingUseCase';
 
 import { AuthController } from '../presentation/controllers/AuthController';
 import { UserController } from '../presentation/controllers/UserController';
 import { VendorController } from '../presentation/controllers/VendorController';
 import { AdminController } from '../presentation/controllers/AdminController';
 import { CategoryController } from '../presentation/controllers/CategoryController';
-import { EventRepository } from '../infrastructure/repositories/EventRepository';
-import { EventUseCase } from '../application/use-cases/event/EventUseCase';
 import { EventController } from '../presentation/controllers/EventController';
+import { BookingController } from '../presentation/controllers/BookingController';
+
+import { logger } from '../infrastructure/services/LoggerService';
 
 // ─── Repositories ─────────────────────────────────────────────────────────────
-container.register('UserRepository', { useClass: UserRepository });
-container.register('VendorRepository', { useClass: VendorRepository });
-container.register('AdminRepository', { useClass: AdminRepository });
-container.register('CategoryRepository', { useClass: CategoryRepository });
-container.register('EventRepository', { useClass: EventRepository });
+const userRepository = new UserRepository();
+const vendorRepository = new VendorRepository();
+const adminRepository = new AdminRepository();
+const categoryRepository = new CategoryRepository();
+const eventRepository = new EventRepository();
+const bookingRepository = new BookingRepository();
 
 // ─── Infrastructure Services ──────────────────────────────────────────────────
-container.register('EmailService', { useClass: EmailService });
+const emailService = new EmailService();
 
 // ─── Use Cases (Application Layer) ───────────────────────────────────────────
-container.register('AuthUseCase', { useClass: AuthUseCase });
-container.register('UserUseCase', { useClass: UserUseCase });
-container.register('VendorUseCase', { useClass: VendorUseCase });
-container.register('AdminUseCase', { useClass: AdminUseCase });
-container.register('CategoryUseCase', { useClass: CategoryUseCase });
-container.register('EventService', { useClass: EventUseCase });
+const authUseCase = new AuthUseCase(userRepository, vendorRepository, adminRepository, emailService, logger);
+const userUseCase = new UserUseCase(userRepository);
+const vendorUseCase = new VendorUseCase(vendorRepository, eventRepository, bookingRepository);
+const adminUseCase = new AdminUseCase(userRepository, vendorRepository);
+const categoryUseCase = new CategoryUseCase(categoryRepository);
+const eventUseCase = new EventUseCase(eventRepository);
+const bookingUseCase = new BookingUseCase(bookingRepository, eventRepository);
 
 // ─── Controllers (Presentation Layer) ────────────────────────────────────────
-// Controllers are resolved on demand or exported as singletons here
-export const authController = container.resolve(AuthController);
-export const userController = container.resolve(UserController);
-export const vendorController = container.resolve(VendorController);
-export const adminController = container.resolve(AdminController);
-export const categoryController = container.resolve(CategoryController);
-export const eventController = container.resolve(EventController);
+export const authController = new AuthController(authUseCase);
+export const userController = new UserController(userUseCase);
+export const vendorController = new VendorController(vendorUseCase);
+export const adminController = new AdminController(adminUseCase);
+export const categoryController = new CategoryController(categoryUseCase);
+export const eventController = new EventController(eventUseCase);
+export const bookingController = new BookingController(bookingUseCase);
 
 export const appContainer = {
     authController,
@@ -56,4 +69,5 @@ export const appContainer = {
     adminController,
     categoryController,
     eventController,
+    bookingController,
 };

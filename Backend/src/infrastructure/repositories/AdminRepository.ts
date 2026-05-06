@@ -1,4 +1,4 @@
-
+import { injectable } from 'tsyringe';
 import { IAdmin } from '../../domain/entities/Admin';
 import { IAdminRepository } from '../../domain/repositories/IAdminRepository';
 import AdminModel from '../database/AdminModel';
@@ -7,6 +7,7 @@ function toIAdmin(doc: unknown): IAdmin {
     return JSON.parse(JSON.stringify(doc)) as IAdmin;
 }
 
+@injectable()
 export class AdminRepository implements IAdminRepository {
     async findById(id: string): Promise<IAdmin | null> {
         const doc = await AdminModel.findById(id).lean();

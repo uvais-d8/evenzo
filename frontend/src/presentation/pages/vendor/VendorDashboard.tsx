@@ -47,10 +47,10 @@ const VendorDashboard: React.FC = () => {
     if (loading) return <LoadingSpinner message="Loading your dashboard..." />;
 
     const statCards = [
-        { label: 'Total Events', value: '100+' },
-        { label: 'Total Clients', value: '500+' },
+        { label: 'Total Events', value: stats?.totalEvents?.toString() || '0' },
+        { label: 'Total Clients', value: stats?.totalClients?.toString() || '0' },
         { label: 'Total Bookings', value: stats?.totalBookings.toString() || '0' },
-        { label: 'Total Revenue', value: `$${stats?.totalRevenue.toLocaleString() || '0'}` },
+        { label: 'Total Revenue', value: `₹${stats?.totalRevenue.toLocaleString() || '0'}` },
     ];
 
     const isRejected = profile?.vendorStatus === 'rejected';
@@ -85,8 +85,8 @@ const VendorDashboard: React.FC = () => {
                 <div style={styles.profileLeft}>
                     <div style={styles.avatarMini}>{profile?.name ? profile.name[0].toUpperCase() : 'V'}</div>
                     <div style={styles.nameSection}>
-                        <h3 style={styles.vendorNameTop}>{profile?.name || "Vendor Name"}</h3>
-                        <p style={styles.vendorEmailTop}>{profile?.email || "vendorsample@example.com"}</p>
+                        <h3 style={styles.vendorNameTop}>{profile?.name || "Loading..."}</h3>
+                        <p style={styles.vendorEmailTop}>{profile?.email || ""}</p>
                     </div>
                 </div>
                 <button onClick={handleGoToProfile} style={isRejected ? styles.editBtnActive : styles.editBtn}>EDIT PROFILE</button>
@@ -98,7 +98,6 @@ const VendorDashboard: React.FC = () => {
                     <div key={idx} style={styles.statCard}>
                         <p style={styles.statLabel}>{card.label}</p>
                         <h3 style={styles.statValue}>{card.value}</h3>
-                        <div style={styles.statSub}>+ 12% from last month</div>
                     </div>
                 ))}
             </div>

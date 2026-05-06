@@ -10,6 +10,7 @@ export interface PaginationParams {
 export interface IEventRepository {
     getNearbyEvents(lat: string, lng: string, radius: number): Promise<IEvent[]>;
     createEvent(event: FormData): Promise<IEvent>;
+    updateEvent(id: string, event: FormData): Promise<IEvent>;
     getEvents(params?: PaginationParams): Promise<PaginatedResponse<IEvent>>;
     deleteEvent(id: string): Promise<void>;
     getEventById(id: string): Promise<IEvent>;

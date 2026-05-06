@@ -4,8 +4,8 @@ import { axiosClient } from '../http/axiosClient';
 
 export const userRepository: IUserRepository = {
     async getProfile(): Promise<IUser> {
-        const { data } = await axiosClient.get<IUser>('/user/profile');
-        return data;
+        const { data } = await axiosClient.get<any>('/user/profile');
+        return data.data;
     },
 
     async updateProfile(data: UpdateUserPayload): Promise<{ message: string; user: IUser }> {

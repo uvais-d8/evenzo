@@ -5,6 +5,13 @@ export interface CreateEventData {
     title: string;
     description?: string;
     image?: string;
+    images?: string[];
+    mainGuests?: string;
+    time?: string;
+    venue?: string;
+    contact?: string;
+    ticketDetails?: string;
+    isTicketed: boolean;
     price: number;
     address: string;
     date: Date;
@@ -14,6 +21,7 @@ export interface CreateEventData {
         type: "Point";
         coordinates: [number, number];
     };
+    locationName?: string;
 }
 
 export interface IEventService {

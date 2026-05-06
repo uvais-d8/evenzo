@@ -14,6 +14,7 @@ function AdminLayout() {
     { name: "Wallet", path: "/admin/wallet", icon: <FiCreditCard /> },
     { name: "Event providers", path: "/admin/providers", icon: <FiShield /> },
     { name: "Event Management", path: "/admin/events", icon: <FiPackage /> },
+    { name: "Service Management", path: "/admin/services", icon: <FiPackage /> },
   ];
 
   const handleLogout = () => {

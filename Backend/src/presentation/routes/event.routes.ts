@@ -13,9 +13,9 @@ router.get('/nearby', eventCtrl.getNearbyEvents);
 router.get('/:id', eventCtrl.getEventById);
 
 // VENDOR ONLY
-router.post('/', authenticate, authorize([Role.VENDOR]), upload.single('image'), eventCtrl.createEvent);
+router.post('/', authenticate, authorize([Role.VENDOR]), upload.array('images', 5), eventCtrl.createEvent);
 router.get('/vendor/my-events', authenticate, authorize([Role.VENDOR]), eventCtrl.getVendorEvents);
-router.put('/:id', authenticate, authorize([Role.VENDOR]), upload.single('image'), eventCtrl.updateEvent);
+router.put('/:id', authenticate, authorize([Role.VENDOR]), upload.array('images', 5), eventCtrl.updateEvent);
 router.delete('/:id', authenticate, authorize([Role.VENDOR]), eventCtrl.deleteEvent);
 
 export default router;

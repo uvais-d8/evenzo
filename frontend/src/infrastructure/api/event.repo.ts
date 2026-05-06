@@ -12,15 +12,23 @@ export const eventRepository: IEventRepository = {
     },
 
     async createEvent(event: FormData): Promise<IEvent> {
-        const { data } = await axiosClient.post<IEvent>('/events', event, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        });
-        return data;
+        const { data } = await axiosClient.post<any>('/events', event);
+        return data.data;
     },
-
+    async updateEvent(id: string, event: FormData): Promise<IEvent> {
+        const { data } = await axiosClient.put<any>(`/events/${id}`, event);
+        return data.data;
+    },
+ 
     async getEvents(params?: PaginationParams): Promise<PaginatedResponse<IEvent>> {
-        const { data } = await axiosClient.get<PaginatedResponse<IEvent>>('/events', { params });
-        return data;
+        const { data } = await axiosClient.get<any>('/events', { params });
+        return {
+            data: data.data,
+            total: data.pagination?.total || 0,
+            page: data.pagination?.page || 1,
+            limit: data.pagination?.limit || 10,
+            totalPages: data.pagination?.totalPages || 1
+        };
     },
 
     async deleteEvent(id: string): Promise<void> {
@@ -28,8 +36,8 @@ export const eventRepository: IEventRepository = {
     },
 
     async getEventById(id: string): Promise<IEvent> {
-        const { data } = await axiosClient.get<IEvent>(`/events/${id}`);
-        return data;
+        const { data } = await axiosClient.get<any>(`/events/${id}`);
+        return data.data;
     }
 };
 

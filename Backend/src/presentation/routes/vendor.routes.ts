@@ -7,6 +7,10 @@ import { upload } from '../middleware/multer';
 
 const router = Router();
 
+// PUBLIC ROUTES (for users to view vendors)
+router.get('/public', vendorCtrl.getPublicVendors);
+router.get('/public/:id', vendorCtrl.getPublicVendorById);
+
 // VENDOR REGISTER
 router.post('/register', upload.single('idProof'), (req, res, next) => {
     req.body.role = Role.VENDOR;

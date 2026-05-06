@@ -123,7 +123,6 @@ function VendorSignup() {
                     signupData.append(key, value as any);
                 }
             });
-            signupData.append('role', Role.VENDOR);
 
             await authRepository.register(Role.VENDOR, signupData);
             toast.success(SUCCESS_MESSAGES.REGISTER_SUCCESS);

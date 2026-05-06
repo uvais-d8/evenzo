@@ -1,3 +1,4 @@
+import { injectable } from 'tsyringe';
 import { IUser } from '../../domain/entities/User';
 import { IUserRepository } from '../../domain/repositories/IUserRepository';
 import { PaginatedResult, PaginationOptions } from '../../domain/repositories/IBaseRepository';
@@ -10,6 +11,7 @@ function toIUser(doc: unknown): IUser {
     return JSON.parse(JSON.stringify(doc)) as IUser;
 }
 
+@injectable()
 export class UserRepository extends BaseRepository<any> implements IUserRepository {
     
     constructor() {

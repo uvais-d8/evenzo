@@ -1,4 +1,4 @@
-
+import { injectable } from 'tsyringe';
 import { IVendor } from '../../domain/entities/Vendor';
 import { VendorStatus } from '../../domain/enums/enums';
 import { IVendorRepository } from '../../domain/repositories/IVendorRepository';
@@ -9,6 +9,7 @@ function toIVendor(doc: unknown): IVendor {
     return JSON.parse(JSON.stringify(doc)) as IVendor;
 }
 
+@injectable()
 export class VendorRepository implements IVendorRepository {
     async count(filter: Record<string, any> = {}): Promise<number> {
         return await VendorModel.countDocuments(filter);
@@ -46,10 +47,12 @@ export class VendorRepository implements IVendorRepository {
         const page = options?.page || 1;
         const limit = options?.limit || 10;
         const skip = (page - 1) * limit;
+        console.log('🔍 VendorRepository.findAll query:', JSON.stringify(filter));
         const [docs, total] = await Promise.all([
             VendorModel.find(filter).select('-password').skip(skip).limit(limit).lean(),
             VendorModel.countDocuments(filter),
         ]);
+        console.log(`✅ VendorRepository.findAll found ${docs.length} docs`);
         const data = docs.map(toIVendor);
         return { data, total, page, limit, totalPages: Math.ceil(total / limit) };
     }

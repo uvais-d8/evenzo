@@ -1,12 +1,7 @@
-import { IUser } from '../../domain/entities/User';
-
-export interface UpdateUserData {
-    name?: string;
-    phone?: string;
-    address?: string;
-}
+import { UserResponseDTO, UpdateUserRequestDTO } from '../dtos/UserDTO';
 
 export interface IUserService {
-    getProfile(userId: string): Promise<IUser>;
-    updateProfile(userId: string, data: UpdateUserData): Promise<IUser>;
+    getProfile(userId: string): Promise<UserResponseDTO>;
+    updateProfile(userId: string, data: UpdateUserRequestDTO): Promise<UserResponseDTO>;
 }
+

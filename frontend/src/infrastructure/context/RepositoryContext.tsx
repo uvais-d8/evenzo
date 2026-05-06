@@ -5,6 +5,8 @@ import { authRepository } from '../api/auth.repo';
 import { userRepository } from '../api/user.repo';
 import { categoryRepository } from '../api/category.repo';
 import { eventRepository } from '../api/event.repo';
+import { bookingRepository } from '../api/booking.repo';
+import { serviceRepository } from '../api/service.repo';
 
 const repositories = {
     adminRepository,
@@ -12,7 +14,9 @@ const repositories = {
     authRepository,
     userRepository,
     categoryRepository,
-    eventRepository
+    eventRepository,
+    bookingRepository,
+    serviceRepository
 };
 
 const RepositoryContext = createContext(repositories);

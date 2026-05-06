@@ -42,9 +42,15 @@ const Footer = () => {
                 <div style={styles.section}>
                     <h3 style={styles.title}>Download App</h3>
                     <p style={styles.subtext}>Save $3 with App New User Only</p>
-                    <div style={styles.appLinks}>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" style={styles.appBadge} />
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" style={styles.appBadge} />
+                    <div style={styles.downloadRow}>
+                        <div style={styles.qrCode}>
+                            {/* QR Code Placeholder */}
+                            <div style={styles.qrInner}></div>
+                        </div>
+                        <div style={styles.appBadges}>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" style={styles.appBadge} />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" style={styles.appBadge} />
+                        </div>
                     </div>
                     <div style={styles.socialIcons}>
                         <FaFacebookF style={styles.socialIcon} />
@@ -62,98 +68,25 @@ const Footer = () => {
 };
 
 const styles: Record<string, React.CSSProperties> = {
-    footer: {
-        backgroundColor: '#2563eb', // Standard blue
-        color: 'white',
-        padding: '80px 0 20px',
-        fontFamily: "'Inter', sans-serif"
-    },
-    container: {
-        maxWidth: '1200px',
-        margin: '0 auto',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(5, 1fr)',
-        gap: '30px',
-        padding: '0 20px'
-    },
-    section: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '12px'
-    },
-    title: {
-        fontSize: '18px',
-        fontWeight: 600,
-        marginBottom: '4px'
-    },
-    text: {
-        fontSize: '14px',
-        opacity: 0.9,
-        lineHeight: 1.5
-    },
-    subtext: {
-        fontSize: '12px',
-        opacity: 0.7
-    },
-    link: {
-        fontSize: '14px',
-        cursor: 'pointer',
-        opacity: 0.9,
-        transition: 'opacity 0.2s',
-        display: 'block'
-    },
-    inputContainer: {
-        display: 'flex',
-        border: '1px solid white',
-        borderRadius: '4px',
-        padding: '8px',
-        marginTop: '8px'
-    },
-    input: {
-        backgroundColor: 'transparent',
-        border: 'none',
-        color: 'white',
-        fontSize: '13px',
-        width: '100%',
-        outline: 'none'
-    },
-    arrowBtn: {
-        backgroundColor: 'transparent',
-        border: 'none',
-        color: 'white',
-        cursor: 'pointer',
-        fontSize: '16px'
-    },
-    appLinks: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10px',
-        marginTop: '10px'
-    },
-    appBadge: {
-        height: '35px',
-        cursor: 'pointer'
-    },
-    socialIcons: {
-        display: 'flex',
-        gap: '20px',
-        marginTop: '20px'
-    },
-    socialIcon: {
-        fontSize: '18px',
-        cursor: 'pointer',
-        opacity: 0.9
-    },
-    bottomBar: {
-        borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-        marginTop: '60px',
-        paddingTop: '20px',
-        textAlign: 'center'
-    },
-    copyright: {
-        fontSize: '12px',
-        opacity: 0.4
-    }
+    footer: { backgroundColor: '#2563eb', color: 'white', padding: '80px 0 20px', fontFamily: "'Inter', sans-serif" },
+    container: { maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '40px', padding: '0 20px' },
+    section: { display: 'flex', flexDirection: 'column', gap: '15px' },
+    title: { fontSize: '18px', fontWeight: 600, marginBottom: '5px' },
+    text: { fontSize: '14px', opacity: 0.9, lineHeight: 1.6, margin: 0 },
+    subtext: { fontSize: '12px', opacity: 0.8, margin: 0 },
+    link: { fontSize: '14px', cursor: 'pointer', opacity: 0.9, transition: 'opacity 0.2s', margin: 0 },
+    inputContainer: { display: 'flex', border: '1.5px solid white', borderRadius: '4px', padding: '10px 15px', marginTop: '10px', alignItems: 'center' },
+    input: { backgroundColor: 'transparent', border: 'none', color: 'white', fontSize: '13px', width: '100%', outline: 'none' },
+    arrowBtn: { backgroundColor: 'transparent', border: 'none', color: 'white', cursor: 'pointer', fontSize: '18px', display: 'flex', alignItems: 'center' },
+    downloadRow: { display: 'flex', gap: '15px', marginTop: '10px', alignItems: 'center' },
+    qrCode: { width: '80px', height: '80px', backgroundColor: 'white', padding: '5px', borderRadius: '4px' },
+    qrInner: { width: '100%', height: '100%', backgroundColor: '#000' }, // Placeholder for QR pattern
+    appBadges: { display: 'flex', flexDirection: 'column', gap: '8px' },
+    appBadge: { height: '30px', cursor: 'pointer' },
+    socialIcons: { display: 'flex', gap: '24px', marginTop: '20px' },
+    socialIcon: { fontSize: '20px', cursor: 'pointer', opacity: 1 },
+    bottomBar: { borderTop: '1px solid rgba(255, 255, 255, 0.1)', marginTop: '80px', paddingTop: '20px', textAlign: 'center' },
+    copyright: { fontSize: '14px', opacity: 0.5, margin: 0 }
 };
 
 export default Footer;

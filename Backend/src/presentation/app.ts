@@ -12,6 +12,8 @@ import vendorRoutes from './routes/vendor.routes';
 import adminRoutes from './routes/admin.routes';
 import categoryRoutes from './routes/category.routes';
 import eventRoutes from './routes/event.routes';
+import bookingRoutes from './routes/booking.routes';
+import serviceRoutes from './routes/service.routes';
 
 const app = express();
 
@@ -44,6 +46,8 @@ app.use('/api/vendor', vendorRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/bookings', bookingRoutes);
+app.use('/api/services', serviceRoutes);
 
 // Health check
 app.get('/', (_req, res) => {

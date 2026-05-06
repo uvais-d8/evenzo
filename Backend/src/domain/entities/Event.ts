@@ -3,6 +3,13 @@ export interface IEvent {
     title: string;
     description?: string;
     image?: string;
+    images?: string[];
+    mainGuests?: string;
+    time?: string;
+    venue?: string;
+    contact?: string;
+    ticketDetails?: string;
+    isTicketed: boolean;
     price: number;
     address: string;
     date: Date;
@@ -12,6 +19,7 @@ export interface IEvent {
         type: "Point";
         coordinates: [number, number]; // [longitude, latitude]
     };
+    locationName?: string;
     isDeleted: boolean;
     createdAt?: Date;
     updatedAt?: Date;

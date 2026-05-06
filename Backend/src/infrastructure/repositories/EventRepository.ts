@@ -1,10 +1,11 @@
-
+import { injectable } from 'tsyringe';
 import { IEvent } from '../../domain/entities/Event';
 import { IEventRepository } from '../../domain/repositories/IEventRepository';
 import { EventModel } from '../database/EventModel';
 import { BaseRepository } from './BaseRepository';
 import { PaginatedResult, PaginationOptions } from '../../domain/repositories/IBaseRepository';
 
+@injectable()
 export class EventRepository extends BaseRepository<any> implements IEventRepository {
     constructor() {
         super(EventModel);

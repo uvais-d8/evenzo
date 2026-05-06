@@ -13,7 +13,16 @@ import OtpVerification from "./presentation/pages/user/OtpVerification";
 import ForgotPassword from "./presentation/pages/user/ForgotPassword";
 import ResetPassword from "./presentation/pages/user/ResetPassword";
 import Home from "./presentation/pages/user/Home";
+import EventDetails from "./presentation/pages/user/EventDetails";
+import EventsList from "./presentation/pages/user/EventsList";
+import AllEvents from "./presentation/pages/user/AllEvents";
+import UserProfile from "./presentation/pages/user/UserProfile";
+import ServicesList from "./presentation/pages/user/ServicesList";
 
+
+import ServiceDetails from "./presentation/pages/user/ServiceDetails";
+import VendorsList from "./presentation/pages/user/VendorsList";
+import VendorDetailsUser from "./presentation/pages/user/VendorDetailsUser";
 // Vendor pages
 import VendorLogin from "./presentation/pages/vendor/VendorLogin";
 import VendorSignup from "./presentation/pages/vendor/VendorSignup";
@@ -33,10 +42,9 @@ import UserManagement from "./presentation/pages/admin/UserManagement";
 import VendorVerification from "./presentation/pages/admin/VendorVerification";
 import CategoryManagement from "./presentation/pages/admin/CategoryManagement";
 import ProviderManagement from "./presentation/pages/admin/ProviderManagement";
-
-// Coming soon placeholder
-import ComingSoon from "./presentation/pages/ComingSoon";
 import AdminEvents from "./presentation/pages/admin/AdminEvents";
+import AdminServiceManagement from "./presentation/pages/admin/AdminServiceManagement";
+import ComingSoon from "./presentation/pages/ComingSoon";
 
 import AuthGuard from "./presentation/components/AuthGuard";
 import { axiosClient } from "./infrastructure/http/axiosClient";
@@ -112,7 +120,16 @@ function App() {
           {/* ── USER HOME — "/" is exclusively here ── */}
           <Route element={<UserLayout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/events" element={<EventsList />} />
+            <Route path="/all-events" element={<AllEvents />} />
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/services" element={<ServicesList />} />
+            <Route path="/services/:id" element={<ServiceDetails />} />
+            <Route path="/event/:id" element={<EventDetails />} />
+            <Route path="/vendors" element={<VendorsList />} />
+            <Route path="/vendor/:id" element={<VendorDetailsUser />} />
           </Route>
+
 
           {/* ── VENDOR (role-protected) ── */}
           <Route path="/vendor" element={<AuthGuard mode="authenticated" allowedRole="vendor" />}>
@@ -139,6 +156,7 @@ function App() {
               <Route path="categories" element={<CategoryManagement />} />
               <Route path="bookings" element={<ComingSoon title="Booking Management" />} />
               <Route path="events" element={<AdminEvents />} />
+              <Route path="services" element={<AdminServiceManagement />} />
               <Route path="wallet" element={<ComingSoon title="Wallet" />} />
               <Route path="notifications" element={<ComingSoon title="Notifications" />} />
             </Route>
