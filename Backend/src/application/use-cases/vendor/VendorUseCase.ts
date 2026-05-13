@@ -9,9 +9,6 @@ import { VendorStatus } from '../../../domain/enums/enums';
 import { NotFoundError } from '../../../domain/errors/AppError';
 import { Messages } from '../../constants/Messages';
 
-
-import { updateVendorSchema } from '../../utils/validation';
-
 @injectable()
 export class VendorUseCase implements IVendorService {
     constructor(
@@ -27,7 +24,6 @@ export class VendorUseCase implements IVendorService {
     }
 
     async updateProfile(vendorId: string, data: UpdateVendorData): Promise<IVendor> {
-        const validated = updateVendorSchema.parse(data);
         const vendor = await this.vendorRepo.findById(vendorId);
         if (!vendor) throw new NotFoundError(Messages.VENDOR_NOT_FOUND);
 
@@ -36,8 +32,8 @@ export class VendorUseCase implements IVendorService {
         ];
         const updateData: Partial<IVendor> = {};
         allowedKeys.forEach((key) => {
-            if ((validated as any)[key] !== undefined) {
-                (updateData as Record<string, unknown>)[key] = (validated as any)[key];
+            if ((data as any)[key] !== undefined) {
+                (updateData as Record<string, unknown>)[key] = (data as any)[key];
             }
         });
 

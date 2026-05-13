@@ -30,50 +30,29 @@ export class AuthController {
 
     async register(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            if (!req.body || Object.keys(req.body).length === 0) {
-                throw new BadRequestError('Registration data is missing');
-            }
-            let { role } = req.body as { role?: any };
-            if (Array.isArray(role)) role = role[0];
-            if (!role) role = Role.USER;
-            if (role === Role.ADMIN) {
-                throw new ForbiddenError(Messages.ADMIN_REGISTRATION_NOT_ALLOWED);
-            }
-
             if (req.file) {
                 req.body.idProof = `/uploads/${req.file.filename}`;
-            } else if (req.body.idProof && typeof req.body.idProof !== 'string') {
-                delete req.body.idProof;
             }
 
             const user = await this._authService.registerUser(req.body);
-            ApiResponse.success(res, Messages.REGISTRATION_SUCCESSFUL, {
-                email: user.email,
-                role: user.role,
-            }, HttpStatus.CREATED);
+            ApiResponse.success(res, Messages.REGISTRATION_SUCCESSFUL, user, HttpStatus.CREATED);
+
         } catch (err) {
             next(err);
         }
     }
 
+
     async login(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            let { email, password, role } = req.body as { email: string; password: string; role: any };
-            if (Array.isArray(role)) role = role[0];
-            if (!role) role = Role.USER;
-            const { user, accessToken, refreshToken } = await this._authService.loginUser(email, password, role);
+            const { email, password, role = Role.USER } = req.body;
+            const { user, accessToken, refreshToken } = await this._authService.loginUser(email, password, role as Role);
+
             ApiResponse.success(res, Messages.LOGIN_SUCCESSFUL, {
                 token: accessToken,
                 refreshToken,
                 role: user.role,
-                user: {
-                    id: (user as { _id: string })._id,
-                    name: user.name,
-                    email: user.email,
-                    role: user.role,
-                    vendorStatus: (user as { vendorStatus?: string }).vendorStatus,
-                    rejectionReason: (user as { rejectionReason?: string }).rejectionReason,
-                },
+                user: user,
             });
         } catch (err) {
             next(err);
@@ -88,14 +67,7 @@ export class AuthController {
                 token: accessToken,
                 refreshToken,
                 role: user.role,
-                user: {
-                    id: (user as { _id: string })._id,
-                    name: user.name,
-                    email: user.email,
-                    role: user.role,
-                    vendorStatus: (user as { vendorStatus?: string }).vendorStatus,
-                    rejectionReason: (user as { rejectionReason?: string }).rejectionReason,
-                },
+                user: user,
             });
         } catch (err) {
             next(err);
@@ -169,15 +141,9 @@ export class AuthController {
                 token: accessToken,
                 refreshToken,
                 role: user.role,
-                user: {
-                    id: (user as { _id: string })._id,
-                    name: user.name,
-                    email: user.email,
-                    role: user.role,
-                    vendorStatus: (user as { vendorStatus?: string }).vendorStatus,
-                    rejectionReason: (user as { rejectionReason?: string }).rejectionReason,
-                },
+                user: user,
             });
+
         } catch (err) {
             next(err);
         }
@@ -185,13 +151,13 @@ export class AuthController {
 
     async refresh(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const { refreshToken } = req.body as { refreshToken?: string };
-            if (!refreshToken) throw new BadRequestError(Messages.REFRESH_TOKEN_REQUIRED);
+            const { refreshToken } = req.body;
             const accessToken = await this._authService.refreshAccessToken(refreshToken);
             ApiResponse.success(res, 'Token refreshed successfully', { token: accessToken });
         } catch (err) {
             next(err);
         }
     }
+
 }
 

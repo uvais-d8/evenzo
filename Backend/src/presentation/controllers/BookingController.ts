@@ -3,6 +3,8 @@ import { TOKENS } from '../../infrastructure/di/tokens';
 import { Request, Response, NextFunction } from 'express';
 import { IBookingService } from '../../application/interfaces/IBookingService';
 import { AuthRequest } from '../middleware/auth.middleware';
+import { ApiResponse } from '../utils/ApiResponse';
+import { HttpStatus } from '../../domain/enums/HttpStatus';
 
 function parsePagination(query: Request['query']): { page: number; limit: number } {
     const page = Math.max(1, parseInt(query.page as string) || 1);
@@ -30,7 +32,7 @@ export class BookingController {
                 ticketCount: ticketCount || 1
             });
             
-            res.status(201).json({ message: 'Ticket booked successfully', booking });
+            ApiResponse.success(res, 'Ticket booked successfully', booking, HttpStatus.CREATED);
         } catch (err) { next(err); }
     }
 
@@ -38,7 +40,12 @@ export class BookingController {
         try {
             const userId = req.user!.id;
             const result = await this.bookingService.getUserBookings(userId, parsePagination(req.query));
-            res.json(result);
+            ApiResponse.success(res, 'User bookings fetched successfully', result.data, HttpStatus.OK, {
+                page: result.page,
+                limit: result.limit,
+                total: result.total,
+                totalPages: result.totalPages
+            });
         } catch (err) { next(err); }
     }
 
@@ -46,7 +53,12 @@ export class BookingController {
         try {
             const vendorId = req.user!.id;
             const result = await this.bookingService.getVendorBookings(vendorId, parsePagination(req.query));
-            res.json(result);
+            ApiResponse.success(res, 'Vendor bookings fetched successfully', result.data, HttpStatus.OK, {
+                page: result.page,
+                limit: result.limit,
+                total: result.total,
+                totalPages: result.totalPages
+            });
         } catch (err) { next(err); }
     }
 
@@ -55,7 +67,8 @@ export class BookingController {
             const userId = req.user!.id;
             const bookingId = req.params['id'] as string;
             await this.bookingService.cancelBooking(bookingId, userId);
-            res.json({ message: 'Booking cancelled successfully' });
+            ApiResponse.success(res, 'Booking cancelled successfully');
         } catch (err) { next(err); }
     }
 }
+

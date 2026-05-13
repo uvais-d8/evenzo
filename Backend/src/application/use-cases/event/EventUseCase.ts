@@ -6,9 +6,6 @@ import { IEventRepository } from '../../../domain/repositories/IEventRepository'
 import { NotFoundError } from '../../../domain/errors/AppError';
 import { PaginatedResult, PaginationOptions } from '../../../domain/repositories/IBaseRepository';
 
-
-import { eventSchema } from '../../utils/validation';
-
 @injectable()
 export class EventUseCase implements IEventService {
     constructor(
@@ -16,13 +13,7 @@ export class EventUseCase implements IEventService {
     ) { }
 
     async createEvent(data: CreateEventData): Promise<IEvent> {
-        // Validate incoming data
-        const validated = eventSchema.parse({
-            ...data,
-            date: data.date instanceof Date ? data.date : new Date(data.date as any)
-        });
-        
-        return this._eventRepo.create({ ...validated, vendorId: data.vendorId, isDeleted: false });
+        return this._eventRepo.create({ ...data, isDeleted: false });
     }
 
     async getEvents(options: PaginationOptions, filter: Record<string, unknown> = {}): Promise<PaginatedResult<IEvent>> {
@@ -58,4 +49,3 @@ export class EventUseCase implements IEventService {
         await this._eventRepo.softDelete(id);
     }
 }
-

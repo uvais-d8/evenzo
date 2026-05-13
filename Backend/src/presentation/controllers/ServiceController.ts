@@ -25,19 +25,7 @@ export class ServiceController {
             const data: CreateServiceData = { 
                 ...req.body, 
                 vendorId,
-                price: parseFloat(req.body.price),
-                isAvailable: req.body.isAvailable === 'true'
             };
-            
-            if (req.body.events && typeof req.body.events === 'string') {
-                try {
-                    data.events = JSON.parse(req.body.events);
-                } catch (e) {
-                    data.events = [req.body.events];
-                }
-            } else if (Array.isArray(req.body.events)) {
-                data.events = req.body.events;
-            }
 
             if (req.file) {
                 data.image = `/uploads/${req.file.filename}`;
@@ -48,6 +36,7 @@ export class ServiceController {
             ApiResponse.success(res, 'Service created successfully', service, HttpStatus.CREATED);
         } catch (err) { next(err); }
     }
+
 
     async getServices(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
@@ -91,21 +80,6 @@ export class ServiceController {
             const id = req.params['id'] as string;
             const data = { ...req.body };
 
-            if (req.body.price) data.price = parseFloat(req.body.price);
-            if (req.body.isAvailable !== undefined) {
-                data.isAvailable = req.body.isAvailable === 'true' || req.body.isAvailable === true;
-            }
-            
-            if (req.body.events && typeof req.body.events === 'string') {
-                try {
-                    data.events = JSON.parse(req.body.events);
-                } catch (e) {
-                    data.events = [req.body.events];
-                }
-            } else if (Array.isArray(req.body.events)) {
-                data.events = req.body.events;
-            }
-
             if (req.file) {
                 data.image = `/uploads/${req.file.filename}`;
             }
@@ -114,6 +88,7 @@ export class ServiceController {
             ApiResponse.success(res, 'Service updated successfully', service);
         } catch (err) { next(err); }
     }
+
 
     async deleteService(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
         try {

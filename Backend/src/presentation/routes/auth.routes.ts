@@ -1,9 +1,18 @@
 import { Router } from 'express';
 import { authController as authCtrl } from '../controllers';
-
 import { upload } from '../middleware/multer';
+import { validateRequest } from '../middleware/validation.middleware';
+import { 
+    registerSchema, 
+    loginSchema, 
+    verifyOtpSchema, 
+    emailSchema, 
+    resetPasswordSchema,
+    refreshTokenSchema
+} from '../../application/utils/validation';
 
 const router = Router();
+
 
 /**
  * @swagger
@@ -22,7 +31,7 @@ const router = Router();
  *       201:
  *         description: Registration successful
  */
-router.post('/register/user', authCtrl.register);
+router.post('/register/user', validateRequest(registerSchema), authCtrl.register);
 
 /**
  * @swagger
@@ -34,7 +43,7 @@ router.post('/register/user', authCtrl.register);
  *       201:
  *         description: Registration successful
  */
-router.post('/register/vendor', upload.single('idProof'), authCtrl.register);
+router.post('/register/vendor', upload.single('idProof'), validateRequest(registerSchema), authCtrl.register);
 
 /**
  * @swagger
@@ -57,13 +66,15 @@ router.post('/register/vendor', upload.single('idProof'), authCtrl.register);
  *       200:
  *         description: Login successful
  */
-router.post('/login', authCtrl.login);
+router.post('/login', validateRequest(loginSchema), authCtrl.login);
 
-router.post('/verify-otp', authCtrl.verifyOtp);
-router.post('/resend-otp', authCtrl.resendOtp);
-router.post('/forgot-password', authCtrl.forgotPassword);
-router.post('/reset-password', authCtrl.resetPassword);
+router.post('/verify-otp', validateRequest(verifyOtpSchema), authCtrl.verifyOtp);
+router.post('/resend-otp', validateRequest(emailSchema), authCtrl.resendOtp);
+router.post('/forgot-password', validateRequest(emailSchema), authCtrl.forgotPassword);
+router.post('/reset-password', validateRequest(resetPasswordSchema), authCtrl.resetPassword);
 router.post('/google', authCtrl.googleAuth);
-router.post('/refresh', authCtrl.refresh);
+router.post('/refresh', validateRequest(refreshTokenSchema), authCtrl.refresh);
 
 export default router;
+
+

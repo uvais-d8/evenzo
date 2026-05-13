@@ -4,8 +4,8 @@ import { IUserService } from '../../interfaces/IUserService';
 import { IUserRepository } from '../../../domain/repositories/IUserRepository';
 import { NotFoundError } from '../../../domain/errors/AppError';
 import { Messages } from '../../constants/Messages';
-import { UserResponseDTO, UpdateUserRequestDTO } from '../../dtos/UserDTO';
-import { UserMapper } from '../../mappers/UserMapper';
+import { UpdateUserRequestDTO } from '../../dtos/UserDTO';
+import { IUser } from '../../../domain/entities/User';
 
 @injectable()
 export class UserUseCase implements IUserService {
@@ -13,13 +13,13 @@ export class UserUseCase implements IUserService {
         @inject(TOKENS.UserRepository) private readonly _userRepo: IUserRepository
     ) { }
 
-    async getProfile(userId: string): Promise<UserResponseDTO> {
+    async getProfile(userId: string): Promise<IUser> {
         const user = await this._userRepo.findById(userId);
         if (!user) throw new NotFoundError(Messages.USER_NOT_FOUND);
-        return UserMapper.toResponseDTO(user);
+        return user;
     }
 
-    async updateProfile(userId: string, data: UpdateUserRequestDTO): Promise<UserResponseDTO> {
+    async updateProfile(userId: string, data: UpdateUserRequestDTO): Promise<IUser> {
         const user = await this._userRepo.findById(userId);
         if (!user) throw new NotFoundError(Messages.USER_NOT_FOUND);
 
@@ -33,7 +33,8 @@ export class UserUseCase implements IUserService {
 
         const updated = await this._userRepo.update(userId, updateData);
         if (!updated) throw new NotFoundError(Messages.USER_NOT_FOUND);
-        return UserMapper.toResponseDTO(updated);
+        return updated;
     }
 }
+
 

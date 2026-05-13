@@ -12,6 +12,7 @@ import {
 import Pagination from '../../components/common/Pagination';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import ConfirmDialog from '../../components/common/ConfirmDialog';
+import MapPicker from '../../components/common/MapPicker';
 
 const PAGE_LIMIT = 9;
 
@@ -32,6 +33,7 @@ const VendorEvents: React.FC = () => {
     const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [isDeleting, setIsDeleting] = useState(false);
+    const [showMapPicker, setShowMapPicker] = useState(false);
 
     // Form state
     const [formData, setFormData] = useState({
@@ -391,14 +393,13 @@ const VendorEvents: React.FC = () => {
                                             <span style={styles.coordLabel}>LNG</span>
                                             <input type="number" step="any" name="lng" value={formData.lng} onChange={handleInputChange} style={styles.coordField} />
                                         </div>
-                                        <a 
-                                            href={`https://www.google.com/maps/search/?api=1&query=${formData.lat},${formData.lng}`} 
-                                            target="_blank" 
-                                            rel="noreferrer" 
-                                            style={{...styles.mapViewBtn, opacity: (formData.lat && formData.lng) ? 1 : 0.5}}
+                                        <button 
+                                            type="button" 
+                                            onClick={() => setShowMapPicker(true)}
+                                            style={styles.mapViewBtn}
                                         >
-                                            <FiMap /> Preview
-                                        </a>
+                                            <FiMap /> Open Map
+                                        </button>
                                     </div>
                                 </div>
 
@@ -473,6 +474,15 @@ const VendorEvents: React.FC = () => {
                 onConfirm={handleDelete}
                 onCancel={() => setDeleteTarget(null)}
             />
+
+            {showMapPicker && (
+                <MapPicker 
+                    initialLat={parseFloat(formData.lat) || undefined}
+                    initialLng={parseFloat(formData.lng) || undefined}
+                    onSelect={(lat, lng) => setFormData(p => ({ ...p, lat: String(lat), lng: String(lng) }))}
+                    onClose={() => setShowMapPicker(false)}
+                />
+            )}
         </div>
     );
 };
@@ -537,7 +547,7 @@ const styles: Record<string, React.CSSProperties> = {
     coordInput: { flex: 1, display: 'flex', alignItems: 'center', gap: '10px', backgroundColor: '#f8fafc', padding: '10px 15px', borderRadius: '12px', border: '1px solid #e2e8f0' },
     coordLabel: { fontSize: '10px', fontWeight: 800, color: '#94a3b8' },
     coordField: { border: 'none', background: 'none', outline: 'none', fontSize: '13px', color: '#1e293b', width: '100%' },
-    mapViewBtn: { display: 'flex', alignItems: 'center', gap: '6px', padding: '12px 16px', borderRadius: '12px', backgroundColor: '#1e293b', color: '#fff', textDecoration: 'none', fontSize: '12px', fontWeight: 600 },
+    mapViewBtn: { display: 'flex', alignItems: 'center', gap: '6px', padding: '12px 16px', borderRadius: '12px', backgroundColor: '#1e293b', color: '#fff', textDecoration: 'none', fontSize: '12px', fontWeight: 600, border: 'none', cursor: 'pointer' },
     
     uploadArea: { border: '2px dashed #e2e8f0', borderRadius: '20px', padding: '20px' },
     uploadTrigger: { padding: '30px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', color: '#94a3b8', cursor: 'pointer' },
